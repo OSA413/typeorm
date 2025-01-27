@@ -69,7 +69,7 @@ export class RdbmsSchemaBuilder implements SchemaBuilder {
         // In Spanner queries against the INFORMATION_SCHEMA can be used in a read-only transaction,
         // but not in a read-write transaction.
         const isUsingTransactions =
-            // !(this.connection.driver.options.type === "cockroachdb") &&
+            !(this.connection.driver.options.type === "cockroachdb") &&
             !(this.connection.driver.options.type === "spanner") &&
             this.connection.options.migrationsTransactionMode !== "none"
 
