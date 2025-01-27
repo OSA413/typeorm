@@ -364,7 +364,7 @@ export class CockroachQueryRunner
                     0.1 *
                     (Math.random() + 0.5) *
                     1000
-                // await new Promise((resolve) => setTimeout(resolve, sleepTime))
+                await new Promise((resolve) => setTimeout(resolve, sleepTime))
 
                 let result = undefined
                 for (const q of this.queries) {
