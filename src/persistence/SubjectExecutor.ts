@@ -1083,11 +1083,11 @@ export class SubjectExecutor {
                 if (column.isDeleteDate) return
 
                 // update nullable columns
-                if (column.isNullable) {
-                    const columnValue = column.getEntityValue(subject.entity!)
-                    if (columnValue === undefined)
-                        column.setEntityValue(subject.entity!, null)
-                }
+                // if (column.isNullable) {
+                //     const columnValue = column.getEntityValue(subject.entity!)
+                //     if (columnValue === undefined)
+                //         column.setEntityValue(subject.entity!, null)
+                // }
 
                 // update relational columns
                 if (subject.updatedRelationMaps.length > 0) {
