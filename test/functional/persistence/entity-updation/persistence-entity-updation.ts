@@ -65,7 +65,7 @@ describe("persistence > entity updation", () => {
                 post.isActive.should.be.equal(true)
                 post.addDate.should.be.instanceof(Date)
                 post.views.should.be.equal(0)
-                expect(post.description).to.be.equal(null)
+                expect(post.description).to.be.equal(undefined)
             }),
         ))
 
