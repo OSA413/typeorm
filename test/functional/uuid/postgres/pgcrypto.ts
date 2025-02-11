@@ -102,7 +102,7 @@ describe("pgcrypto", () => {
                 expect(savedQuestion!.uuid2).to.equal(
                     "fd357b8f-8838-42f6-b7a2-ae027444e895",
                 )
-                expect(savedQuestion!.uuid3).to.be.null
+                expect(savedQuestion!.uuid3).to.be.undefined
                 expect(savedQuestion!.uuid4).to.be.exist
 
                 const loadedQuestion = await questionRepository.findOne({
