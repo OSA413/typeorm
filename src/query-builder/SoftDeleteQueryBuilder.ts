@@ -342,29 +342,18 @@ export class SoftDeleteQueryBuilder<Entity extends ObjectLiteral>
      * If you had previously ORDER BY expression defined,
      * calling this function will override previously set ORDER BY conditions.
      */
-    orderBy(order: OrderByCondition): this
-
-    /**
-     * Sets ORDER BY condition in the query builder.
-     * If you had previously ORDER BY expression defined,
-     * calling this function will override previously set ORDER BY conditions.
-     */
     orderBy(
-        sort?: string | OrderByCondition,
+        sort?: string,
         order: "ASC" | "DESC" = "ASC",
         nulls?: "NULLS FIRST" | "NULLS LAST",
     ): this {
         if (sort) {
-            if (typeof sort === "object") {
-                this.expressionMap.orderBys = sort as OrderByCondition
-            } else {
-                if (nulls) {
-                    this.expressionMap.orderBys = {
-                        [sort as string]: { order, nulls },
-                    }
-                } else {
-                    this.expressionMap.orderBys = { [sort as string]: order }
+            if (nulls) {
+                this.expressionMap.orderBys = {
+                    [sort as string]: { order, nulls },
                 }
+            } else {
+                this.expressionMap.orderBys = { [sort as string]: order }
             }
         } else {
             this.expressionMap.orderBys = {}
