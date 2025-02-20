@@ -40080,7 +40080,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
       },
       {
          "customerId" : 49,
-         "firstName" : "Stanisław",
+         "firstName" : "Stanislaw",
          "lastName" : "Wójcik",
          "company" : null,
          "address" : "Ordynacka 10",
