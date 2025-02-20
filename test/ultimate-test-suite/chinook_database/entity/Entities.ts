@@ -16,7 +16,7 @@
  * 2. Dimensions of numbers (floats/doubles)
  */
 
-import { Column, Entity, Index, JoinColumn, OneToMany, ManyToOne, PrimaryColumn } from "../../../../src";
+import { Column, Entity, Index, JoinColumn, OneToMany, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn } from "../../../../src";
 
 @Entity("artist") 
 export class Artist {
@@ -360,13 +360,16 @@ export class InvoiceLine {
 
 @Entity("playlist_track")
 export class PlaylistTrack {
+    @PrimaryGeneratedColumn()
+    id: number;
+
     // playlist_id INT NOT NULL,
     // CONSTRAINT playlist_track_pkey PRIMARY KEY  (playlist_id, track_id)
     // ALTER TABLE playlist_track ADD CONSTRAINT playlist_track_playlist_id_fkey
     //     FOREIGN KEY (playlist_id) REFERENCES playlist (playlist_id) ON DELETE NO ACTION ON UPDATE NO ACTION;
     // CREATE INDEX playlist_track_playlist_id_idx ON playlist_track (playlist_id);
-    @PrimaryColumn({name: "playlist_id", primaryKeyConstraintName: "playlist_track_pkey"})
-    playlistId: number;
+    // @PrimaryColumn({name: "playlist_id", primaryKeyConstraintName: "playlist_track_pkey"})
+    // playlistId: number;
 
     @Index("playlist_track_playlist_id_idx")
     @ManyToOne(() => Playlist, {onDelete: "NO ACTION", onUpdate: "NO ACTION", nullable: false})
@@ -378,11 +381,11 @@ export class PlaylistTrack {
     // ALTER TABLE playlist_track ADD CONSTRAINT playlist_track_track_id_fkey
     //     FOREIGN KEY (track_id) REFERENCES track (track_id) ON DELETE NO ACTION ON UPDATE NO ACTION;
     // CREATE INDEX playlist_track_track_id_idx ON playlist_track (track_id);
-    @PrimaryColumn({name: "track_id", primaryKeyConstraintName: "playlist_track_pkey"})
-    trackId: number;
+    // @PrimaryColumn({name: "track_id", primaryKeyConstraintName: "playlist_track_pkey"})
+    // trackId: number;
 
     @Index("playlist_track_track_id_idx")
     @ManyToOne(() => Track, {onDelete: "NO ACTION", onUpdate: "NO ACTION", nullable: false})
-    @JoinColumn({name: "playlist_id", foreignKeyConstraintName: "playlist_track_track_id_fkey"})
+    @JoinColumn({name: "track_id", foreignKeyConstraintName: "playlist_track_track_id_fkey"})
     track: Track;
 }
