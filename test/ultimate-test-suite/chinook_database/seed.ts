@@ -11,6 +11,7 @@
 // Prepared for TypeORM testing by Oleg "OSA413" Sokolov
 
 import { DataSource } from "../../../src";
+import { OrmUtils } from "../../../src/util/OrmUtils";
 import { Album, Artist, Customer, Employee, Genre, Invoice, InvoiceLine, MediaType, Playlist, PlaylistTrack, Track } from "./entity/Entities";
 
 export const seedChinookDatabase = async (dataSource: DataSource) => {
@@ -678,7 +679,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
       {albumId: 347, title: 'Koyaanisqatsi (Soundtrack from the Motion Picture)', artist: 275}
    ] as any);
 
-   await dataSource.getRepository(Track).insert([
+   const tracks = [
       {
          "trackId" : 1,
          "name" : "For Those About To Rock (We Salute You)",
@@ -839,7 +840,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 4,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "AC\/DC",
+         "composer" : "ACDC",
          "milliseconds" : 331180,
          "bytes" : 10847611,
          "unitPrice" : 0.99
@@ -850,7 +851,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 4,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "AC\/DC",
+         "composer" : "ACDC",
          "milliseconds" : 215196,
          "bytes" : 7032162,
          "unitPrice" : 0.99
@@ -861,7 +862,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 4,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "AC\/DC",
+         "composer" : "ACDC",
          "milliseconds" : 366654,
          "bytes" : 12021261,
          "unitPrice" : 0.99
@@ -872,7 +873,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 4,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "AC\/DC",
+         "composer" : "ACDC",
          "milliseconds" : 267728,
          "bytes" : 8776140,
          "unitPrice" : 0.99
@@ -883,7 +884,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 4,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "AC\/DC",
+         "composer" : "ACDC",
          "milliseconds" : 325041,
          "bytes" : 10617116,
          "unitPrice" : 0.99
@@ -894,7 +895,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 4,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "AC\/DC",
+         "composer" : "ACDC",
          "milliseconds" : 369319,
          "bytes" : 12066294,
          "unitPrice" : 0.99
@@ -905,7 +906,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 4,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "AC\/DC",
+         "composer" : "ACDC",
          "milliseconds" : 254380,
          "bytes" : 8331286,
          "unitPrice" : 0.99
@@ -916,7 +917,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 4,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "AC\/DC",
+         "composer" : "ACDC",
          "milliseconds" : 323761,
          "bytes" : 10547154,
          "unitPrice" : 0.99
@@ -1609,7 +1610,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 10,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Audioslave\/Chris Cornell",
+         "composer" : "AudioslaveChris Cornell",
          "milliseconds" : 222380,
          "bytes" : 5339931,
          "unitPrice" : 0.99
@@ -1620,7 +1621,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 10,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Audioslave\/Chris Cornell",
+         "composer" : "AudioslaveChris Cornell",
          "milliseconds" : 277890,
          "bytes" : 6672176,
          "unitPrice" : 0.99
@@ -1631,7 +1632,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 10,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Audioslave\/Chris Cornell",
+         "composer" : "AudioslaveChris Cornell",
          "milliseconds" : 279457,
          "bytes" : 6709793,
          "unitPrice" : 0.99
@@ -1642,7 +1643,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 10,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Audioslave\/Chris Cornell",
+         "composer" : "AudioslaveChris Cornell",
          "milliseconds" : 249391,
          "bytes" : 5988186,
          "unitPrice" : 0.99
@@ -1653,7 +1654,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 10,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Audioslave\/Chris Cornell",
+         "composer" : "AudioslaveChris Cornell",
          "milliseconds" : 294034,
          "bytes" : 7059624,
          "unitPrice" : 0.99
@@ -1664,7 +1665,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 10,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Audioslave\/Chris Cornell",
+         "composer" : "AudioslaveChris Cornell",
          "milliseconds" : 263262,
          "bytes" : 6321091,
          "unitPrice" : 0.99
@@ -1675,7 +1676,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 10,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Audioslave\/Chris Cornell",
+         "composer" : "AudioslaveChris Cornell",
          "milliseconds" : 343457,
          "bytes" : 8245793,
          "unitPrice" : 0.99
@@ -1686,7 +1687,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 10,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Audioslave\/Chris Cornell",
+         "composer" : "AudioslaveChris Cornell",
          "milliseconds" : 334942,
          "bytes" : 8041411,
          "unitPrice" : 0.99
@@ -1697,7 +1698,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 10,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Audioslave\/Chris Cornell",
+         "composer" : "AudioslaveChris Cornell",
          "milliseconds" : 206053,
          "bytes" : 4948095,
          "unitPrice" : 0.99
@@ -1708,7 +1709,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 10,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Audioslave\/Chris Cornell",
+         "composer" : "AudioslaveChris Cornell",
          "milliseconds" : 206628,
          "bytes" : 4961887,
          "unitPrice" : 0.99
@@ -1719,7 +1720,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 10,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Audioslave\/Chris Cornell",
+         "composer" : "AudioslaveChris Cornell",
          "milliseconds" : 329534,
          "bytes" : 7911634,
          "unitPrice" : 0.99
@@ -1730,7 +1731,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 10,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Audioslave\/Chris Cornell",
+         "composer" : "AudioslaveChris Cornell",
          "milliseconds" : 303595,
          "bytes" : 7289084,
          "unitPrice" : 0.99
@@ -1741,7 +1742,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 10,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Audioslave\/Chris Cornell",
+         "composer" : "AudioslaveChris Cornell",
          "milliseconds" : 299598,
          "bytes" : 7193162,
          "unitPrice" : 0.99
@@ -1752,7 +1753,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 10,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Audioslave\/Chris Cornell",
+         "composer" : "AudioslaveChris Cornell",
          "milliseconds" : 317492,
          "bytes" : 7622615,
          "unitPrice" : 0.99
@@ -1895,7 +1896,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 12,
          "mediaType" : 1,
          "genre" : 5,
-         "composer" : "Berry Gordy, Jr.\/Janie Bradford",
+         "composer" : "Berry Gordy, Jr.Janie Bradford",
          "milliseconds" : 147591,
          "bytes" : 2365897,
          "unitPrice" : 0.99
@@ -1906,7 +1907,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 12,
          "mediaType" : 1,
          "genre" : 5,
-         "composer" : "Enotris Johnson\/Little Richard\/Robert \"Bumps\" Blackwell",
+         "composer" : "Enotris JohnsonLittle RichardRobert \"Bumps\" Blackwell",
          "milliseconds" : 106396,
          "bytes" : 1707084,
          "unitPrice" : 0.99
@@ -1928,7 +1929,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 12,
          "mediaType" : 1,
          "genre" : 5,
-         "composer" : "Bert Russell\/Phil Medley",
+         "composer" : "Bert RussellPhil Medley",
          "milliseconds" : 161123,
          "bytes" : 2582553,
          "unitPrice" : 0.99
@@ -1939,7 +1940,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 12,
          "mediaType" : 1,
          "genre" : 5,
-         "composer" : "Brian Holland\/Freddie Gorman\/Georgia Dobbins\/Robert Bateman\/William Garrett",
+         "composer" : "Brian HollandFreddie GormanGeorgia DobbinsRobert BatemanWilliam Garrett",
          "milliseconds" : 137639,
          "bytes" : 2206986,
          "unitPrice" : 0.99
@@ -1950,7 +1951,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 12,
          "mediaType" : 1,
          "genre" : 5,
-         "composer" : "Eddie Cochran\/Jerry Capehart",
+         "composer" : "Eddie CochranJerry Capehart",
          "milliseconds" : 140199,
          "bytes" : 2247846,
          "unitPrice" : 0.99
@@ -2111,7 +2112,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
       },
       {
          "trackId" : 131,
-         "name" : "Intro\/ Low Down",
+         "name" : "Intro Low Down",
          "album" : 14,
          "mediaType" : 1,
          "genre" : 3,
@@ -2386,7 +2387,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
       },
       {
          "trackId" : 156,
-         "name" : "Wheels Of Confusion \/ The Straightener",
+         "name" : "Wheels Of Confusion  The Straightener",
          "album" : 17,
          "mediaType" : 1,
          "genre" : 3,
@@ -2496,7 +2497,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
       },
       {
          "trackId" : 165,
-         "name" : "Under The Sun\/Every Day Comes and Goes",
+         "name" : "Under The SunEvery Day Comes and Goes",
          "album" : 17,
          "mediaType" : 1,
          "genre" : 3,
@@ -2742,7 +2743,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 19,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Eddie Casillas\/Roy Z",
+         "composer" : "Eddie CasillasRoy Z",
          "milliseconds" : 494393,
          "bytes" : 16034404,
          "unitPrice" : 0.99
@@ -2863,7 +2864,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 20,
          "mediaType" : 1,
          "genre" : 6,
-         "composer" : "Al Perkins\/Willie Dixon",
+         "composer" : "Al PerkinsWillie Dixon",
          "milliseconds" : 235311,
          "bytes" : 7685363,
          "unitPrice" : 0.99
@@ -2907,7 +2908,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 20,
          "mediaType" : 1,
          "genre" : 6,
-         "composer" : "Robert Geddins\/Ron Badger\/Sheldon Feinberg",
+         "composer" : "Robert GeddinsRon BadgerSheldon Feinberg",
          "milliseconds" : 182491,
          "bytes" : 6022698,
          "unitPrice" : 0.99
@@ -2929,7 +2930,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 20,
          "mediaType" : 1,
          "genre" : 6,
-         "composer" : "Amos Blakemore\/Buddy Guy",
+         "composer" : "Amos BlakemoreBuddy Guy",
          "milliseconds" : 589531,
          "bytes" : 19161377,
          "unitPrice" : 0.99
@@ -3365,7 +3366,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
       },
       {
          "trackId" : 245,
-         "name" : "Construção \/ Deus Lhe Pague",
+         "name" : "Construção  Deus Lhe Pague",
          "album" : 23,
          "mediaType" : 1,
          "genre" : 7,
@@ -3776,7 +3777,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 26,
          "mediaType" : 1,
          "genre" : 8,
-         "composer" : "Bino Farias\/Da Gama\/Lazão\/Pedro Luis\/Toni Garrido",
+         "composer" : "Bino FariasDa GamaLazãoPedro LuisToni Garrido",
          "milliseconds" : 249808,
          "bytes" : 8327676,
          "unitPrice" : 0.99
@@ -3787,7 +3788,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 26,
          "mediaType" : 1,
          "genre" : 8,
-         "composer" : "Da Gama\/Toni Garrido",
+         "composer" : "Da GamaToni Garrido",
          "milliseconds" : 230922,
          "bytes" : 7697230,
          "unitPrice" : 0.99
@@ -3820,7 +3821,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 26,
          "mediaType" : 1,
          "genre" : 8,
-         "composer" : "Bino Farias\/Da Gama\/Henry Lawes\/Lazão\/Toni Garrido\/Winston Foser-Vers",
+         "composer" : "Bino FariasDa GamaHenry LawesLazãoToni GarridoWinston Foser-Vers",
          "milliseconds" : 222145,
          "bytes" : 7402658,
          "unitPrice" : 0.99
@@ -3842,7 +3843,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 26,
          "mediaType" : 1,
          "genre" : 8,
-         "composer" : "Bernardo Vilhena\/Bino Farias\/Da Gama\/Lazão\/Toni Garrido",
+         "composer" : "Bernardo VilhenaBino FariasDa GamaLazãoToni Garrido",
          "milliseconds" : 236382,
          "bytes" : 7866924,
          "unitPrice" : 0.99
@@ -3853,7 +3854,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 26,
          "mediaType" : 1,
          "genre" : 8,
-         "composer" : "Bino Farias\/Da Gama\/Lazão\/Toni Garrido",
+         "composer" : "Bino FariasDa GamaLazãoToni Garrido",
          "milliseconds" : 232280,
          "bytes" : 7747747,
          "unitPrice" : 0.99
@@ -3864,7 +3865,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 26,
          "mediaType" : 1,
          "genre" : 8,
-         "composer" : "Bino Farias\/Da Gama\/Lazão\/Toni Garrido",
+         "composer" : "Bino FariasDa GamaLazãoToni Garrido",
          "milliseconds" : 248842,
          "bytes" : 8275673,
          "unitPrice" : 0.99
@@ -3875,7 +3876,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 26,
          "mediaType" : 1,
          "genre" : 8,
-         "composer" : "Da Gama\/Toni Garrido",
+         "composer" : "Da GamaToni Garrido",
          "milliseconds" : 207542,
          "bytes" : 6920424,
          "unitPrice" : 0.99
@@ -3886,7 +3887,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 26,
          "mediaType" : 1,
          "genre" : 8,
-         "composer" : "Bino Farias\/Da Gama\/Lazão\/Toni Garrido",
+         "composer" : "Bino FariasDa GamaLazãoToni Garrido",
          "milliseconds" : 221544,
          "bytes" : 7388466,
          "unitPrice" : 0.99
@@ -3897,7 +3898,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 26,
          "mediaType" : 1,
          "genre" : 8,
-         "composer" : "Marisa Monte\/Nando Reis",
+         "composer" : "Marisa MonteNando Reis",
          "milliseconds" : 256026,
          "bytes" : 8502588,
          "unitPrice" : 0.99
@@ -3908,7 +3909,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 26,
          "mediaType" : 1,
          "genre" : 8,
-         "composer" : "Bino Farias\/Da Gamma\/Lazão\/Rás Bernard",
+         "composer" : "Bino FariasDa GammaLazãoRás Bernard",
          "milliseconds" : 173008,
          "bytes" : 5748424,
          "unitPrice" : 0.99
@@ -3919,7 +3920,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 26,
          "mediaType" : 1,
          "genre" : 8,
-         "composer" : "Da Gama\/Lazão\/Rás Bernardo",
+         "composer" : "Da GamaLazãoRás Bernardo",
          "milliseconds" : 257619,
          "bytes" : 8552474,
          "unitPrice" : 0.99
@@ -3930,7 +3931,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 26,
          "mediaType" : 1,
          "genre" : 8,
-         "composer" : "Bino Farias\/Da Gama\/Lazão\/Toni Garrido",
+         "composer" : "Bino FariasDa GamaLazãoToni Garrido",
          "milliseconds" : 195239,
          "bytes" : 6503533,
          "unitPrice" : 0.99
@@ -3941,7 +3942,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 26,
          "mediaType" : 1,
          "genre" : 8,
-         "composer" : "Bino Farias\/Da Gama\/Lazão\/Rás Bernardo",
+         "composer" : "Bino FariasDa GamaLazãoRás Bernardo",
          "milliseconds" : 225332,
          "bytes" : 7488852,
          "unitPrice" : 0.99
@@ -3952,7 +3953,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 26,
          "mediaType" : 1,
          "genre" : 8,
-         "composer" : "Bernardo Vilhena\/Da Gama\/Lazão",
+         "composer" : "Bernardo VilhenaDa GamaLazão",
          "milliseconds" : 231392,
          "bytes" : 7663348,
          "unitPrice" : 0.99
@@ -3963,7 +3964,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 27,
          "mediaType" : 1,
          "genre" : 8,
-         "composer" : "Marisa Monte\/Nando Reis",
+         "composer" : "Marisa MonteNando Reis",
          "milliseconds" : 298396,
          "bytes" : 10056970,
          "unitPrice" : 0.99
@@ -3974,7 +3975,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 27,
          "mediaType" : 1,
          "genre" : 8,
-         "composer" : "Bernardo Vilhena\/Bino\/Da Gama\/Lazao\/Toni Garrido",
+         "composer" : "Bernardo VilhenaBinoDa GamaLazaoToni Garrido",
          "milliseconds" : 206942,
          "bytes" : 6950332,
          "unitPrice" : 0.99
@@ -3985,7 +3986,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 27,
          "mediaType" : 1,
          "genre" : 8,
-         "composer" : "Da Gama\/Toni Garrido",
+         "composer" : "Da GamaToni Garrido",
          "milliseconds" : 285231,
          "bytes" : 9544383,
          "unitPrice" : 0.99
@@ -3996,7 +3997,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 27,
          "mediaType" : 1,
          "genre" : 8,
-         "composer" : "Da Gama\/Lazao\/Toni Garrido",
+         "composer" : "Da GamaLazaoToni Garrido",
          "milliseconds" : 282174,
          "bytes" : 9344477,
          "unitPrice" : 0.99
@@ -4007,7 +4008,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 27,
          "mediaType" : 1,
          "genre" : 8,
-         "composer" : "Bino\/Da Gama\/Ras Bernardo",
+         "composer" : "BinoDa GamaRas Bernardo",
          "milliseconds" : 244950,
          "bytes" : 8189093,
          "unitPrice" : 0.99
@@ -4018,7 +4019,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 27,
          "mediaType" : 1,
          "genre" : 8,
-         "composer" : "Harry Lawes\/Winston Foster-Vers",
+         "composer" : "Harry LawesWinston Foster-Vers",
          "milliseconds" : 225488,
          "bytes" : 7507866,
          "unitPrice" : 0.99
@@ -4029,7 +4030,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 27,
          "mediaType" : 1,
          "genre" : 8,
-         "composer" : "Bino\/Da Gama\/Ras Bernardo",
+         "composer" : "BinoDa GamaRas Bernardo",
          "milliseconds" : 192391,
          "bytes" : 6399761,
          "unitPrice" : 0.99
@@ -4040,7 +4041,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 27,
          "mediaType" : 1,
          "genre" : 8,
-         "composer" : "Bino\/Da Gamma\/Lazao\/Toni Garrido",
+         "composer" : "BinoDa GammaLazaoToni Garrido",
          "milliseconds" : 240300,
          "bytes" : 8069934,
          "unitPrice" : 0.99
@@ -4051,7 +4052,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 27,
          "mediaType" : 1,
          "genre" : 8,
-         "composer" : "Bino\/Da Gama\/Toni Garrido",
+         "composer" : "BinoDa GamaToni Garrido",
          "milliseconds" : 178155,
          "bytes" : 5950952,
          "unitPrice" : 0.99
@@ -4062,7 +4063,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 27,
          "mediaType" : 1,
          "genre" : 8,
-         "composer" : "Bino\/Da Gama\/Lazao\/Ras Bernardo",
+         "composer" : "BinoDa GamaLazaoRas Bernardo",
          "milliseconds" : 289750,
          "bytes" : 9633659,
          "unitPrice" : 0.99
@@ -4095,7 +4096,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 27,
          "mediaType" : 1,
          "genre" : 8,
-         "composer" : "Bernardo Vilhena\/Da Gama\/Lazao",
+         "composer" : "Bernardo VilhenaDa GamaLazao",
          "milliseconds" : 273031,
          "bytes" : 9142937,
          "unitPrice" : 0.99
@@ -4106,7 +4107,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 27,
          "mediaType" : 1,
          "genre" : 8,
-         "composer" : "Fausto Nilo\/Moraes Moreira\/Pepeu Gomes",
+         "composer" : "Fausto NiloMoraes MoreiraPepeu Gomes",
          "milliseconds" : 211147,
          "bytes" : 7029400,
          "unitPrice" : 0.99
@@ -4227,7 +4228,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 29,
          "mediaType" : 1,
          "genre" : 9,
-         "composer" : "Cassiano Costa\/Cintia Maviane\/J.F.\/Lucas Costa",
+         "composer" : "Cassiano CostaCintia MavianeJ.F.Lucas Costa",
          "milliseconds" : 205479,
          "bytes" : 6892516,
          "unitPrice" : 0.99
@@ -4238,7 +4239,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 29,
          "mediaType" : 1,
          "genre" : 9,
-         "composer" : "Augusto Conceição\/Chiclete Com Banana",
+         "composer" : "Augusto ConceiçãoChiclete Com Banana",
          "milliseconds" : 198661,
          "bytes" : 6643207,
          "unitPrice" : 0.99
@@ -4249,7 +4250,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 29,
          "mediaType" : 1,
          "genre" : 9,
-         "composer" : "Cal Adan\/Paulo Levi",
+         "composer" : "Cal AdanPaulo Levi",
          "milliseconds" : 194194,
          "bytes" : 6507950,
          "unitPrice" : 0.99
@@ -4260,7 +4261,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 29,
          "mediaType" : 1,
          "genre" : 9,
-         "composer" : "Paulo Levi\/W. Rangel",
+         "composer" : "Paulo LeviW. Rangel",
          "milliseconds" : 188630,
          "bytes" : 6327391,
          "unitPrice" : 0.99
@@ -4271,7 +4272,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 29,
          "mediaType" : 1,
          "genre" : 9,
-         "composer" : "Jorge Cardoso\/Pierre Onasis",
+         "composer" : "Jorge CardosoPierre Onasis",
          "milliseconds" : 230791,
          "bytes" : 7748006,
          "unitPrice" : 0.99
@@ -4282,7 +4283,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 29,
          "mediaType" : 1,
          "genre" : 9,
-         "composer" : "Fábio Nolasco\/Gal Sales\/Ivan Brasil",
+         "composer" : "Fábio NolascoGal SalesIvan Brasil",
          "milliseconds" : 206733,
          "bytes" : 7034985,
          "unitPrice" : 0.99
@@ -4293,7 +4294,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 29,
          "mediaType" : 1,
          "genre" : 9,
-         "composer" : "Garay, Ricardo Engels\/Luca Predabom\/Ludwig, Carlos Henrique\/Maurício Vieira",
+         "composer" : "Garay, Ricardo EngelsLuca PredabomLudwig, Carlos HenriqueMaurício Vieira",
          "milliseconds" : 210155,
          "bytes" : 6973625,
          "unitPrice" : 0.99
@@ -4304,7 +4305,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 29,
          "mediaType" : 1,
          "genre" : 9,
-         "composer" : "Luiz Wanderley\/Paulo Levi",
+         "composer" : "Luiz WanderleyPaulo Levi",
          "milliseconds" : 190093,
          "bytes" : 6457752,
          "unitPrice" : 0.99
@@ -4315,7 +4316,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 29,
          "mediaType" : 1,
          "genre" : 9,
-         "composer" : "Do Vale, Valverde\/Gal Oliveira\/Luciano Pinto",
+         "composer" : "Do Vale, ValverdeGal OliveiraLuciano Pinto",
          "milliseconds" : 214256,
          "bytes" : 7254147,
          "unitPrice" : 0.99
@@ -4326,7 +4327,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 29,
          "mediaType" : 1,
          "genre" : 9,
-         "composer" : "Cal Adan\/Ferrugem\/Julinho Carioca\/Tríona Ní Dhomhnaill",
+         "composer" : "Cal AdanFerrugemJulinho CariocaTríona Ní Dhomhnaill",
          "milliseconds" : 210599,
          "bytes" : 7027525,
          "unitPrice" : 0.99
@@ -4337,7 +4338,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 29,
          "mediaType" : 1,
          "genre" : 9,
-         "composer" : "Lucina\/Luli",
+         "composer" : "LucinaLuli",
          "milliseconds" : 196519,
          "bytes" : 6568081,
          "unitPrice" : 0.99
@@ -4348,7 +4349,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 29,
          "mediaType" : 1,
          "genre" : 9,
-         "composer" : "Cal Adan\/Del Rey, Tension\/Edu Casanova",
+         "composer" : "Cal AdanDel Rey, TensionEdu Casanova",
          "milliseconds" : 206654,
          "bytes" : 6931328,
          "unitPrice" : 0.99
@@ -4359,7 +4360,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 29,
          "mediaType" : 1,
          "genre" : 9,
-         "composer" : "Jauperi\/Zeu Góes",
+         "composer" : "JauperiZeu Góes",
          "milliseconds" : 203493,
          "bytes" : 6772813,
          "unitPrice" : 0.99
@@ -4370,7 +4371,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 29,
          "mediaType" : 1,
          "genre" : 9,
-         "composer" : "Adriano Bernandes\/Edmar Neves",
+         "composer" : "Adriano BernandesEdmar Neves",
          "milliseconds" : 166687,
          "bytes" : 5532564,
          "unitPrice" : 0.99
@@ -4381,7 +4382,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 30,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "J B Lenoir\/Willie Dixon",
+         "composer" : "J B LenoirWillie Dixon",
          "milliseconds" : 315951,
          "bytes" : 10249958,
          "unitPrice" : 0.99
@@ -4403,7 +4404,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 30,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jimmy Page\/John Bonham\/John Paul Jones",
+         "composer" : "Jimmy PageJohn BonhamJohn Paul Jones",
          "milliseconds" : 192653,
          "bytes" : 6287257,
          "unitPrice" : 0.99
@@ -4425,7 +4426,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 30,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jimmy Page\/John Bonham\/John Estes\/John Paul Jones\/Robert Plant",
+         "composer" : "Jimmy PageJohn BonhamJohn EstesJohn Paul JonesRobert Plant",
          "milliseconds" : 183327,
          "bytes" : 5995686,
          "unitPrice" : 0.99
@@ -4436,7 +4437,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 30,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jimmy Page\/Robert Plant",
+         "composer" : "Jimmy PageRobert Plant",
          "milliseconds" : 260675,
          "bytes" : 8497116,
          "unitPrice" : 0.99
@@ -4447,7 +4448,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 30,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jimmy Page\/John Bonham\/John Paul Jones",
+         "composer" : "Jimmy PageJohn BonhamJohn Paul Jones",
          "milliseconds" : 161149,
          "bytes" : 5261022,
          "unitPrice" : 0.99
@@ -4458,7 +4459,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 30,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jimmy Page\/Robert Johnson\/Robert Plant",
+         "composer" : "Jimmy PageRobert JohnsonRobert Plant",
          "milliseconds" : 312032,
          "bytes" : 10232581,
          "unitPrice" : 0.99
@@ -4469,7 +4470,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 30,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jimmy Page\/John Bonham\/John Paul Jones\/Robert Plant\/Willie Dixon",
+         "composer" : "Jimmy PageJohn BonhamJohn Paul JonesRobert PlantWillie Dixon",
          "milliseconds" : 373394,
          "bytes" : 12258175,
          "unitPrice" : 0.99
@@ -4480,7 +4481,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 30,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Bob Cochran\/Sharon Sheeley",
+         "composer" : "Bob CochranSharon Sheeley",
          "milliseconds" : 127869,
          "bytes" : 4165650,
          "unitPrice" : 0.99
@@ -4491,7 +4492,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 30,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jimmy Page\/John Bonham\/John Paul Jones",
+         "composer" : "Jimmy PageJohn BonhamJohn Paul Jones",
          "milliseconds" : 185260,
          "bytes" : 6041133,
          "unitPrice" : 0.99
@@ -4513,7 +4514,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 30,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "J B Lenoir\/Willie Dixon",
+         "composer" : "J B LenoirWillie Dixon",
          "milliseconds" : 619467,
          "bytes" : 20138673,
          "unitPrice" : 0.99
@@ -4524,7 +4525,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 30,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Chester Burnett\/Jimmy Page\/John Bonham\/John Paul Jones\/Robert Plant",
+         "composer" : "Chester BurnettJimmy PageJohn BonhamJohn Paul JonesRobert Plant",
          "milliseconds" : 711836,
          "bytes" : 23092953,
          "unitPrice" : 0.99
@@ -4810,7 +4811,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 33,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "J.r.Bertami\/Parana",
+         "composer" : "J.r.BertamiParana",
          "milliseconds" : 225097,
          "bytes" : 7528825,
          "unitPrice" : 0.99
@@ -4821,7 +4822,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 33,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Donato\/Gilberto Gil",
+         "composer" : "DonatoGilberto Gil",
          "milliseconds" : 263183,
          "bytes" : 8619173,
          "unitPrice" : 0.99
@@ -4843,7 +4844,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 33,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Antonio Carlos Jobim\/Vinicius de Moraes",
+         "composer" : "Antonio Carlos JobimVinicius de Moraes",
          "milliseconds" : 146677,
          "bytes" : 4866476,
          "unitPrice" : 0.99
@@ -4854,7 +4855,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 33,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Baden Powell\/Vinicius de Moraes",
+         "composer" : "Baden PowellVinicius de Moraes",
          "milliseconds" : 282200,
          "bytes" : 9440676,
          "unitPrice" : 0.99
@@ -4865,7 +4866,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 33,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Jorge Vercilo\/Jota Maranhao",
+         "composer" : "Jorge VerciloJota Maranhao",
          "milliseconds" : 179408,
          "bytes" : 6046678,
          "unitPrice" : 0.99
@@ -4898,7 +4899,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 33,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Luiz Melodia\/Ricardo Augusto",
+         "composer" : "Luiz MelodiaRicardo Augusto",
          "milliseconds" : 184320,
          "bytes" : 6191752,
          "unitPrice" : 0.99
@@ -4920,7 +4921,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 33,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Alexandre Brazil\/Pedro Luis\/Rodrigo Cabelo",
+         "composer" : "Alexandre BrazilPedro LuisRodrigo Cabelo",
          "milliseconds" : 237087,
          "bytes" : 7938246,
          "unitPrice" : 0.99
@@ -4931,7 +4932,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 33,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Macelo Yuka\/O Rappa",
+         "composer" : "Macelo YukaO Rappa",
          "milliseconds" : 245524,
          "bytes" : 8267067,
          "unitPrice" : 0.99
@@ -4942,7 +4943,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 33,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Bombom\/Ed Motta",
+         "composer" : "BombomEd Motta",
          "milliseconds" : 180636,
          "bytes" : 5972430,
          "unitPrice" : 0.99
@@ -4953,7 +4954,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 33,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Luiz Carlos\/Oberdan",
+         "composer" : "Luiz CarlosOberdan",
          "milliseconds" : 141008,
          "bytes" : 4743149,
          "unitPrice" : 0.99
@@ -4964,7 +4965,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 33,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Alba Carvalho\/Fernando Porto",
+         "composer" : "Alba CarvalhoFernando Porto",
          "milliseconds" : 213655,
          "bytes" : 7243166,
          "unitPrice" : 0.99
@@ -5162,7 +5163,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 35,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Molaney\/Morris\/Roberts\/Wainwright",
+         "composer" : "MolaneyMorrisRobertsWainwright",
          "milliseconds" : 155428,
          "bytes" : 5076048,
          "unitPrice" : 0.99
@@ -5173,7 +5174,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 35,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Harris\/Tatler",
+         "composer" : "HarrisTatler",
          "milliseconds" : 213995,
          "bytes" : 6978601,
          "unitPrice" : 0.99
@@ -5228,7 +5229,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 35,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Diamond\/Shermann",
+         "composer" : "DiamondShermann",
          "milliseconds" : 671712,
          "bytes" : 21942829,
          "unitPrice" : 0.99
@@ -5239,7 +5240,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 35,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "A.Bouchard\/J.Bouchard\/S.Pearlman",
+         "composer" : "A.BouchardJ.BouchardS.Pearlman",
          "milliseconds" : 397531,
          "bytes" : 13065612,
          "unitPrice" : 0.99
@@ -5261,7 +5262,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 35,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Collins\/Van Zandt",
+         "composer" : "CollinsVan Zandt",
          "milliseconds" : 545750,
          "bytes" : 17900787,
          "unitPrice" : 0.99
@@ -5272,7 +5273,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 35,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Molaney\/Morris\/Roberts\/Wainwright",
+         "composer" : "MolaneyMorrisRobertsWainwright",
          "milliseconds" : 287973,
          "bytes" : 9378873,
          "unitPrice" : 0.99
@@ -6097,7 +6098,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 40,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "David Coverdale\/Earl Slick",
+         "composer" : "David CoverdaleEarl Slick",
          "milliseconds" : 344999,
          "bytes" : 11409720,
          "unitPrice" : 0.99
@@ -6108,7 +6109,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 40,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "David Coverdale\/Earl Slick",
+         "composer" : "David CoverdaleEarl Slick",
          "milliseconds" : 291892,
          "bytes" : 9425200,
          "unitPrice" : 0.99
@@ -6119,7 +6120,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 40,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Bossi\/David Coverdale\/Earl Slick",
+         "composer" : "BossiDavid CoverdaleEarl Slick",
          "milliseconds" : 293015,
          "bytes" : 9567075,
          "unitPrice" : 0.99
@@ -6130,7 +6131,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 40,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Bossi\/David Coverdale\/Earl Slick",
+         "composer" : "BossiDavid CoverdaleEarl Slick",
          "milliseconds" : 391549,
          "bytes" : 12785876,
          "unitPrice" : 0.99
@@ -6141,7 +6142,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 40,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "David Coverdale\/Earl Slick",
+         "composer" : "David CoverdaleEarl Slick",
          "milliseconds" : 298631,
          "bytes" : 9750990,
          "unitPrice" : 0.99
@@ -6152,7 +6153,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 40,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Adrian Vanderberg\/David Coverdale",
+         "composer" : "Adrian VanderbergDavid Coverdale",
          "milliseconds" : 359497,
          "bytes" : 11810238,
          "unitPrice" : 0.99
@@ -6163,7 +6164,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 40,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "David Coverdale\/Earl Slick",
+         "composer" : "David CoverdaleEarl Slick",
          "milliseconds" : 283585,
          "bytes" : 9288007,
          "unitPrice" : 0.99
@@ -6229,7 +6230,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 41,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Gonzaga Jr\/Gonzaguinha",
+         "composer" : "Gonzaga JrGonzaguinha",
          "milliseconds" : 169717,
          "bytes" : 5494406,
          "unitPrice" : 0.99
@@ -6603,7 +6604,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 42,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Arnaldo Baptista\/Rita Lee\/Sérgio Dias",
+         "composer" : "Arnaldo BaptistaRita LeeSérgio Dias",
          "milliseconds" : 189257,
          "bytes" : 6270503,
          "unitPrice" : 0.99
@@ -6647,7 +6648,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 43,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Coverdale\/Lord\/Paice",
+         "composer" : "CoverdaleLordPaice",
          "milliseconds" : 453955,
          "bytes" : 14775708,
          "unitPrice" : 0.99
@@ -6669,7 +6670,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 43,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Coverdale\/Hughes\/Lord\/Paice",
+         "composer" : "CoverdaleHughesLordPaice",
          "milliseconds" : 339173,
          "bytes" : 11046952,
          "unitPrice" : 0.99
@@ -6702,7 +6703,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 43,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Gillan\/Glover\/Lord\/Paice",
+         "composer" : "GillanGloverLordPaice",
          "milliseconds" : 618031,
          "bytes" : 20103125,
          "unitPrice" : 0.99
@@ -6713,7 +6714,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 43,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Coverdale\/Lord\/Paice",
+         "composer" : "CoverdaleLordPaice",
          "milliseconds" : 804101,
          "bytes" : 26369966,
          "unitPrice" : 0.99
@@ -6724,7 +6725,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 44,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jimmy Page\/Robert Plant",
+         "composer" : "Jimmy PageRobert Plant",
          "milliseconds" : 253962,
          "bytes" : 8348257,
          "unitPrice" : 0.99
@@ -6735,7 +6736,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 44,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jimmy Page\/Robert Plant",
+         "composer" : "Jimmy PageRobert Plant",
          "milliseconds" : 337084,
          "bytes" : 11011286,
          "unitPrice" : 0.99
@@ -6746,7 +6747,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 44,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "John Bonham\/John Paul Jones",
+         "composer" : "John BonhamJohn Paul Jones",
          "milliseconds" : 666017,
          "bytes" : 21676727,
          "unitPrice" : 0.99
@@ -6757,7 +6758,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 44,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jimmy Page\/Robert Plant",
+         "composer" : "Jimmy PageRobert Plant",
          "milliseconds" : 242494,
          "bytes" : 7972503,
          "unitPrice" : 0.99
@@ -6790,7 +6791,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 45,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Guga\/Marquinho Lessa\/Tuninho Professor",
+         "composer" : "GugaMarquinho LessaTuninho Professor",
          "milliseconds" : 339173,
          "bytes" : 11348710,
          "unitPrice" : 0.99
@@ -6801,7 +6802,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 45,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Caruso\/Cleber\/Deo\/Osmar",
+         "composer" : "CarusoCleberDeoOsmar",
          "milliseconds" : 327000,
          "bytes" : 10991159,
          "unitPrice" : 0.99
@@ -6812,7 +6813,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 45,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Dadinho\/Gilbreto Gomes\/Gustavo\/P.C. Portugal\/R. Mocoto",
+         "composer" : "DadinhoGilbreto GomesGustavoP.C. PortugalR. Mocoto",
          "milliseconds" : 344320,
          "bytes" : 11484362,
          "unitPrice" : 0.99
@@ -6823,7 +6824,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 45,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Domenil\/J. Brito\/Joaozinho\/Rap, Marcelo Do",
+         "composer" : "DomenilJ. BritoJoaozinhoRap, Marcelo Do",
          "milliseconds" : 261720,
          "bytes" : 8817757,
          "unitPrice" : 0.99
@@ -6834,7 +6835,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 45,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Douglas\/Neves, Vicente Das\/Silva, Gilmar L.\/Toninho Gentil\/Wantuir",
+         "composer" : "DouglasNeves, Vicente DasSilva, Gilmar L.Toninho GentilWantuir",
          "milliseconds" : 338834,
          "bytes" : 11440689,
          "unitPrice" : 0.99
@@ -6845,7 +6846,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 45,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Augusto\/Craig Negoescu\/Rocco Filho\/Saara, Ze Carlos Da",
+         "composer" : "AugustoCraig NegoescuRocco FilhoSaara, Ze Carlos Da",
          "milliseconds" : 305920,
          "bytes" : 10294741,
          "unitPrice" : 0.99
@@ -6856,7 +6857,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 45,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Bizuca\/Clóvis Pê\/Gilson Bernini\/Marelo D'Aguia",
+         "composer" : "BizucaClóvis PêGilson BerniniMarelo D'Aguia",
          "milliseconds" : 298318,
          "bytes" : 9999506,
          "unitPrice" : 0.99
@@ -6867,7 +6868,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 45,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Dito\/Djalma Falcao\/Ilha, Almir Da\/Márcio André",
+         "composer" : "DitoDjalma FalcaoIlha, Almir DaMárcio André",
          "milliseconds" : 330945,
          "bytes" : 11100945,
          "unitPrice" : 0.99
@@ -6878,7 +6879,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 45,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Carlos Santos\/Ciro\/Claudio Russo\/Zé Luiz",
+         "composer" : "Carlos SantosCiroClaudio RussoZé Luiz",
          "milliseconds" : 307252,
          "bytes" : 10251428,
          "unitPrice" : 0.99
@@ -6889,7 +6890,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 45,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Flavio Bororo\/Paulo Apparicio\/Wagner Alves\/Zeca Sereno",
+         "composer" : "Flavio BororoPaulo ApparicioWagner AlvesZeca Sereno",
          "milliseconds" : 319608,
          "bytes" : 10712216,
          "unitPrice" : 0.99
@@ -6900,7 +6901,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 45,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Gule\/Jorge 101\/Lequinho\/Luiz Piao",
+         "composer" : "GuleJorge 101LequinhoLuiz Piao",
          "milliseconds" : 351320,
          "bytes" : 11870956,
          "unitPrice" : 0.99
@@ -6911,7 +6912,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 45,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Adalto Magalha\/Lourenco",
+         "composer" : "Adalto MagalhaLourenco",
          "milliseconds" : 269165,
          "bytes" : 9114880,
          "unitPrice" : 0.99
@@ -6922,7 +6923,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 45,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Arlindo Cruz\/Carlos Sena\/Elmo Caetano\/Mauricao",
+         "composer" : "Arlindo CruzCarlos SenaElmo CaetanoMauricao",
          "milliseconds" : 334942,
          "bytes" : 11161196,
          "unitPrice" : 0.99
@@ -6933,7 +6934,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 45,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Claudio Martins\/David Lima\/Kleber Rodrigues\/Livre, Cesare Som",
+         "composer" : "Claudio MartinsDavid LimaKleber RodriguesLivre, Cesare Som",
          "milliseconds" : 259657,
          "bytes" : 8749492,
          "unitPrice" : 0.99
@@ -7494,18 +7495,18 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 50,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Blackmore\/Gillan\/Glover\/Lord\/Paice",
+         "composer" : "BlackmoreGillanGloverLordPaice",
          "milliseconds" : 1196094,
          "bytes" : 39267613,
          "unitPrice" : 0.99
       },
       {
          "trackId" : 621,
-         "name" : "Going Down \/ Highway Star",
+         "name" : "Going Down  Highway Star",
          "album" : 50,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Gillan\/Glover\/Lord\/Nix - Blackmore\/Paice",
+         "composer" : "GillanGloverLordNix - BlackmorePaice",
          "milliseconds" : 913658,
          "bytes" : 29846063,
          "unitPrice" : 0.99
@@ -7516,7 +7517,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 50,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Blackmore\/Coverdale",
+         "composer" : "BlackmoreCoverdale",
          "milliseconds" : 854700,
          "bytes" : 27775442,
          "unitPrice" : 0.99
@@ -7527,7 +7528,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 50,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Blackmore\/Coverdale\/Lord\/Paice",
+         "composer" : "BlackmoreCoverdaleLordPaice",
          "milliseconds" : 763924,
          "bytes" : 24887209,
          "unitPrice" : 0.99
@@ -8869,7 +8870,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 58,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Bolin\/Coverdale\/Paice",
+         "composer" : "BolinCoverdalePaice",
          "milliseconds" : 235781,
          "bytes" : 7644604,
          "unitPrice" : 0.99
@@ -8880,7 +8881,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 58,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Cook\/Coverdale",
+         "composer" : "CookCoverdale",
          "milliseconds" : 168202,
          "bytes" : 5501379,
          "unitPrice" : 0.99
@@ -8891,7 +8892,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 58,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Bolin\/Hughes",
+         "composer" : "BolinHughes",
          "milliseconds" : 218044,
          "bytes" : 7176909,
          "unitPrice" : 0.99
@@ -8902,7 +8903,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 58,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Bolin\/Coverdale",
+         "composer" : "BolinCoverdale",
          "milliseconds" : 230922,
          "bytes" : 7591066,
          "unitPrice" : 0.99
@@ -8913,7 +8914,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 58,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Bolin\/Coverdale",
+         "composer" : "BolinCoverdale",
          "milliseconds" : 263836,
          "bytes" : 8701064,
          "unitPrice" : 0.99
@@ -8924,7 +8925,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 58,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Bolin\/Coverdale",
+         "composer" : "BolinCoverdale",
          "milliseconds" : 242834,
          "bytes" : 8001505,
          "unitPrice" : 0.99
@@ -8935,18 +8936,18 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 58,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Bolin\/Coverdale",
+         "composer" : "BolinCoverdale",
          "milliseconds" : 188160,
          "bytes" : 6173806,
          "unitPrice" : 0.99
       },
       {
          "trackId" : 752,
-         "name" : "This Time Around \/ Owed to 'G' [Instrumental]",
+         "name" : "This Time Around  Owed to 'G' [Instrumental]",
          "album" : 58,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Bolin\/Hughes\/Lord",
+         "composer" : "BolinHughesLord",
          "milliseconds" : 370102,
          "bytes" : 11995679,
          "unitPrice" : 0.99
@@ -8957,7 +8958,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 58,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Coverdale\/Hughes",
+         "composer" : "CoverdaleHughes",
          "milliseconds" : 319111,
          "bytes" : 10447868,
          "unitPrice" : 0.99
@@ -9243,7 +9244,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 62,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Ian Gillan\/Ian Paice\/Jon Lord\/Ritchie Blckmore\/Roger Glover",
+         "composer" : "Ian GillanIan PaiceJon LordRitchie BlckmoreRoger Glover",
          "milliseconds" : 368770,
          "bytes" : 12012452,
          "unitPrice" : 0.99
@@ -9254,7 +9255,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 62,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Ian Gillan\/Ian Paice\/Jon Lord\/Ritchie Blckmore\/Roger Glover",
+         "composer" : "Ian GillanIan PaiceJon LordRitchie BlckmoreRoger Glover",
          "milliseconds" : 290455,
          "bytes" : 9502646,
          "unitPrice" : 0.99
@@ -9265,7 +9266,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 62,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Ian Gillan\/Ian Paice\/Jon Lord\/Ritchie Blckmore\/Roger Glover",
+         "composer" : "Ian GillanIan PaiceJon LordRitchie BlckmoreRoger Glover",
          "milliseconds" : 303777,
          "bytes" : 9903835,
          "unitPrice" : 0.99
@@ -9276,7 +9277,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 62,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Ian Gillan\/Ian Paice\/Jon Lord\/Ritchie Blckmore\/Roger Glover",
+         "composer" : "Ian GillanIan PaiceJon LordRitchie BlckmoreRoger Glover",
          "milliseconds" : 239830,
          "bytes" : 7832790,
          "unitPrice" : 0.99
@@ -9287,7 +9288,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 62,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Ian Gillan\/Ian Paice\/Jon Lord\/Ritchie Blckmore\/Roger Glover",
+         "composer" : "Ian GillanIan PaiceJon LordRitchie BlckmoreRoger Glover",
          "milliseconds" : 340871,
          "bytes" : 11246496,
          "unitPrice" : 0.99
@@ -9298,7 +9299,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 62,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Ian Gillan\/Ian Paice\/Jon Lord\/Ritchie Blckmore\/Roger Glover",
+         "composer" : "Ian GillanIan PaiceJon LordRitchie BlckmoreRoger Glover",
          "milliseconds" : 442096,
          "bytes" : 14397671,
          "unitPrice" : 0.99
@@ -9309,7 +9310,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 62,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Ian Gillan\/Ian Paice\/Jon Lord\/Ritchie Blckmore\/Roger Glover",
+         "composer" : "Ian GillanIan PaiceJon LordRitchie BlckmoreRoger Glover",
          "milliseconds" : 272796,
          "bytes" : 8981030,
          "unitPrice" : 0.99
@@ -9562,7 +9563,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 65,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "D.Coverdale\/R.Blackmore\/Ritchie Blackmore",
+         "composer" : "D.CoverdaleR.BlackmoreRitchie Blackmore",
          "milliseconds" : 246413,
          "bytes" : 8044864,
          "unitPrice" : 0.99
@@ -9573,7 +9574,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 65,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "D.Coverdale\/G.Hughes\/Glenn Hughes\/I.Paice\/Ian Paice\/J.Lord\/John Lord\/R.Blackmore\/Ritchie Blackmore",
+         "composer" : "D.CoverdaleG.HughesGlenn HughesI.PaiceIan PaiceJ.LordJohn LordR.BlackmoreRitchie Blackmore",
          "milliseconds" : 263862,
          "bytes" : 8675026,
          "unitPrice" : 0.99
@@ -9584,7 +9585,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 65,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "D.Coverdale\/G.Hughes\/Glenn Hughes\/J.Lord\/John Lord",
+         "composer" : "D.CoverdaleG.HughesGlenn HughesJ.LordJohn Lord",
          "milliseconds" : 270236,
          "bytes" : 8818093,
          "unitPrice" : 0.99
@@ -9595,7 +9596,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 65,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "D.Coverdal\/G.Hughes\/Glenn Hughes\/I.Paice\/Ian Paice\/J.Lord\/John Lord",
+         "composer" : "D.CoverdalG.HughesGlenn HughesI.PaiceIan PaiceJ.LordJohn Lord",
          "milliseconds" : 306860,
          "bytes" : 10022428,
          "unitPrice" : 0.99
@@ -9606,7 +9607,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 65,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "D.Coverdale\/R.Blackmore\/Ritchie Blackmore",
+         "composer" : "D.CoverdaleR.BlackmoreRitchie Blackmore",
          "milliseconds" : 201482,
          "bytes" : 6554330,
          "unitPrice" : 0.99
@@ -9617,7 +9618,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 65,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "D.Coverdale\/G.Hughes\/Glenn Hughes\/R.Blackmore\/Ritchie Blackmore",
+         "composer" : "D.CoverdaleG.HughesGlenn HughesR.BlackmoreRitchie Blackmore",
          "milliseconds" : 203755,
          "bytes" : 6709579,
          "unitPrice" : 0.99
@@ -9628,7 +9629,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 65,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "D.Coverdale\/G.Hughes\/Glenn Hughes\/I.Paice\/Ian Paice\/J.Lord\/John Lord\/R.Blackmore\/Ritchie Blackmore",
+         "composer" : "D.CoverdaleG.HughesGlenn HughesI.PaiceIan PaiceJ.LordJohn LordR.BlackmoreRitchie Blackmore",
          "milliseconds" : 267833,
          "bytes" : 8772471,
          "unitPrice" : 0.99
@@ -9639,7 +9640,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 65,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "D.Coverdale\/G.Hughes\/Glenn Hughes\/I.Paice\/Ian Paice\/J.Lord\/John Lord\/R.Blackmore\/Ritchie Blackmore",
+         "composer" : "D.CoverdaleG.HughesGlenn HughesI.PaiceIan PaiceJ.LordJohn LordR.BlackmoreRitchie Blackmore",
          "milliseconds" : 242886,
          "bytes" : 7946614,
          "unitPrice" : 0.99
@@ -9650,7 +9651,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 65,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "D.Coverdale\/R.Blackmore\/Ritchie Blackmore",
+         "composer" : "D.CoverdaleR.BlackmoreRitchie Blackmore",
          "milliseconds" : 193750,
          "bytes" : 6315321,
          "unitPrice" : 0.99
@@ -9661,7 +9662,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 66,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "ian paice\/jon lord",
+         "composer" : "ian paicejon lord",
          "milliseconds" : 356963,
          "bytes" : 11626228,
          "unitPrice" : 0.99
@@ -9683,7 +9684,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 66,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "jon lord\/roger glover",
+         "composer" : "jon lordroger glover",
          "milliseconds" : 392437,
          "bytes" : 12754921,
          "unitPrice" : 0.99
@@ -9738,7 +9739,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 66,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "jon lord\/roger glover",
+         "composer" : "jon lordroger glover",
          "milliseconds" : 276662,
          "bytes" : 9076997,
          "unitPrice" : 0.99
@@ -10475,7 +10476,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 72,
          "mediaType" : 1,
          "genre" : 6,
-         "composer" : "Clapton\/Gordon",
+         "composer" : "ClaptonGordon",
          "milliseconds" : 430733,
          "bytes" : 14115792,
          "unitPrice" : 0.99
@@ -10486,7 +10487,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 72,
          "mediaType" : 1,
          "genre" : 6,
-         "composer" : "Clapton\/Harrison",
+         "composer" : "ClaptonHarrison",
          "milliseconds" : 163552,
          "bytes" : 5322942,
          "unitPrice" : 0.99
@@ -10497,7 +10498,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 72,
          "mediaType" : 1,
          "genre" : 6,
-         "composer" : "Bruce\/Clapton",
+         "composer" : "BruceClapton",
          "milliseconds" : 174576,
          "bytes" : 5725684,
          "unitPrice" : 0.99
@@ -10508,7 +10509,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 72,
          "mediaType" : 1,
          "genre" : 6,
-         "composer" : "Bruce\/Clapton",
+         "composer" : "BruceClapton",
          "milliseconds" : 252891,
          "bytes" : 8225889,
          "unitPrice" : 0.99
@@ -10519,7 +10520,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 72,
          "mediaType" : 1,
          "genre" : 6,
-         "composer" : "Clapton\/Robert Johnson Arr: Eric Clapton",
+         "composer" : "ClaptonRobert Johnson Arr: Eric Clapton",
          "milliseconds" : 253335,
          "bytes" : 8273540,
          "unitPrice" : 0.99
@@ -10530,7 +10531,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 72,
          "mediaType" : 1,
          "genre" : 6,
-         "composer" : "Clapton\/Collins\/Pappalardi",
+         "composer" : "ClaptonCollinsPappalardi",
          "milliseconds" : 167810,
          "bytes" : 5489787,
          "unitPrice" : 0.99
@@ -10541,7 +10542,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 72,
          "mediaType" : 1,
          "genre" : 6,
-         "composer" : "Bruce\/Clapton",
+         "composer" : "BruceClapton",
          "milliseconds" : 301583,
          "bytes" : 9872606,
          "unitPrice" : 0.99
@@ -10563,7 +10564,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 72,
          "mediaType" : 1,
          "genre" : 6,
-         "composer" : "Cale\/Clapton",
+         "composer" : "CaleClapton",
          "milliseconds" : 215928,
          "bytes" : 7138399,
          "unitPrice" : 0.99
@@ -10585,7 +10586,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 72,
          "mediaType" : 1,
          "genre" : 6,
-         "composer" : "Clapton\/J. J. Cale",
+         "composer" : "ClaptonJ. J. Cale",
          "milliseconds" : 191320,
          "bytes" : 6460941,
          "unitPrice" : 0.99
@@ -10596,7 +10597,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 72,
          "mediaType" : 1,
          "genre" : 6,
-         "composer" : "Clapton\/Trad. Arr. Clapton",
+         "composer" : "ClaptonTrad. Arr. Clapton",
          "milliseconds" : 208143,
          "bytes" : 6896288,
          "unitPrice" : 0.99
@@ -10607,7 +10608,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 72,
          "mediaType" : 1,
          "genre" : 6,
-         "composer" : "Clapton\/Levy",
+         "composer" : "ClaptonLevy",
          "milliseconds" : 231732,
          "bytes" : 7774207,
          "unitPrice" : 0.99
@@ -10618,7 +10619,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 72,
          "mediaType" : 1,
          "genre" : 6,
-         "composer" : "Clapton\/Dylan",
+         "composer" : "ClaptonDylan",
          "milliseconds" : 264411,
          "bytes" : 8758819,
          "unitPrice" : 0.99
@@ -10651,7 +10652,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 72,
          "mediaType" : 1,
          "genre" : 6,
-         "composer" : "Clapton\/F.eldman\/Linn",
+         "composer" : "ClaptonF.eldmanLinn",
          "milliseconds" : 180401,
          "bytes" : 6006154,
          "unitPrice" : 0.99
@@ -10827,7 +10828,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 74,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Jon Hudson\/Mike Patton",
+         "composer" : "Jon HudsonMike Patton",
          "milliseconds" : 204303,
          "bytes" : 6656596,
          "unitPrice" : 0.99
@@ -10838,7 +10839,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 74,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Jon Hudson\/Mike Bordin\/Mike Patton",
+         "composer" : "Jon HudsonMike BordinMike Patton",
          "milliseconds" : 270106,
          "bytes" : 8861119,
          "unitPrice" : 0.99
@@ -10849,7 +10850,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 74,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Bill Gould\/Mike Patton",
+         "composer" : "Bill GouldMike Patton",
          "milliseconds" : 251663,
          "bytes" : 8221247,
          "unitPrice" : 0.99
@@ -10871,7 +10872,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 74,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Bill Gould\/Mike Bordin\/Mike Patton",
+         "composer" : "Bill GouldMike BordinMike Patton",
          "milliseconds" : 326217,
          "bytes" : 10753135,
          "unitPrice" : 0.99
@@ -10882,7 +10883,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 74,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Bill Gould\/Jon Hudson\/Mike Bordin\/Mike Patton",
+         "composer" : "Bill GouldJon HudsonMike BordinMike Patton",
          "milliseconds" : 228493,
          "bytes" : 7505887,
          "unitPrice" : 0.99
@@ -10893,7 +10894,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 74,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Bill Gould\/Jon Hudson\/Mike Bordin\/Mike Patton\/Roddy Bottum",
+         "composer" : "Bill GouldJon HudsonMike BordinMike PattonRoddy Bottum",
          "milliseconds" : 217391,
          "bytes" : 7093746,
          "unitPrice" : 0.99
@@ -10904,7 +10905,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 74,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Bill Gould\/Mike Bordin\/Mike Patton",
+         "composer" : "Bill GouldMike BordinMike Patton",
          "milliseconds" : 209867,
          "bytes" : 6887544,
          "unitPrice" : 0.99
@@ -10926,7 +10927,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 74,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Bill Gould\/Jon Hudson\/Mike Bordin\/Mike Patton\/Roddy Bottum",
+         "composer" : "Bill GouldJon HudsonMike BordinMike PattonRoddy Bottum",
          "milliseconds" : 257253,
          "bytes" : 8436300,
          "unitPrice" : 0.99
@@ -10948,7 +10949,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 74,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Bill Gould\/Mike Patton",
+         "composer" : "Bill GouldMike Patton",
          "milliseconds" : 232698,
          "bytes" : 7497361,
          "unitPrice" : 0.99
@@ -11483,7 +11484,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
       },
       {
          "trackId" : 983,
-         "name" : "Principiando\/Decolagem",
+         "name" : "PrincipiandoDecolagem",
          "album" : 78,
          "mediaType" : 1,
          "genre" : 7,
@@ -11663,7 +11664,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 80,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Dave Grohl, Taylor Hawkins, Nate Mendel, Chris Shiflett\/FOO FIGHTERS",
+         "composer" : "Dave Grohl, Taylor Hawkins, Nate Mendel, Chris ShiflettFOO FIGHTERS",
          "milliseconds" : 313182,
          "bytes" : 10323157,
          "unitPrice" : 0.99
@@ -11674,7 +11675,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 80,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Dave Grohl, Taylor Hawkins, Nate Mendel, Chris Shiflett\/FOO FIGHTERS",
+         "composer" : "Dave Grohl, Taylor Hawkins, Nate Mendel, Chris ShiflettFOO FIGHTERS",
          "milliseconds" : 302994,
          "bytes" : 9929799,
          "unitPrice" : 0.99
@@ -11685,7 +11686,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 80,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Dave Grohl, Taylor Hawkins, Nate Mendel, Chris Shiflett\/FOO FIGHTERS",
+         "composer" : "Dave Grohl, Taylor Hawkins, Nate Mendel, Chris ShiflettFOO FIGHTERS",
          "milliseconds" : 209684,
          "bytes" : 6877994,
          "unitPrice" : 0.99
@@ -11696,7 +11697,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 80,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Dave Grohl, Taylor Hawkins, Nate Mendel, Chris Shiflett\/FOO FIGHTERS",
+         "composer" : "Dave Grohl, Taylor Hawkins, Nate Mendel, Chris ShiflettFOO FIGHTERS",
          "milliseconds" : 265848,
          "bytes" : 8752670,
          "unitPrice" : 0.99
@@ -11707,7 +11708,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 80,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Dave Grohl, Taylor Hawkins, Nate Mendel, Chris Shiflett\/FOO FIGHTERS",
+         "composer" : "Dave Grohl, Taylor Hawkins, Nate Mendel, Chris ShiflettFOO FIGHTERS",
          "milliseconds" : 193280,
          "bytes" : 6355088,
          "unitPrice" : 0.99
@@ -11718,7 +11719,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 80,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Dave Grohl, Taylor Hawkins, Nate Mendel, Chris Shiflett\/FOO FIGHTERS",
+         "composer" : "Dave Grohl, Taylor Hawkins, Nate Mendel, Chris ShiflettFOO FIGHTERS",
          "milliseconds" : 316264,
          "bytes" : 10428382,
          "unitPrice" : 0.99
@@ -11729,7 +11730,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 80,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Dave Grohl, Taylor Hawkins, Nate Mendel, Chris Shiflett\/FOO FIGHTERS",
+         "composer" : "Dave Grohl, Taylor Hawkins, Nate Mendel, Chris ShiflettFOO FIGHTERS",
          "milliseconds" : 271908,
          "bytes" : 9071997,
          "unitPrice" : 0.99
@@ -11740,7 +11741,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 80,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Dave Grohl, Taylor Hawkins, Nate Mendel, Chris Shiflett\/FOO FIGHTERS",
+         "composer" : "Dave Grohl, Taylor Hawkins, Nate Mendel, Chris ShiflettFOO FIGHTERS",
          "milliseconds" : 229198,
          "bytes" : 7494639,
          "unitPrice" : 0.99
@@ -11751,7 +11752,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 80,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Dave Grohl, Taylor Hawkins, Nate Mendel, Chris Shiflett\/FOO FIGHTERS",
+         "composer" : "Dave Grohl, Taylor Hawkins, Nate Mendel, Chris ShiflettFOO FIGHTERS",
          "milliseconds" : 200724,
          "bytes" : 6596617,
          "unitPrice" : 0.99
@@ -11762,7 +11763,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 80,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Dave Grohl, Taylor Hawkins, Nate Mendel, Chris Shiflett\/FOO FIGHTERS",
+         "composer" : "Dave Grohl, Taylor Hawkins, Nate Mendel, Chris ShiflettFOO FIGHTERS",
          "milliseconds" : 293276,
          "bytes" : 9721373,
          "unitPrice" : 0.99
@@ -12037,7 +12038,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 83,
          "mediaType" : 1,
          "genre" : 12,
-         "composer" : "claude françois\/gilles thibault\/jacques revaux\/paul anka",
+         "composer" : "claude françoisgilles thibaultjacques revauxpaul anka",
          "milliseconds" : 275879,
          "bytes" : 8928684,
          "unitPrice" : 0.99
@@ -12048,7 +12049,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 83,
          "mediaType" : 1,
          "genre" : 12,
-         "composer" : "berthold kaempfert\/charles singleton\/eddie snyder",
+         "composer" : "berthold kaempfertcharles singletoneddie snyder",
          "milliseconds" : 155794,
          "bytes" : 5055295,
          "unitPrice" : 0.99
@@ -12059,7 +12060,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 83,
          "mediaType" : 1,
          "genre" : 12,
-         "composer" : "fred ebb\/john kander",
+         "composer" : "fred ebbjohn kander",
          "milliseconds" : 206001,
          "bytes" : 6707993,
          "unitPrice" : 0.99
@@ -12092,7 +12093,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 83,
          "mediaType" : 1,
          "genre" : 12,
-         "composer" : "henry mancini\/johnny mercer",
+         "composer" : "henry mancinijohnny mercer",
          "milliseconds" : 198922,
          "bytes" : 6395808,
          "unitPrice" : 0.99
@@ -12103,7 +12104,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 83,
          "mediaType" : 1,
          "genre" : 12,
-         "composer" : "carl sigman\/gilbert becaud\/pierre leroyer",
+         "composer" : "carl sigmangilbert becaudpierre leroyer",
          "milliseconds" : 149995,
          "bytes" : 4913383,
          "unitPrice" : 0.99
@@ -12114,7 +12115,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 83,
          "mediaType" : 1,
          "genre" : 12,
-         "composer" : "hans bradtke\/heinz meier\/johnny mercer",
+         "composer" : "hans bradtkeheinz meierjohnny mercer",
          "milliseconds" : 174994,
          "bytes" : 5693242,
          "unitPrice" : 0.99
@@ -12125,7 +12126,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 83,
          "mediaType" : 1,
          "genre" : 12,
-         "composer" : "orlando murden\/ronald miller",
+         "composer" : "orlando murdenronald miller",
          "milliseconds" : 171154,
          "bytes" : 5557537,
          "unitPrice" : 0.99
@@ -12136,7 +12137,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 83,
          "mediaType" : 1,
          "genre" : 12,
-         "composer" : "jimmy van heusen\/sammy cahn",
+         "composer" : "jimmy van heusensammy cahn",
          "milliseconds" : 89730,
          "bytes" : 2930596,
          "unitPrice" : 0.99
@@ -12147,7 +12148,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 83,
          "mediaType" : 1,
          "genre" : 12,
-         "composer" : "george gershwin\/ira gershwin",
+         "composer" : "george gershwinira gershwin",
          "milliseconds" : 161227,
          "bytes" : 5240043,
          "unitPrice" : 0.99
@@ -12158,7 +12159,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 83,
          "mediaType" : 1,
          "genre" : 12,
-         "composer" : "jimmy van heusen\/sammy cahn",
+         "composer" : "jimmy van heusensammy cahn",
          "milliseconds" : 188499,
          "bytes" : 6119915,
          "unitPrice" : 0.99
@@ -12191,7 +12192,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 83,
          "mediaType" : 1,
          "genre" : 12,
-         "composer" : "carolyn leigh\/cy coleman",
+         "composer" : "carolyn leighcy coleman",
          "milliseconds" : 173583,
          "bytes" : 5633730,
          "unitPrice" : 0.99
@@ -12213,7 +12214,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 83,
          "mediaType" : 1,
          "genre" : 12,
-         "composer" : "jimmy van heusen\/sammy cahn",
+         "composer" : "jimmy van heusensammy cahn",
          "milliseconds" : 190458,
          "bytes" : 6231029,
          "unitPrice" : 0.99
@@ -12224,7 +12225,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 83,
          "mediaType" : 1,
          "genre" : 12,
-         "composer" : "dean kay thompson\/kelly gordon",
+         "composer" : "dean kay thompsonkelly gordon",
          "milliseconds" : 187010,
          "bytes" : 6095727,
          "unitPrice" : 0.99
@@ -12235,7 +12236,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 83,
          "mediaType" : 1,
          "genre" : 12,
-         "composer" : "antonio carlos jobim\/norman gimbel\/vinicius de moraes",
+         "composer" : "antonio carlos jobimnorman gimbelvinicius de moraes",
          "milliseconds" : 193750,
          "bytes" : 6410674,
          "unitPrice" : 0.99
@@ -12246,7 +12247,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 83,
          "mediaType" : 1,
          "genre" : 12,
-         "composer" : "lorenz hart\/richard rodgers",
+         "composer" : "lorenz hartrichard rodgers",
          "milliseconds" : 184111,
          "bytes" : 5987372,
          "unitPrice" : 0.99
@@ -12268,7 +12269,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 83,
          "mediaType" : 1,
          "genre" : 12,
-         "composer" : "bert brecht\/kurt weill\/marc blitzstein",
+         "composer" : "bert brechtkurt weillmarc blitzstein",
          "milliseconds" : 292075,
          "bytes" : 9541052,
          "unitPrice" : 0.99
@@ -12290,7 +12291,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 83,
          "mediaType" : 1,
          "genre" : 12,
-         "composer" : "alan bergman\/marilyn bergman\/peggy lipton jones\/quincy jones",
+         "composer" : "alan bergmanmarilyn bergmanpeggy lipton jonesquincy jones",
          "milliseconds" : 193175,
          "bytes" : 6378511,
          "unitPrice" : 0.99
@@ -12499,7 +12500,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 85,
          "mediaType" : 1,
          "genre" : 10,
-         "composer" : "Manuca\/Raimundinho DoAcordion\/Targino Godim",
+         "composer" : "ManucaRaimundinho DoAcordionTargino Godim",
          "milliseconds" : 261041,
          "bytes" : 8660617,
          "unitPrice" : 0.99
@@ -12510,7 +12511,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 85,
          "mediaType" : 1,
          "genre" : 10,
-         "composer" : "Humberto Teixeira\/Luiz Gonzaga",
+         "composer" : "Humberto TeixeiraLuiz Gonzaga",
          "milliseconds" : 222275,
          "bytes" : 7349779,
          "unitPrice" : 0.99
@@ -12521,7 +12522,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 85,
          "mediaType" : 1,
          "genre" : 10,
-         "composer" : "Corumbá\/José Gumarães\/Venancio",
+         "composer" : "CorumbáJosé GumarãesVenancio",
          "milliseconds" : 200437,
          "bytes" : 6638563,
          "unitPrice" : 0.99
@@ -12532,7 +12533,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 85,
          "mediaType" : 1,
          "genre" : 10,
-         "composer" : "Humberto Teixeira\/Luiz Gonzaga",
+         "composer" : "Humberto TeixeiraLuiz Gonzaga",
          "milliseconds" : 217051,
          "bytes" : 7387183,
          "unitPrice" : 0.99
@@ -12543,7 +12544,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 85,
          "mediaType" : 1,
          "genre" : 10,
-         "composer" : "Humberto Teixeira\/Luiz Gonzaga",
+         "composer" : "Humberto TeixeiraLuiz Gonzaga",
          "milliseconds" : 204695,
          "bytes" : 6937472,
          "unitPrice" : 0.99
@@ -12554,7 +12555,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 85,
          "mediaType" : 1,
          "genre" : 10,
-         "composer" : "Humberto Teixeira\/Luiz Gonzaga",
+         "composer" : "Humberto TeixeiraLuiz Gonzaga",
          "milliseconds" : 199653,
          "bytes" : 6625000,
          "unitPrice" : 0.99
@@ -12565,7 +12566,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 85,
          "mediaType" : 1,
          "genre" : 10,
-         "composer" : "Guio De Morais E Seus \"Parentes\"\/Luiz Gonzaga",
+         "composer" : "Guio De Morais E Seus \"Parentes\"Luiz Gonzaga",
          "milliseconds" : 191660,
          "bytes" : 6340649,
          "unitPrice" : 0.99
@@ -12576,7 +12577,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 85,
          "mediaType" : 1,
          "genre" : 10,
-         "composer" : "Luiz Gonzaga\/Zé Dantas",
+         "composer" : "Luiz GonzagaZé Dantas",
          "milliseconds" : 271020,
          "bytes" : 9098093,
          "unitPrice" : 0.99
@@ -12609,7 +12610,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 85,
          "mediaType" : 1,
          "genre" : 10,
-         "composer" : "Dominguinhos\/Gilberto Gil",
+         "composer" : "DominguinhosGilberto Gil",
          "milliseconds" : 260963,
          "bytes" : 8518290,
          "unitPrice" : 0.99
@@ -13144,11 +13145,11 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
       },
       {
          "trackId" : 1134,
-         "name" : "Jesus Of Suburbia \/ City Of The Damned \/ I Don't Care \/ Dearly Beloved \/ Tales Of Another Broken Home",
+         "name" : "Jesus Of Suburbia  City Of The Damned  I Don't Care  Dearly Beloved  Tales Of Another Broken Home",
          "album" : 89,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Billie Joe Armstrong\/Green Day",
+         "composer" : "Billie Joe ArmstrongGreen Day",
          "milliseconds" : 548336,
          "bytes" : 17875209,
          "unitPrice" : 0.99
@@ -13254,11 +13255,11 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
       },
       {
          "trackId" : 1144,
-         "name" : "Homecoming \/ The Death Of St. Jimmy \/ East 12th St. \/ Nobody Likes You \/ Rock And Roll Girlfriend \/ We're Coming Home Again",
+         "name" : "Homecoming  The Death Of St. Jimmy  East 12th St.  Nobody Likes You  Rock And Roll Girlfriend  We're Coming Home Again",
          "album" : 89,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Mike Dirnt\/Tré Cool",
+         "composer" : "Mike DirntTré Cool",
          "milliseconds" : 558602,
          "bytes" : 18139840,
          "unitPrice" : 0.99
@@ -13588,7 +13589,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 92,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Duff McKagan\/Slash\/W. Axl Rose",
+         "composer" : "Duff McKaganSlashW. Axl Rose",
          "milliseconds" : 461165,
          "bytes" : 15046579,
          "unitPrice" : 0.99
@@ -13599,7 +13600,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 92,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Izzy Stradlin'\/W. Axl Rose",
+         "composer" : "Izzy Stradlin'W. Axl Rose",
          "milliseconds" : 261355,
          "bytes" : 8543664,
          "unitPrice" : 0.99
@@ -13610,7 +13611,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 92,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Billy\/Del James\/W. Axl Rose\/West Arkeen",
+         "composer" : "BillyDel JamesW. Axl RoseWest Arkeen",
          "milliseconds" : 196205,
          "bytes" : 6398489,
          "unitPrice" : 0.99
@@ -13632,7 +13633,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 92,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Duff McKagan\/Slash\/W. Axl Rose",
+         "composer" : "Duff McKaganSlashW. Axl Rose",
          "milliseconds" : 341054,
          "bytes" : 11134105,
          "unitPrice" : 0.99
@@ -13676,7 +13677,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 92,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Slash\/W. Axl Rose",
+         "composer" : "SlashW. Axl Rose",
          "milliseconds" : 522396,
          "bytes" : 17236842,
          "unitPrice" : 0.99
@@ -13709,7 +13710,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 92,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Izzy Stradlin'\/W. Axl Rose",
+         "composer" : "Izzy Stradlin'W. Axl Rose",
          "milliseconds" : 343875,
          "bytes" : 11207355,
          "unitPrice" : 0.99
@@ -13720,7 +13721,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 92,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Izzy Stradlin'\/W. Axl Rose",
+         "composer" : "Izzy Stradlin'W. Axl Rose",
          "milliseconds" : 284238,
          "bytes" : 9222458,
          "unitPrice" : 0.99
@@ -13764,7 +13765,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 93,
          "mediaType" : 1,
          "genre" : 2,
-         "composer" : "Patrick Claher\/Richard Bull",
+         "composer" : "Patrick ClaherRichard Bull",
          "milliseconds" : 321123,
          "bytes" : 10720741,
          "unitPrice" : 0.99
@@ -13786,7 +13787,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 93,
          "mediaType" : 1,
          "genre" : 2,
-         "composer" : "Kevin Robinson\/Richard Bull",
+         "composer" : "Kevin RobinsonRichard Bull",
          "milliseconds" : 242390,
          "bytes" : 8053997,
          "unitPrice" : 0.99
@@ -13841,7 +13842,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 93,
          "mediaType" : 1,
          "genre" : 2,
-         "composer" : "Fayyaz Virgi\/Richard Bull",
+         "composer" : "Fayyaz VirgiRichard Bull",
          "milliseconds" : 355395,
          "bytes" : 11865384,
          "unitPrice" : 0.99
@@ -13863,7 +13864,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 93,
          "mediaType" : 1,
          "genre" : 2,
-         "composer" : "G Harvey\/R Hope-Taylor",
+         "composer" : "G HarveyR Hope-Taylor",
          "milliseconds" : 528666,
          "bytes" : 17617944,
          "unitPrice" : 0.99
@@ -14050,7 +14051,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 95,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Paul Di'Anno\/Steve Harris",
+         "composer" : "Paul Di'AnnoSteve Harris",
          "milliseconds" : 352731,
          "bytes" : 5648438,
          "unitPrice" : 0.99
@@ -14072,7 +14073,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 95,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "David Murray\/Paul Di'Anno\/Steve Harris",
+         "composer" : "David MurrayPaul Di'AnnoSteve Harris",
          "milliseconds" : 293250,
          "bytes" : 4694016,
          "unitPrice" : 0.99
@@ -14083,7 +14084,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 95,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Paul Di'Anno\/Steve Harris",
+         "composer" : "Paul Di'AnnoSteve Harris",
          "milliseconds" : 228937,
          "bytes" : 3663872,
          "unitPrice" : 0.99
@@ -14105,7 +14106,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 95,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Adrian Smith\/Bruce Dickinson",
+         "composer" : "Adrian SmithBruce Dickinson",
          "milliseconds" : 337423,
          "bytes" : 5400576,
          "unitPrice" : 0.99
@@ -14138,7 +14139,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 96,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Bruce Dickinson\/Janick Gers",
+         "composer" : "Bruce DickinsonJanick Gers",
          "milliseconds" : 196911,
          "bytes" : 3151872,
          "unitPrice" : 0.99
@@ -14160,7 +14161,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 96,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Adrian Smith\/Bruce Dickinson\/Steve Harris",
+         "composer" : "Adrian SmithBruce DickinsonSteve Harris",
          "milliseconds" : 282488,
          "bytes" : 4521984,
          "unitPrice" : 0.99
@@ -14171,7 +14172,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 96,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Bruce Dickinson\/Janick Gers",
+         "composer" : "Bruce DickinsonJanick Gers",
          "milliseconds" : 347846,
          "bytes" : 5566464,
          "unitPrice" : 0.99
@@ -14182,7 +14183,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 96,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Bruce Dickinson\/Steve Harris",
+         "composer" : "Bruce DickinsonSteve Harris",
          "milliseconds" : 249469,
          "bytes" : 3993600,
          "unitPrice" : 0.99
@@ -14193,7 +14194,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 96,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Adrian Smith\/Bruce Dickinson\/Steve Harris",
+         "composer" : "Adrian SmithBruce DickinsonSteve Harris",
          "milliseconds" : 325929,
          "bytes" : 5216256,
          "unitPrice" : 0.99
@@ -14259,7 +14260,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 97,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Adrian Smith\/Bruce Dickinson\/Steve Harris",
+         "composer" : "Adrian SmithBruce DickinsonSteve Harris",
          "milliseconds" : 275539,
          "bytes" : 11022464,
          "unitPrice" : 0.99
@@ -14270,7 +14271,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 97,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Bruce Dickinson\/Janick Gers\/Steve Harris",
+         "composer" : "Bruce DickinsonJanick GersSteve Harris",
          "milliseconds" : 410070,
          "bytes" : 16404608,
          "unitPrice" : 0.99
@@ -14281,7 +14282,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 97,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Bruce Dickinson\/David Murray\/Steve Harris",
+         "composer" : "Bruce DickinsonDavid MurraySteve Harris",
          "milliseconds" : 378984,
          "bytes" : 15161472,
          "unitPrice" : 0.99
@@ -14303,7 +14304,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 97,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Janick Gers\/Steve Harris",
+         "composer" : "Janick GersSteve Harris",
          "milliseconds" : 282488,
          "bytes" : 11300992,
          "unitPrice" : 0.99
@@ -14314,7 +14315,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 97,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Janick Gers\/Steve Harris",
+         "composer" : "Janick GersSteve Harris",
          "milliseconds" : 561162,
          "bytes" : 22448256,
          "unitPrice" : 0.99
@@ -14325,7 +14326,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 97,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Adrian Smith\/Steve Harris",
+         "composer" : "Adrian SmithSteve Harris",
          "milliseconds" : 240718,
          "bytes" : 9629824,
          "unitPrice" : 0.99
@@ -14336,7 +14337,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 97,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "David Murray\/Steve Harris",
+         "composer" : "David MurraySteve Harris",
          "milliseconds" : 546115,
          "bytes" : 21846144,
          "unitPrice" : 0.99
@@ -14347,7 +14348,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 97,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Bruce Dickinson\/Janick Gers\/Steve Harris",
+         "composer" : "Bruce DickinsonJanick GersSteve Harris",
          "milliseconds" : 385541,
          "bytes" : 15423616,
          "unitPrice" : 0.99
@@ -14358,7 +14359,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 97,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "David Murray\/Steve Harris",
+         "composer" : "David MurraySteve Harris",
          "milliseconds" : 506801,
          "bytes" : 20273280,
          "unitPrice" : 0.99
@@ -14369,7 +14370,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 98,
          "mediaType" : 1,
          "genre" : 13,
-         "composer" : "Adrian Smith\/Steve Harris",
+         "composer" : "Adrian SmithSteve Harris",
          "milliseconds" : 232777,
          "bytes" : 9312384,
          "unitPrice" : 0.99
@@ -14380,7 +14381,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 98,
          "mediaType" : 1,
          "genre" : 13,
-         "composer" : "Bruce Dickinson\/David Murray\/Steve Harris",
+         "composer" : "Bruce DickinsonDavid MurraySteve Harris",
          "milliseconds" : 228623,
          "bytes" : 9146496,
          "unitPrice" : 0.99
@@ -14402,7 +14403,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 98,
          "mediaType" : 1,
          "genre" : 13,
-         "composer" : "Bruce Dickinson\/Janick Gers\/Steve Harris",
+         "composer" : "Bruce DickinsonJanick GersSteve Harris",
          "milliseconds" : 350484,
          "bytes" : 14020736,
          "unitPrice" : 0.99
@@ -14413,7 +14414,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 98,
          "mediaType" : 1,
          "genre" : 13,
-         "composer" : "Janick Gers\/Steve Harris",
+         "composer" : "Janick GersSteve Harris",
          "milliseconds" : 516649,
          "bytes" : 20670727,
          "unitPrice" : 0.99
@@ -14424,7 +14425,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 98,
          "mediaType" : 1,
          "genre" : 13,
-         "composer" : "Bruce Dickinson\/Janick Gers\/Steve Harris",
+         "composer" : "Bruce DickinsonJanick GersSteve Harris",
          "milliseconds" : 312032,
          "bytes" : 12482688,
          "unitPrice" : 0.99
@@ -14435,7 +14436,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 98,
          "mediaType" : 1,
          "genre" : 13,
-         "composer" : "Adrian Smith\/Bruce Dickinson\/Nicko McBrain",
+         "composer" : "Adrian SmithBruce DickinsonNicko McBrain",
          "milliseconds" : 304509,
          "bytes" : 12181632,
          "unitPrice" : 0.99
@@ -14446,7 +14447,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 98,
          "mediaType" : 1,
          "genre" : 13,
-         "composer" : "Adrian Smith\/Steve Harris",
+         "composer" : "Adrian SmithSteve Harris",
          "milliseconds" : 508107,
          "bytes" : 20326528,
          "unitPrice" : 0.99
@@ -14457,7 +14458,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 98,
          "mediaType" : 1,
          "genre" : 13,
-         "composer" : "Adrian Smith\/Bruce Dickinson\/Steve Harris",
+         "composer" : "Adrian SmithBruce DickinsonSteve Harris",
          "milliseconds" : 391105,
          "bytes" : 15648948,
          "unitPrice" : 0.99
@@ -14468,7 +14469,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 98,
          "mediaType" : 1,
          "genre" : 13,
-         "composer" : "David Murray\/Steve Harris",
+         "composer" : "David MurraySteve Harris",
          "milliseconds" : 370468,
          "bytes" : 14823478,
          "unitPrice" : 0.99
@@ -14479,7 +14480,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 98,
          "mediaType" : 1,
          "genre" : 13,
-         "composer" : "Bruce Dickinson\/David Murray\/Steve Harris",
+         "composer" : "Bruce DickinsonDavid MurraySteve Harris",
          "milliseconds" : 427023,
          "bytes" : 17082496,
          "unitPrice" : 0.99
@@ -14490,7 +14491,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 99,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Bruce Dickinson\/Janick Gers",
+         "composer" : "Bruce DickinsonJanick Gers",
          "milliseconds" : 204512,
          "bytes" : 8181888,
          "unitPrice" : 0.99
@@ -14523,7 +14524,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 99,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Bruce Dickinson\/Janick Gers",
+         "composer" : "Bruce DickinsonJanick Gers",
          "milliseconds" : 335307,
          "bytes" : 13414528,
          "unitPrice" : 0.99
@@ -14545,7 +14546,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 99,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Bruce Dickinson\/Janick Gers",
+         "composer" : "Bruce DickinsonJanick Gers",
          "milliseconds" : 350981,
          "bytes" : 14041216,
          "unitPrice" : 0.99
@@ -14567,7 +14568,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 99,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Bruce Dickinson\/David Murray",
+         "composer" : "Bruce DickinsonDavid Murray",
          "milliseconds" : 217443,
          "bytes" : 8700032,
          "unitPrice" : 0.99
@@ -14578,7 +14579,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 99,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Janick Gers\/Steve Harris",
+         "composer" : "Janick GersSteve Harris",
          "milliseconds" : 234605,
          "bytes" : 9386112,
          "unitPrice" : 0.99
@@ -14589,7 +14590,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 99,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Bruce Dickinson\/David Murray",
+         "composer" : "Bruce DickinsonDavid Murray",
          "milliseconds" : 188786,
          "bytes" : 7553152,
          "unitPrice" : 0.99
@@ -14600,7 +14601,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 99,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Janick Gers\/Steve Harris",
+         "composer" : "Janick GersSteve Harris",
          "milliseconds" : 339748,
          "bytes" : 13594678,
          "unitPrice" : 0.99
@@ -14633,7 +14634,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 100,
          "mediaType" : 1,
          "genre" : 6,
-         "composer" : "David Murray\/Paul Di'Anno\/Steve Harris",
+         "composer" : "David MurrayPaul Di'AnnoSteve Harris",
          "milliseconds" : 196284,
          "bytes" : 4712576,
          "unitPrice" : 0.99
@@ -14644,7 +14645,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 100,
          "mediaType" : 1,
          "genre" : 6,
-         "composer" : "Harris\/Paul Di´Anno",
+         "composer" : "HarrisPaul Di´Anno",
          "milliseconds" : 328620,
          "bytes" : 7889024,
          "unitPrice" : 0.99
@@ -14655,7 +14656,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 100,
          "mediaType" : 1,
          "genre" : 6,
-         "composer" : "Harris\/Paul Di´Anno",
+         "composer" : "HarrisPaul Di´Anno",
          "milliseconds" : 197276,
          "bytes" : 4739122,
          "unitPrice" : 0.99
@@ -14776,7 +14777,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 101,
          "mediaType" : 1,
          "genre" : 13,
-         "composer" : "Di´Anno\/Harris",
+         "composer" : "Di´AnnoHarris",
          "milliseconds" : 232515,
          "bytes" : 5584861,
          "unitPrice" : 0.99
@@ -14853,7 +14854,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 102,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Smith\/Dickinson",
+         "composer" : "SmithDickinson",
          "milliseconds" : 366550,
          "bytes" : 8799380,
          "unitPrice" : 0.99
@@ -14886,7 +14887,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 102,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Smith\/Dickinson",
+         "composer" : "SmithDickinson",
          "milliseconds" : 229982,
          "bytes" : 5521744,
          "unitPrice" : 0.99
@@ -14963,7 +14964,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 102,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Harris\/Di Anno",
+         "composer" : "HarrisDi Anno",
          "milliseconds" : 204617,
          "bytes" : 4912986,
          "unitPrice" : 0.99
@@ -15007,7 +15008,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 102,
          "mediaType" : 1,
          "genre" : 13,
-         "composer" : "Adrian Smith\/Bruce Dickinson\/Steve Harris",
+         "composer" : "Adrian SmithBruce DickinsonSteve Harris",
          "milliseconds" : 314174,
          "bytes" : 7542367,
          "unitPrice" : 0.99
@@ -15183,7 +15184,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 104,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Adrian Smith\/Bruce Dickinson",
+         "composer" : "Adrian SmithBruce Dickinson",
          "milliseconds" : 338233,
          "bytes" : 8122030,
          "unitPrice" : 0.99
@@ -15249,7 +15250,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 105,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Bruce Dickinson\/Steve Harris",
+         "composer" : "Bruce DickinsonSteve Harris",
          "milliseconds" : 255582,
          "bytes" : 4089856,
          "unitPrice" : 0.99
@@ -15260,7 +15261,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 105,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Bruce Dickinson\/Steve Harris",
+         "composer" : "Bruce DickinsonSteve Harris",
          "milliseconds" : 229459,
          "bytes" : 3672064,
          "unitPrice" : 0.99
@@ -15282,7 +15283,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 105,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Bruce Dickinson\/David Murray",
+         "composer" : "Bruce DickinsonDavid Murray",
          "milliseconds" : 254197,
          "bytes" : 4071587,
          "unitPrice" : 0.99
@@ -15293,7 +15294,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 105,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "David Murray\/Steve Harris",
+         "composer" : "David MurraySteve Harris",
          "milliseconds" : 250853,
          "bytes" : 4018088,
          "unitPrice" : 0.99
@@ -15315,7 +15316,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 105,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Bruce Dickinson\/Steve Harris",
+         "composer" : "Bruce DickinsonSteve Harris",
          "milliseconds" : 275408,
          "bytes" : 4407296,
          "unitPrice" : 0.99
@@ -15326,7 +15327,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 105,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Adrian Smith\/Bruce Dickinson",
+         "composer" : "Adrian SmithBruce Dickinson",
          "milliseconds" : 247510,
          "bytes" : 3960832,
          "unitPrice" : 0.99
@@ -15381,7 +15382,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 106,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Adrian Smith\/Bruce Dickinson",
+         "composer" : "Adrian SmithBruce Dickinson",
          "milliseconds" : 230269,
          "bytes" : 3686400,
          "unitPrice" : 0.99
@@ -15392,7 +15393,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 106,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Adrian Smith\/Bruce Dickinson\/Steve Harris",
+         "composer" : "Adrian SmithBruce DickinsonSteve Harris",
          "milliseconds" : 325694,
          "bytes" : 5212160,
          "unitPrice" : 0.99
@@ -15414,7 +15415,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 106,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "David Murray\/Steve Harris",
+         "composer" : "David MurraySteve Harris",
          "milliseconds" : 294347,
          "bytes" : 4710400,
          "unitPrice" : 0.99
@@ -15436,7 +15437,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 106,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Adrian Smith\/Bruce Dickinson",
+         "composer" : "Adrian SmithBruce Dickinson",
          "milliseconds" : 206367,
          "bytes" : 3306324,
          "unitPrice" : 0.99
@@ -15469,7 +15470,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 107,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Smith\/Dickinson",
+         "composer" : "SmithDickinson",
          "milliseconds" : 359810,
          "bytes" : 8638809,
          "unitPrice" : 0.99
@@ -15513,7 +15514,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 107,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Dickinson\/Smith",
+         "composer" : "DickinsonSmith",
          "milliseconds" : 320548,
          "bytes" : 7696518,
          "unitPrice" : 0.99
@@ -15557,7 +15558,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 108,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Adrian Smith\/Bruce Dickinson\/Steve Harris",
+         "composer" : "Adrian SmithBruce DickinsonSteve Harris",
          "milliseconds" : 281782,
          "bytes" : 11272320,
          "unitPrice" : 0.99
@@ -15568,7 +15569,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 108,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Bruce Dickinson\/Janick Gers\/Steve Harris",
+         "composer" : "Bruce DickinsonJanick GersSteve Harris",
          "milliseconds" : 408607,
          "bytes" : 16345216,
          "unitPrice" : 0.99
@@ -15579,7 +15580,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 108,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Bruce Dickinson\/David Murray\/Steve Harris",
+         "composer" : "Bruce DickinsonDavid MurraySteve Harris",
          "milliseconds" : 366785,
          "bytes" : 14676148,
          "unitPrice" : 0.99
@@ -15601,7 +15602,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 108,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Adrian Smith\/Bruce Dickinson",
+         "composer" : "Adrian SmithBruce Dickinson",
          "milliseconds" : 386821,
          "bytes" : 15474816,
          "unitPrice" : 0.99
@@ -15634,7 +15635,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 108,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Janick Gers\/Steve Harris",
+         "composer" : "Janick GersSteve Harris",
          "milliseconds" : 282697,
          "bytes" : 11309184,
          "unitPrice" : 0.99
@@ -15656,7 +15657,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 109,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Janick Gers\/Steve Harris",
+         "composer" : "Janick GersSteve Harris",
          "milliseconds" : 578324,
          "bytes" : 23134336,
          "unitPrice" : 0.99
@@ -15678,7 +15679,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 109,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Adrian Smith\/Bruce Dickinson\/Steve Harris",
+         "composer" : "Adrian SmithBruce DickinsonSteve Harris",
          "milliseconds" : 280737,
          "bytes" : 11231360,
          "unitPrice" : 0.99
@@ -15733,7 +15734,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 109,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "David Murray\/Paul Di'Anno\/Steve Harris",
+         "composer" : "David MurrayPaul Di'AnnoSteve Harris",
          "milliseconds" : 317335,
          "bytes" : 12695680,
          "unitPrice" : 0.99
@@ -15909,7 +15910,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 111,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "David Murray\/Steve Harris",
+         "composer" : "David MurraySteve Harris",
          "milliseconds" : 296176,
          "bytes" : 7113035,
          "unitPrice" : 0.99
@@ -15931,7 +15932,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 112,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Adrian Smith\/Steve Harris",
+         "composer" : "Adrian SmithSteve Harris",
          "milliseconds" : 395572,
          "bytes" : 5542516,
          "unitPrice" : 0.99
@@ -15953,7 +15954,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 112,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Adrian Smith\/Clive Burr\/Steve Harris",
+         "composer" : "Adrian SmithClive BurrSteve Harris",
          "milliseconds" : 228440,
          "bytes" : 3202866,
          "unitPrice" : 0.99
@@ -16008,7 +16009,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 112,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Adrian Smith\/Steve Harris",
+         "composer" : "Adrian SmithSteve Harris",
          "milliseconds" : 361299,
          "bytes" : 5062906,
          "unitPrice" : 0.99
@@ -16030,7 +16031,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 113,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Janick Gers\/Steve Harris",
+         "composer" : "Janick GersSteve Harris",
          "milliseconds" : 303699,
          "bytes" : 12148864,
          "unitPrice" : 0.99
@@ -16041,7 +16042,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 113,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Blaze Bayley\/Janick Gers",
+         "composer" : "Blaze BayleyJanick Gers",
          "milliseconds" : 253413,
          "bytes" : 10137728,
          "unitPrice" : 0.99
@@ -16063,7 +16064,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 113,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Blaze Bayley\/Janick Gers\/Steve Harris",
+         "composer" : "Blaze BayleyJanick GersSteve Harris",
          "milliseconds" : 310230,
          "bytes" : 12411008,
          "unitPrice" : 0.99
@@ -16074,7 +16075,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 113,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Blaze Bayley\/Janick Gers\/Steve Harris",
+         "composer" : "Blaze BayleyJanick GersSteve Harris",
          "milliseconds" : 380786,
          "bytes" : 15233152,
          "unitPrice" : 0.99
@@ -16107,7 +16108,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 113,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Blaze Bayley\/Janick Gers\/Steve Harris",
+         "composer" : "Blaze BayleyJanick GersSteve Harris",
          "milliseconds" : 399333,
          "bytes" : 15974528,
          "unitPrice" : 0.99
@@ -16118,7 +16119,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 113,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Blaze Bayley\/Janick Gers\/Steve Harris",
+         "composer" : "Blaze BayleyJanick GersSteve Harris",
          "milliseconds" : 337658,
          "bytes" : 13511087,
          "unitPrice" : 0.99
@@ -16129,7 +16130,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 113,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Janick Gers\/Steve Harris",
+         "composer" : "Janick GersSteve Harris",
          "milliseconds" : 490422,
          "bytes" : 19617920,
          "unitPrice" : 0.99
@@ -16140,7 +16141,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 114,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Blaze Bayley\/Steve Harris",
+         "composer" : "Blaze BayleySteve Harris",
          "milliseconds" : 175777,
          "bytes" : 7032960,
          "unitPrice" : 0.99
@@ -16162,7 +16163,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 114,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "David Murray\/Steve Harris",
+         "composer" : "David MurraySteve Harris",
          "milliseconds" : 290377,
          "bytes" : 11616384,
          "unitPrice" : 0.99
@@ -16184,7 +16185,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 114,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Blaze Bayley\/David Murray\/Steve Harris",
+         "composer" : "Blaze BayleyDavid MurraySteve Harris",
          "milliseconds" : 377312,
          "bytes" : 15093888,
          "unitPrice" : 0.99
@@ -16217,7 +16218,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 114,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Blaze Bayley\/Janick Gers",
+         "composer" : "Blaze BayleyJanick Gers",
          "milliseconds" : 330292,
          "bytes" : 13213824,
          "unitPrice" : 0.99
@@ -16228,7 +16229,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 115,
          "mediaType" : 1,
          "genre" : 14,
-         "composer" : "James Brown\/Johnny Terry",
+         "composer" : "James BrownJohnny Terry",
          "milliseconds" : 165067,
          "bytes" : 5394585,
          "unitPrice" : 0.99
@@ -16250,7 +16251,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 115,
          "mediaType" : 1,
          "genre" : 14,
-         "composer" : "Jimmy Forrest\/Lewis C. Simpkins\/Oscar Washington",
+         "composer" : "Jimmy ForrestLewis C. SimpkinsOscar Washington",
          "milliseconds" : 212401,
          "bytes" : 7027377,
          "unitPrice" : 0.99
@@ -16294,7 +16295,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 115,
          "mediaType" : 1,
          "genre" : 14,
-         "composer" : "Betty Newsome\/James Brown",
+         "composer" : "Betty NewsomeJames Brown",
          "milliseconds" : 168228,
          "bytes" : 5541611,
          "unitPrice" : 0.99
@@ -16305,7 +16306,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 115,
          "mediaType" : 1,
          "genre" : 14,
-         "composer" : "Alfred Ellis\/James Brown",
+         "composer" : "Alfred EllisJames Brown",
          "milliseconds" : 172408,
          "bytes" : 5643213,
          "unitPrice" : 0.99
@@ -16316,7 +16317,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 115,
          "mediaType" : 1,
          "genre" : 14,
-         "composer" : "Alfred Ellis\/James Brown",
+         "composer" : "Alfred EllisJames Brown",
          "milliseconds" : 167392,
          "bytes" : 5478117,
          "unitPrice" : 0.99
@@ -16327,7 +16328,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 115,
          "mediaType" : 1,
          "genre" : 14,
-         "composer" : "Bobby Byrd\/James Brown\/Ron Lenhoff",
+         "composer" : "Bobby ByrdJames BrownRon Lenhoff",
          "milliseconds" : 316551,
          "bytes" : 10498031,
          "unitPrice" : 0.99
@@ -16338,7 +16339,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 115,
          "mediaType" : 1,
          "genre" : 14,
-         "composer" : "Addie William Jones\/Nat Jones",
+         "composer" : "Addie William JonesNat Jones",
          "milliseconds" : 218226,
          "bytes" : 7187857,
          "unitPrice" : 0.99
@@ -16349,7 +16350,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 115,
          "mediaType" : 1,
          "genre" : 14,
-         "composer" : "Charles Bobbitt\/James Brown",
+         "composer" : "Charles BobbittJames Brown",
          "milliseconds" : 196231,
          "bytes" : 6507782,
          "unitPrice" : 0.99
@@ -16360,7 +16361,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 115,
          "mediaType" : 1,
          "genre" : 14,
-         "composer" : "Charles Bobbitt\/James Brown",
+         "composer" : "Charles BobbittJames Brown",
          "milliseconds" : 217730,
          "bytes" : 7251211,
          "unitPrice" : 0.99
@@ -16371,7 +16372,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 115,
          "mediaType" : 1,
          "genre" : 14,
-         "composer" : "Fred Wesley\/James Brown\/Joseph Mims",
+         "composer" : "Fred WesleyJames BrownJoseph Mims",
          "milliseconds" : 215902,
          "bytes" : 7182736,
          "unitPrice" : 0.99
@@ -16382,7 +16383,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 115,
          "mediaType" : 1,
          "genre" : 14,
-         "composer" : "Deanna Brown\/Deidra Jenkins\/Yamma Brown",
+         "composer" : "Deanna BrownDeidra JenkinsYamma Brown",
          "milliseconds" : 250723,
          "bytes" : 8355989,
          "unitPrice" : 0.99
@@ -16393,7 +16394,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 115,
          "mediaType" : 1,
          "genre" : 14,
-         "composer" : "Brad Shapiro\/George Jackson\/Robert Miller\/Walter Shaw",
+         "composer" : "Brad ShapiroGeorge JacksonRobert MillerWalter Shaw",
          "milliseconds" : 239072,
          "bytes" : 7973979,
          "unitPrice" : 0.99
@@ -16404,7 +16405,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 115,
          "mediaType" : 1,
          "genre" : 14,
-         "composer" : "Charlie Midnight\/Dan Hartman",
+         "composer" : "Charlie MidnightDan Hartman",
          "milliseconds" : 282880,
          "bytes" : 9432346,
          "unitPrice" : 0.99
@@ -16415,7 +16416,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 115,
          "mediaType" : 1,
          "genre" : 14,
-         "composer" : "Full Force\/James Brown",
+         "composer" : "Full ForceJames Brown",
          "milliseconds" : 334236,
          "bytes" : 11183457,
          "unitPrice" : 0.99
@@ -16426,7 +16427,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 115,
          "mediaType" : 1,
          "genre" : 14,
-         "composer" : "Fred Wesley\/James Brown",
+         "composer" : "Fred WesleyJames Brown",
          "milliseconds" : 188212,
          "bytes" : 6295110,
          "unitPrice" : 0.99
@@ -16448,7 +16449,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 116,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jay Kay\/Kay, Jay",
+         "composer" : "Jay KayKay, Jay",
          "milliseconds" : 230635,
          "bytes" : 7655482,
          "unitPrice" : 0.99
@@ -16514,7 +16515,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 116,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jay Kay\/Kay, Jay",
+         "composer" : "Jay KayKay, Jay",
          "milliseconds" : 247222,
          "bytes" : 8249453,
          "unitPrice" : 0.99
@@ -16569,7 +16570,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 117,
          "mediaType" : 1,
          "genre" : 14,
-         "composer" : "Jay Kay\/Toby Smith",
+         "composer" : "Jay KayToby Smith",
          "milliseconds" : 284447,
          "bytes" : 9566237,
          "unitPrice" : 0.99
@@ -16591,7 +16592,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 117,
          "mediaType" : 1,
          "genre" : 14,
-         "composer" : "Jay Kay\/Toby Smith",
+         "composer" : "Jay KayToby Smith",
          "milliseconds" : 255477,
          "bytes" : 8575435,
          "unitPrice" : 0.99
@@ -16602,7 +16603,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 117,
          "mediaType" : 1,
          "genre" : 14,
-         "composer" : "Jay Kay\/Toby Smith",
+         "composer" : "Jay KayToby Smith",
          "milliseconds" : 225227,
          "bytes" : 7503999,
          "unitPrice" : 0.99
@@ -16613,7 +16614,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 117,
          "mediaType" : 1,
          "genre" : 14,
-         "composer" : "Derrick McKenzie\/Jay Kay\/Toby Smith",
+         "composer" : "Derrick McKenzieJay KayToby Smith",
          "milliseconds" : 340218,
          "bytes" : 11452651,
          "unitPrice" : 0.99
@@ -16635,7 +16636,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 117,
          "mediaType" : 1,
          "genre" : 14,
-         "composer" : "Jay Kay\/Toby Smith",
+         "composer" : "Jay KayToby Smith",
          "milliseconds" : 268852,
          "bytes" : 8947356,
          "unitPrice" : 0.99
@@ -16657,7 +16658,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 117,
          "mediaType" : 1,
          "genre" : 14,
-         "composer" : "Jay Kay\/Toby Smith",
+         "composer" : "Jay KayToby Smith",
          "milliseconds" : 221544,
          "bytes" : 7335693,
          "unitPrice" : 0.99
@@ -16745,7 +16746,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 118,
          "mediaType" : 1,
          "genre" : 15,
-         "composer" : "Stuard Zender\/Toby Smith",
+         "composer" : "Stuard ZenderToby Smith",
          "milliseconds" : 329534,
          "bytes" : 11043559,
          "unitPrice" : 0.99
@@ -16767,7 +16768,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 118,
          "mediaType" : 1,
          "genre" : 15,
-         "composer" : "Toby Smith\/Wallis Buchanan",
+         "composer" : "Toby SmithWallis Buchanan",
          "milliseconds" : 322455,
          "bytes" : 10843832,
          "unitPrice" : 0.99
@@ -16778,7 +16779,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 118,
          "mediaType" : 1,
          "genre" : 15,
-         "composer" : "J. Kay\/Jay Kay",
+         "composer" : "J. KayJay Kay",
          "milliseconds" : 384130,
          "bytes" : 12777210,
          "unitPrice" : 0.99
@@ -16789,7 +16790,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 118,
          "mediaType" : 1,
          "genre" : 15,
-         "composer" : "J. Kay\/Jay Kay",
+         "composer" : "J. KayJay Kay",
          "milliseconds" : 385697,
          "bytes" : 12906520,
          "unitPrice" : 0.99
@@ -16800,7 +16801,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 119,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "C. Cester\/C. Muncey",
+         "composer" : "C. CesterC. Muncey",
          "milliseconds" : 112352,
          "bytes" : 3683130,
          "unitPrice" : 0.99
@@ -16811,7 +16812,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 119,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "C. Muncey\/N. Cester",
+         "composer" : "C. MunceyN. Cester",
          "milliseconds" : 213890,
          "bytes" : 6992324,
          "unitPrice" : 0.99
@@ -16822,7 +16823,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 119,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "C. Cester\/N. Cester",
+         "composer" : "C. CesterN. Cester",
          "milliseconds" : 196702,
          "bytes" : 6406517,
          "unitPrice" : 0.99
@@ -16844,7 +16845,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 119,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "C. Cester\/C. Muncey\/N. Cester",
+         "composer" : "C. CesterC. MunceyN. Cester",
          "milliseconds" : 247719,
          "bytes" : 8043765,
          "unitPrice" : 0.99
@@ -16855,7 +16856,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 119,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "C. Cester\/N. Cester",
+         "composer" : "C. CesterN. Cester",
          "milliseconds" : 260623,
          "bytes" : 8519353,
          "unitPrice" : 0.99
@@ -16866,7 +16867,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 119,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "C. Cester\/C. Muncey\/N. Cester",
+         "composer" : "C. CesterC. MunceyN. Cester",
          "milliseconds" : 272117,
          "bytes" : 8871509,
          "unitPrice" : 0.99
@@ -16877,7 +16878,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 119,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "C. Cester\/N. Cester",
+         "composer" : "C. CesterN. Cester",
          "milliseconds" : 176274,
          "bytes" : 5729098,
          "unitPrice" : 0.99
@@ -16888,7 +16889,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 119,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "C. Cester\/C. Muncey\/N. Cester",
+         "composer" : "C. CesterC. MunceyN. Cester",
          "milliseconds" : 243278,
          "bytes" : 7929610,
          "unitPrice" : 0.99
@@ -16899,7 +16900,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 119,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "C. Muncey\/N. Cester",
+         "composer" : "C. MunceyN. Cester",
          "milliseconds" : 270497,
          "bytes" : 8872405,
          "unitPrice" : 0.99
@@ -16910,7 +16911,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 119,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "C. Muncey\/N. Cester",
+         "composer" : "C. MunceyN. Cester",
          "milliseconds" : 142889,
          "bytes" : 4643370,
          "unitPrice" : 0.99
@@ -16921,7 +16922,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 119,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "C. Cester\/N. Cester",
+         "composer" : "C. CesterN. Cester",
          "milliseconds" : 282174,
          "bytes" : 9186285,
          "unitPrice" : 0.99
@@ -17280,7 +17281,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
       },
       {
          "trackId" : 1510,
-         "name" : "W\/Brasil (Chama O Síndico)",
+         "name" : "WBrasil (Chama O Síndico)",
          "album" : 122,
          "mediaType" : 1,
          "genre" : 7,
@@ -17460,7 +17461,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 123,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Marco Tulio Lara\/Rogerio Flausino",
+         "composer" : "Marco Tulio LaraRogerio Flausino",
          "milliseconds" : 224078,
          "bytes" : 7437935,
          "unitPrice" : 0.99
@@ -18032,7 +18033,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 127,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "John Bonham\/John Paul Jones\/Robert Plant",
+         "composer" : "John BonhamJohn Paul JonesRobert Plant",
          "milliseconds" : 316081,
          "bytes" : 10179657,
          "unitPrice" : 0.99
@@ -18043,7 +18044,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 127,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "John Paul Jones\/Robert Plant",
+         "composer" : "John Paul JonesRobert Plant",
          "milliseconds" : 416365,
          "bytes" : 13471959,
          "unitPrice" : 0.99
@@ -18054,7 +18055,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 127,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "John Paul Jones\/Robert Plant",
+         "composer" : "John Paul JonesRobert Plant",
          "milliseconds" : 317622,
          "bytes" : 10267572,
          "unitPrice" : 0.99
@@ -18065,7 +18066,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 127,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jimmy Page\/Led Zeppelin",
+         "composer" : "Jimmy PageLed Zeppelin",
          "milliseconds" : 1116734,
          "bytes" : 36052247,
          "unitPrice" : 0.99
@@ -18109,7 +18110,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 127,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Arthur Crudup\/Bernard Besman\/Bukka White\/Doc Pomus\/John Bonham\/John Lee Hooker\/John Paul Jones\/Mort Shuman\/Robert Plant\/Willie Dixon",
+         "composer" : "Arthur CrudupBernard BesmanBukka WhiteDoc PomusJohn BonhamJohn Lee HookerJohn Paul JonesMort ShumanRobert PlantWillie Dixon",
          "milliseconds" : 825103,
          "bytes" : 26742545,
          "unitPrice" : 0.99
@@ -18131,7 +18132,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 128,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Ben E.King\/James Bethea",
+         "composer" : "Ben E.KingJames Bethea",
          "milliseconds" : 157570,
          "bytes" : 5180975,
          "unitPrice" : 0.99
@@ -18142,7 +18143,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 128,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jimmy Page\/Robert Plant",
+         "composer" : "Jimmy PageRobert Plant",
          "milliseconds" : 182491,
          "bytes" : 6016220,
          "unitPrice" : 0.99
@@ -18219,7 +18220,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 129,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jimmy Page\/Jimmy Page & Robert Plant\/Robert Plant",
+         "composer" : "Jimmy PageJimmy Page & Robert PlantRobert Plant",
          "milliseconds" : 330004,
          "bytes" : 10708950,
          "unitPrice" : 0.99
@@ -18230,7 +18231,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 129,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jimmy Page\/Jimmy Page & Robert Plant\/Robert Plant",
+         "composer" : "Jimmy PageJimmy Page & Robert PlantRobert Plant",
          "milliseconds" : 459180,
          "bytes" : 15029875,
          "unitPrice" : 0.99
@@ -18241,7 +18242,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 129,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jimmy Page\/Jimmy Page & Robert Plant\/Robert Plant",
+         "composer" : "Jimmy PageJimmy Page & Robert PlantRobert Plant",
          "milliseconds" : 290089,
          "bytes" : 9552829,
          "unitPrice" : 0.99
@@ -18252,7 +18253,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 129,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "John Bonham\/John Paul Jones",
+         "composer" : "John BonhamJohn Paul Jones",
          "milliseconds" : 197407,
          "bytes" : 6460212,
          "unitPrice" : 0.99
@@ -18263,7 +18264,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 129,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jimmy Page\/Jimmy Page & Robert Plant\/Robert Plant",
+         "composer" : "Jimmy PageJimmy Page & Robert PlantRobert Plant",
          "milliseconds" : 223216,
          "bytes" : 7250104,
          "unitPrice" : 0.99
@@ -18274,7 +18275,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 129,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "John Bonham\/John Paul Jones",
+         "composer" : "John BonhamJohn Paul Jones",
          "milliseconds" : 262948,
          "bytes" : 8645935,
          "unitPrice" : 0.99
@@ -18296,7 +18297,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 129,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "John Bonham\/John Paul Jones",
+         "composer" : "John BonhamJohn Paul Jones",
          "milliseconds" : 271098,
          "bytes" : 8846469,
          "unitPrice" : 0.99
@@ -18472,7 +18473,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 132,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jimmy Page\/John Bonham\/John Paul Jones",
+         "composer" : "Jimmy PageJohn BonhamJohn Paul Jones",
          "milliseconds" : 166164,
          "bytes" : 5464077,
          "unitPrice" : 0.99
@@ -18483,7 +18484,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 132,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jimmy Page\/Robert Plant",
+         "composer" : "Jimmy PageRobert Plant",
          "milliseconds" : 401475,
          "bytes" : 13189312,
          "unitPrice" : 0.99
@@ -18494,7 +18495,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 132,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "J. B. Lenoir\/Willie Dixon",
+         "composer" : "J. B. LenoirWillie Dixon",
          "milliseconds" : 388179,
          "bytes" : 12643067,
          "unitPrice" : 0.99
@@ -18516,7 +18517,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 132,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jimmy Page\/John Paul Jones",
+         "composer" : "Jimmy PageJohn Paul Jones",
          "milliseconds" : 274860,
          "bytes" : 9011653,
          "unitPrice" : 0.99
@@ -18538,7 +18539,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 132,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jimmy Page\/John Bonham\/John Paul Jones",
+         "composer" : "Jimmy PageJohn BonhamJohn Paul Jones",
          "milliseconds" : 150230,
          "bytes" : 4899554,
          "unitPrice" : 0.99
@@ -18560,7 +18561,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 132,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jimmy Page\/John Bonham\/John Paul Jones",
+         "composer" : "Jimmy PageJohn BonhamJohn Paul Jones",
          "milliseconds" : 508055,
          "bytes" : 16541364,
          "unitPrice" : 0.99
@@ -18780,7 +18781,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 135,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "John Paul Jones\/Robert Plant",
+         "composer" : "John Paul JonesRobert Plant",
          "milliseconds" : 526785,
          "bytes" : 17033046,
          "unitPrice" : 0.99
@@ -18824,7 +18825,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 135,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "John Paul Jones\/Robert Plant",
+         "composer" : "John Paul JonesRobert Plant",
          "milliseconds" : 217547,
          "bytes" : 7160647,
          "unitPrice" : 0.99
@@ -18846,7 +18847,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 135,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Ian Stewart\/John Bonham\/John Paul Jones\/Mrs. Valens\/Robert Plant",
+         "composer" : "Ian StewartJohn BonhamJohn Paul JonesMrs. ValensRobert Plant",
          "milliseconds" : 233273,
          "bytes" : 7657086,
          "unitPrice" : 0.99
@@ -18879,7 +18880,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 136,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jimmy Page\/Robert Plant",
+         "composer" : "Jimmy PageRobert Plant",
          "milliseconds" : 625502,
          "bytes" : 20593955,
          "unitPrice" : 0.99
@@ -18890,7 +18891,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 136,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jimmy Page\/Robert Plant",
+         "composer" : "Jimmy PageRobert Plant",
          "milliseconds" : 384391,
          "bytes" : 12633382,
          "unitPrice" : 0.99
@@ -18901,7 +18902,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 136,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "John Bonham\/John Paul Jones",
+         "composer" : "John BonhamJohn Paul Jones",
          "milliseconds" : 179591,
          "bytes" : 5930027,
          "unitPrice" : 0.99
@@ -18912,7 +18913,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 136,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jimmy Page\/Robert Plant",
+         "composer" : "Jimmy PageRobert Plant",
          "milliseconds" : 376215,
          "bytes" : 12237859,
          "unitPrice" : 0.99
@@ -18923,7 +18924,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 136,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jimmy Page\/Robert Plant",
+         "composer" : "Jimmy PageRobert Plant",
          "milliseconds" : 252055,
          "bytes" : 8397423,
          "unitPrice" : 0.99
@@ -18934,7 +18935,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 136,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jimmy Page\/Robert Plant",
+         "composer" : "Jimmy PageRobert Plant",
          "milliseconds" : 284107,
          "bytes" : 9342342,
          "unitPrice" : 0.99
@@ -18945,7 +18946,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 136,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jimmy Page\/Robert Plant",
+         "composer" : "Jimmy PageRobert Plant",
          "milliseconds" : 566752,
          "bytes" : 18475264,
          "unitPrice" : 0.99
@@ -18956,7 +18957,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 137,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "John Bonham\/John Paul Jones\/Robert Plant",
+         "composer" : "John BonhamJohn Paul JonesRobert Plant",
          "milliseconds" : 242442,
          "bytes" : 7897065,
          "unitPrice" : 0.99
@@ -18967,7 +18968,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 137,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "John Paul Jones\/Robert Plant",
+         "composer" : "John Paul JonesRobert Plant",
          "milliseconds" : 230034,
          "bytes" : 7478487,
          "unitPrice" : 0.99
@@ -19011,7 +19012,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 138,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "John Paul Jones\/Robert Plant",
+         "composer" : "John Paul JonesRobert Plant",
          "milliseconds" : 749897,
          "bytes" : 24399285,
          "unitPrice" : 0.99
@@ -19033,7 +19034,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 138,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "John Bonham\/John Paul Jones",
+         "composer" : "John BonhamJohn Paul Jones",
          "milliseconds" : 766354,
          "bytes" : 25345841,
          "unitPrice" : 0.99
@@ -19044,7 +19045,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 138,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "John Bonham\/John Paul Jones\/Robert Plant\/Willie Dixon",
+         "composer" : "John BonhamJohn Paul JonesRobert PlantWillie Dixon",
          "milliseconds" : 863895,
          "bytes" : 28191437,
          "unitPrice" : 0.99
@@ -19220,7 +19221,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 140,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Dado Villa-Lobos\/Marcelo Bonfá",
+         "composer" : "Dado Villa-LobosMarcelo Bonfá",
          "milliseconds" : 148401,
          "bytes" : 4826528,
          "unitPrice" : 0.99
@@ -19231,7 +19232,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 140,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Dado Villa-Lobos\/Ico Ouro-Preto\/Marcelo Bonfá",
+         "composer" : "Dado Villa-LobosIco Ouro-PretoMarcelo Bonfá",
          "milliseconds" : 236826,
          "bytes" : 7796400,
          "unitPrice" : 0.99
@@ -19308,7 +19309,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 140,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Dado Villa-Lobos\/Marcelo Bonfá",
+         "composer" : "Dado Villa-LobosMarcelo Bonfá",
          "milliseconds" : 197146,
          "bytes" : 6432922,
          "unitPrice" : 0.99
@@ -19319,7 +19320,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 140,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Dado Villa-Lobos\/Marcelo Bonfá",
+         "composer" : "Dado Villa-LobosMarcelo Bonfá",
          "milliseconds" : 308401,
          "bytes" : 10130685,
          "unitPrice" : 0.99
@@ -19330,7 +19331,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 140,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Dado Villa-Lobos\/Marcelo Bonfá",
+         "composer" : "Dado Villa-LobosMarcelo Bonfá",
          "milliseconds" : 203781,
          "bytes" : 6667802,
          "unitPrice" : 0.99
@@ -19341,7 +19342,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 140,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Dado Villa-Lobos\/Marcelo Bonfá",
+         "composer" : "Dado Villa-LobosMarcelo Bonfá",
          "milliseconds" : 366445,
          "bytes" : 12063806,
          "unitPrice" : 0.99
@@ -19352,7 +19353,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 140,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Dado Villa-Lobos\/Marcelo Bonfá",
+         "composer" : "Dado Villa-LobosMarcelo Bonfá",
          "milliseconds" : 276558,
          "bytes" : 9258489,
          "unitPrice" : 0.99
@@ -19363,7 +19364,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 140,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Dado Villa-Lobos\/Marcelo Bonfá",
+         "composer" : "Dado Villa-LobosMarcelo Bonfá",
          "milliseconds" : 202213,
          "bytes" : 6677671,
          "unitPrice" : 0.99
@@ -19374,7 +19375,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 140,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Dado Villa-Lobos\/Marcelo Bonfá",
+         "composer" : "Dado Villa-LobosMarcelo Bonfá",
          "milliseconds" : 321724,
          "bytes" : 10501773,
          "unitPrice" : 0.99
@@ -19396,7 +19397,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 141,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Craig Ross\/Lenny Kravitz",
+         "composer" : "Craig RossLenny Kravitz",
          "milliseconds" : 211591,
          "bytes" : 6905135,
          "unitPrice" : 0.99
@@ -19473,7 +19474,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 141,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "B. Cummings\/G. Peterson\/M.J. Kale\/R. Bachman",
+         "composer" : "B. CummingsG. PetersonM.J. KaleR. Bachman",
          "milliseconds" : 261773,
          "bytes" : 8538023,
          "unitPrice" : 0.99
@@ -19484,7 +19485,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 141,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Henry Kirssch\/Lenny Kravitz\/S. Pasch A. Krizan",
+         "composer" : "Henry KirsschLenny KravitzS. Pasch A. Krizan",
          "milliseconds" : 259683,
          "bytes" : 8447611,
          "unitPrice" : 0.99
@@ -19495,7 +19496,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 141,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Lenny Kravitz\/Slash",
+         "composer" : "Lenny KravitzSlash",
          "milliseconds" : 232515,
          "bytes" : 7593397,
          "unitPrice" : 0.99
@@ -19506,7 +19507,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 141,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Gerry DeVeaux\/Terry Britten",
+         "composer" : "Gerry DeVeauxTerry Britten",
          "milliseconds" : 190354,
          "bytes" : 6222092,
          "unitPrice" : 0.99
@@ -19528,7 +19529,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 141,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Henry Hirsch\/Lenny Kravitz",
+         "composer" : "Henry HirschLenny Kravitz",
          "milliseconds" : 295131,
          "bytes" : 9661978,
          "unitPrice" : 0.99
@@ -19898,7 +19899,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
       },
       {
          "trackId" : 1748,
-         "name" : "Bitter Suite: Brief Encounter \/ Lost Weekend \/ Blue Angel",
+         "name" : "Bitter Suite: Brief Encounter  Lost Weekend  Blue Angel",
          "album" : 144,
          "mediaType" : 1,
          "genre" : 1,
@@ -19909,7 +19910,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
       },
       {
          "trackId" : 1749,
-         "name" : "Heart Of Lothian: Wide Boy \/ Curtain Call",
+         "name" : "Heart Of Lothian: Wide Boy  Curtain Call",
          "album" : 144,
          "mediaType" : 1,
          "genre" : 1,
@@ -19942,7 +19943,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
       },
       {
          "trackId" : 1752,
-         "name" : "Blind Curve: Vocal Under A Bloodlight \/ Passing Strangers \/ Mylo \/ Perimeter Walk \/ Threshold",
+         "name" : "Blind Curve: Vocal Under A Bloodlight  Passing Strangers  Mylo  Perimeter Walk  Threshold",
          "album" : 144,
          "mediaType" : 1,
          "genre" : 1,
@@ -20045,7 +20046,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 145,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Marisa Monte\/poema de Octavio Paz\/versão: Haroldo de Campos",
+         "composer" : "Marisa Montepoema de Octavio Pazversão: Haroldo de Campos",
          "milliseconds" : 45191,
          "bytes" : 1454532,
          "unitPrice" : 0.99
@@ -20210,7 +20211,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 146,
          "mediaType" : 1,
          "genre" : 14,
-         "composer" : "Brian Holland\/Eddie Holland\/Lamont Dozier",
+         "composer" : "Brian HollandEddie HollandLamont Dozier",
          "milliseconds" : 137221,
          "bytes" : 4437949,
          "unitPrice" : 0.99
@@ -20221,7 +20222,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 146,
          "mediaType" : 1,
          "genre" : 14,
-         "composer" : "Robert Rogers\/Warren \"Pete\" Moore\/William \"Mickey\" Stevenson",
+         "composer" : "Robert RogersWarren \"Pete\" MooreWilliam \"Mickey\" Stevenson",
          "milliseconds" : 152424,
          "bytes" : 4972815,
          "unitPrice" : 0.99
@@ -20232,7 +20233,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 146,
          "mediaType" : 1,
          "genre" : 14,
-         "composer" : "Allen Story\/George Gordy\/Robert Gordy",
+         "composer" : "Allen StoryGeorge GordyRobert Gordy",
          "milliseconds" : 142027,
          "bytes" : 4631104,
          "unitPrice" : 0.99
@@ -20243,7 +20244,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 146,
          "mediaType" : 1,
          "genre" : 14,
-         "composer" : "Ivy Hunter\/Stevie Wonder",
+         "composer" : "Ivy HunterStevie Wonder",
          "milliseconds" : 166295,
          "bytes" : 5377546,
          "unitPrice" : 0.99
@@ -20254,7 +20255,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 146,
          "mediaType" : 1,
          "genre" : 14,
-         "composer" : "Smokey Robinson\/Warren \"Pete\" Moore",
+         "composer" : "Smokey RobinsonWarren \"Pete\" Moore",
          "milliseconds" : 194821,
          "bytes" : 6477882,
          "unitPrice" : 0.99
@@ -20265,7 +20266,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 146,
          "mediaType" : 1,
          "genre" : 14,
-         "composer" : "Ivy Hunter\/William \"Mickey\" Stevenson",
+         "composer" : "Ivy HunterWilliam \"Mickey\" Stevenson",
          "milliseconds" : 223451,
          "bytes" : 7306719,
          "unitPrice" : 0.99
@@ -20276,7 +20277,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 146,
          "mediaType" : 1,
          "genre" : 14,
-         "composer" : "Barrett Strong\/Norman Whitfield",
+         "composer" : "Barrett StrongNorman Whitfield",
          "milliseconds" : 176404,
          "bytes" : 5789945,
          "unitPrice" : 0.99
@@ -20287,7 +20288,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 146,
          "mediaType" : 1,
          "genre" : 14,
-         "composer" : "Barrett Strong\/Norman Whitfield",
+         "composer" : "Barrett StrongNorman Whitfield",
          "milliseconds" : 210886,
          "bytes" : 6893603,
          "unitPrice" : 0.99
@@ -20298,7 +20299,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 146,
          "mediaType" : 1,
          "genre" : 14,
-         "composer" : "Barrett Strong\/Norman Whitfield\/Roger Penzabene",
+         "composer" : "Barrett StrongNorman WhitfieldRoger Penzabene",
          "milliseconds" : 172486,
          "bytes" : 5647327,
          "unitPrice" : 0.99
@@ -20320,7 +20321,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 146,
          "mediaType" : 1,
          "genre" : 14,
-         "composer" : "Al Cleveland\/Marvin Gaye\/Renaldo Benson",
+         "composer" : "Al ClevelandMarvin GayeRenaldo Benson",
          "milliseconds" : 194821,
          "bytes" : 6342021,
          "unitPrice" : 0.99
@@ -20617,7 +20618,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 149,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Harris\/Tatler",
+         "composer" : "HarrisTatler",
          "milliseconds" : 398315,
          "bytes" : 12977902,
          "unitPrice" : 0.99
@@ -20650,14 +20651,14 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 149,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Bourge\/Phillips\/Shelley",
+         "composer" : "BourgePhillipsShelley",
          "milliseconds" : 190406,
          "bytes" : 6233729,
          "unitPrice" : 0.99
       },
       {
          "trackId" : 1817,
-         "name" : "Last Caress\/Green Hell",
+         "name" : "Last CaressGreen Hell",
          "album" : 149,
          "mediaType" : 1,
          "genre" : 3,
@@ -20672,7 +20673,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 149,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Harris\/Tatler",
+         "composer" : "HarrisTatler",
          "milliseconds" : 470256,
          "bytes" : 15387219,
          "unitPrice" : 0.99
@@ -20683,7 +20684,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 149,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Jones\/Sirotto\/Smith",
+         "composer" : "JonesSirottoSmith",
          "milliseconds" : 216685,
          "bytes" : 7090018,
          "unitPrice" : 0.99
@@ -20694,7 +20695,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 149,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Bourge\/Phillips\/Shelley",
+         "composer" : "BourgePhillipsShelley",
          "milliseconds" : 341551,
          "bytes" : 11100130,
          "unitPrice" : 0.99
@@ -20705,7 +20706,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 149,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Harris\/Tatler",
+         "composer" : "HarrisTatler",
          "milliseconds" : 265769,
          "bytes" : 8624492,
          "unitPrice" : 0.99
@@ -20716,7 +20717,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 149,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Deacon\/May\/Mercury\/Taylor",
+         "composer" : "DeaconMayMercuryTaylor",
          "milliseconds" : 137717,
          "bytes" : 4514830,
          "unitPrice" : 0.99
@@ -20727,7 +20728,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 149,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Culmer\/Exalt",
+         "composer" : "CulmerExalt",
          "milliseconds" : 189152,
          "bytes" : 6162894,
          "unitPrice" : 0.99
@@ -20749,7 +20750,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 149,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Clarke\/Kilmister\/Tayler",
+         "composer" : "ClarkeKilmisterTayler",
          "milliseconds" : 245133,
          "bytes" : 7971330,
          "unitPrice" : 0.99
@@ -20760,7 +20761,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 149,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Clarke\/Farren\/Kilmister\/Tayler",
+         "composer" : "ClarkeFarrenKilmisterTayler",
          "milliseconds" : 220212,
          "bytes" : 7212997,
          "unitPrice" : 0.99
@@ -20771,7 +20772,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 149,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Clarke\/Kilmister\/Tayler",
+         "composer" : "ClarkeKilmisterTayler",
          "milliseconds" : 292127,
          "bytes" : 9556060,
          "unitPrice" : 0.99
@@ -20782,7 +20783,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 149,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Clarke\/Kilmister\/Tayler",
+         "composer" : "ClarkeKilmisterTayler",
          "milliseconds" : 192052,
          "bytes" : 6276291,
          "unitPrice" : 0.99
@@ -21057,7 +21058,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 152,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "J.Hetfield\/L.Ulrich",
+         "composer" : "J.HetfieldL.Ulrich",
          "milliseconds" : 312424,
          "bytes" : 10229577,
          "unitPrice" : 0.99
@@ -21101,7 +21102,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 152,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "J.Hetfield\/L.Ulrich",
+         "composer" : "J.HetfieldL.Ulrich",
          "milliseconds" : 496718,
          "bytes" : 16135560,
          "unitPrice" : 0.99
@@ -21376,7 +21377,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 155,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Bob Rock\/James Hetfield\/Kirk Hammett\/Lars Ulrich",
+         "composer" : "Bob RockJames HetfieldKirk HammettLars Ulrich",
          "milliseconds" : 350458,
          "bytes" : 11510849,
          "unitPrice" : 0.99
@@ -21387,7 +21388,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 155,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Bob Rock\/James Hetfield\/Kirk Hammett\/Lars Ulrich",
+         "composer" : "Bob RockJames HetfieldKirk HammettLars Ulrich",
          "milliseconds" : 441234,
          "bytes" : 14363779,
          "unitPrice" : 0.99
@@ -21398,7 +21399,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 155,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Bob Rock\/James Hetfield\/Kirk Hammett\/Lars Ulrich",
+         "composer" : "Bob RockJames HetfieldKirk HammettLars Ulrich",
          "milliseconds" : 505626,
          "bytes" : 16557497,
          "unitPrice" : 0.99
@@ -21409,7 +21410,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 155,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Bob Rock\/James Hetfield\/Kirk Hammett\/Lars Ulrich",
+         "composer" : "Bob RockJames HetfieldKirk HammettLars Ulrich",
          "milliseconds" : 324989,
          "bytes" : 10670604,
          "unitPrice" : 0.99
@@ -21420,7 +21421,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 155,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Bob Rock\/James Hetfield\/Kirk Hammett\/Lars Ulrich",
+         "composer" : "Bob RockJames HetfieldKirk HammettLars Ulrich",
          "milliseconds" : 510197,
          "bytes" : 16591800,
          "unitPrice" : 0.99
@@ -21431,7 +21432,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 155,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Bob Rock\/James Hetfield\/Kirk Hammett\/Lars Ulrich",
+         "composer" : "Bob RockJames HetfieldKirk HammettLars Ulrich",
          "milliseconds" : 345626,
          "bytes" : 11253756,
          "unitPrice" : 0.99
@@ -21442,7 +21443,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 155,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Bob Rock\/James Hetfield\/Kirk Hammett\/Lars Ulrich",
+         "composer" : "Bob RockJames HetfieldKirk HammettLars Ulrich",
          "milliseconds" : 430210,
          "bytes" : 14093551,
          "unitPrice" : 0.99
@@ -21453,7 +21454,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 155,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Bob Rock\/James Hetfield\/Kirk Hammett\/Lars Ulrich",
+         "composer" : "Bob RockJames HetfieldKirk HammettLars Ulrich",
          "milliseconds" : 327235,
          "bytes" : 10616595,
          "unitPrice" : 0.99
@@ -21464,7 +21465,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 155,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Bob Rock\/James Hetfield\/Kirk Hammett\/Lars Ulrich",
+         "composer" : "Bob RockJames HetfieldKirk HammettLars Ulrich",
          "milliseconds" : 429479,
          "bytes" : 14014582,
          "unitPrice" : 0.99
@@ -21475,7 +21476,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 155,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Bob Rock\/James Hetfield\/Kirk Hammett\/Lars Ulrich",
+         "composer" : "Bob RockJames HetfieldKirk HammettLars Ulrich",
          "milliseconds" : 314017,
          "bytes" : 10232537,
          "unitPrice" : 0.99
@@ -21486,7 +21487,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 155,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Bob Rock\/James Hetfield\/Kirk Hammett\/Lars Ulrich",
+         "composer" : "Bob RockJames HetfieldKirk HammettLars Ulrich",
          "milliseconds" : 527986,
          "bytes" : 17162741,
          "unitPrice" : 0.99
@@ -21724,11 +21725,11 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
       },
       {
          "trackId" : 1914,
-         "name" : "The Meaning Of The Blues\/Lament (Alternate Take)",
+         "name" : "The Meaning Of The BluesLament (Alternate Take)",
          "album" : 157,
          "mediaType" : 1,
          "genre" : 2,
-         "composer" : "J.J. Johnson\/R. Troup, L. Worth",
+         "composer" : "J.J. JohnsonR. Troup, L. Worth",
          "milliseconds" : 309786,
          "bytes" : 9912387,
          "unitPrice" : 0.99
@@ -22036,7 +22037,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 160,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Clarke\/Kilmister\/Taylor",
+         "composer" : "ClarkeKilmisterTaylor",
          "milliseconds" : 169926,
          "bytes" : 5523552,
          "unitPrice" : 0.99
@@ -22047,7 +22048,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 160,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Clarke\/Kilmister\/Taylor",
+         "composer" : "ClarkeKilmisterTaylor",
          "milliseconds" : 203546,
          "bytes" : 6616389,
          "unitPrice" : 0.99
@@ -22058,7 +22059,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 160,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Clarke\/Kilmister\/Taylor",
+         "composer" : "ClarkeKilmisterTaylor",
          "milliseconds" : 160026,
          "bytes" : 5175327,
          "unitPrice" : 0.99
@@ -22069,7 +22070,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 160,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Clarke\/Kilmister\/Taylor",
+         "composer" : "ClarkeKilmisterTaylor",
          "milliseconds" : 217626,
          "bytes" : 7102182,
          "unitPrice" : 0.99
@@ -22080,7 +22081,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 160,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Clarke\/Kilmister\/Taylor",
+         "composer" : "ClarkeKilmisterTaylor",
          "milliseconds" : 203337,
          "bytes" : 6643350,
          "unitPrice" : 0.99
@@ -22091,7 +22092,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 160,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Clarke\/Kilmister\/Taylor",
+         "composer" : "ClarkeKilmisterTaylor",
          "milliseconds" : 192600,
          "bytes" : 6283035,
          "unitPrice" : 0.99
@@ -22102,7 +22103,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 160,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Clarke\/Kilmister\/Taylor",
+         "composer" : "ClarkeKilmisterTaylor",
          "milliseconds" : 164675,
          "bytes" : 5416114,
          "unitPrice" : 0.99
@@ -22113,7 +22114,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 160,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Clarke\/Kilmister\/Taylor",
+         "composer" : "ClarkeKilmisterTaylor",
          "milliseconds" : 213916,
          "bytes" : 6983609,
          "unitPrice" : 0.99
@@ -22124,7 +22125,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 160,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Clarke\/Kilmister\/Taylor",
+         "composer" : "ClarkeKilmisterTaylor",
          "milliseconds" : 158432,
          "bytes" : 5155099,
          "unitPrice" : 0.99
@@ -22135,7 +22136,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 160,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Clarke\/Kilmister\/Taylor",
+         "composer" : "ClarkeKilmisterTaylor",
          "milliseconds" : 98115,
          "bytes" : 3195536,
          "unitPrice" : 0.99
@@ -22146,7 +22147,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 160,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Clarke\/Kilmister\/Taylor",
+         "composer" : "ClarkeKilmisterTaylor",
          "milliseconds" : 258403,
          "bytes" : 8393310,
          "unitPrice" : 0.99
@@ -22157,7 +22158,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 160,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Clarke\/Kilmister\/Taylor",
+         "composer" : "ClarkeKilmisterTaylor",
          "milliseconds" : 168071,
          "bytes" : 5543267,
          "unitPrice" : 0.99
@@ -22168,7 +22169,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 160,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Clarke\/Kilmister\/Taylor",
+         "composer" : "ClarkeKilmisterTaylor",
          "milliseconds" : 176457,
          "bytes" : 5805241,
          "unitPrice" : 0.99
@@ -22179,7 +22180,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 160,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Heath\/Robinson",
+         "composer" : "HeathRobinson",
          "milliseconds" : 169926,
          "bytes" : 5557002,
          "unitPrice" : 0.99
@@ -22190,7 +22191,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 160,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Dufort\/Johnson\/McAuliffe\/Williams",
+         "composer" : "DufortJohnsonMcAuliffeWilliams",
          "milliseconds" : 180427,
          "bytes" : 5828728,
          "unitPrice" : 0.99
@@ -22333,7 +22334,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 162,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Mick Mars\/Nikki Sixx\/Tommy Lee\/Vince Neil",
+         "composer" : "Mick MarsNikki SixxTommy LeeVince Neil",
          "milliseconds" : 266814,
          "bytes" : 8666786,
          "unitPrice" : 0.99
@@ -22344,7 +22345,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 162,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Mick Mars\/Nikki Sixx\/Tommy Lee",
+         "composer" : "Mick MarsNikki SixxTommy Lee",
          "milliseconds" : 269844,
          "bytes" : 8789966,
          "unitPrice" : 0.99
@@ -22355,7 +22356,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 162,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Mick Mars\/Nikki Sixx\/Tommy Lee",
+         "composer" : "Mick MarsNikki SixxTommy Lee",
          "milliseconds" : 270288,
          "bytes" : 8874814,
          "unitPrice" : 0.99
@@ -22377,7 +22378,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 162,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Nikki Sixx\/Tommy Lee\/Vince Neil",
+         "composer" : "Nikki SixxTommy LeeVince Neil",
          "milliseconds" : 276767,
          "bytes" : 9116997,
          "unitPrice" : 0.99
@@ -22388,7 +22389,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 162,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Bryan Adams\/Nikki Sixx\/Scott Humphrey",
+         "composer" : "Bryan AdamsNikki SixxScott Humphrey",
          "milliseconds" : 340114,
          "bytes" : 11184094,
          "unitPrice" : 0.99
@@ -22399,7 +22400,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 162,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Mick Mars\/Nikki Sixx",
+         "composer" : "Mick MarsNikki Sixx",
          "milliseconds" : 282618,
          "bytes" : 9281875,
          "unitPrice" : 0.99
@@ -22410,7 +22411,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 162,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Mick Mars\/Nikki Sixx\/Tommy Lee\/Vince Neil",
+         "composer" : "Mick MarsNikki SixxTommy LeeVince Neil",
          "milliseconds" : 254511,
          "bytes" : 8283958,
          "unitPrice" : 0.99
@@ -22421,7 +22422,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 162,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Nikki Sixx\/Tommy Lee\/Vince Neil",
+         "composer" : "Nikki SixxTommy LeeVince Neil",
          "milliseconds" : 236904,
          "bytes" : 7697538,
          "unitPrice" : 0.99
@@ -22443,7 +22444,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 162,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Mick Mars\/Nikki Sixx",
+         "composer" : "Mick MarsNikki Sixx",
          "milliseconds" : 279980,
          "bytes" : 9188156,
          "unitPrice" : 0.99
@@ -22454,7 +22455,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 162,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Mick Mars\/Nikki Sixx",
+         "composer" : "Mick MarsNikki Sixx",
          "milliseconds" : 268956,
          "bytes" : 8738371,
          "unitPrice" : 0.99
@@ -22465,7 +22466,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 162,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Cub Coda\/Michael Lutz",
+         "composer" : "Cub CodaMichael Lutz",
          "milliseconds" : 206837,
          "bytes" : 6735408,
          "unitPrice" : 0.99
@@ -22476,7 +22477,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 162,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Mick Mars\/Nikki Sixx\/Tommy Lee\/Vince Neil",
+         "composer" : "Mick MarsNikki SixxTommy LeeVince Neil",
          "milliseconds" : 286197,
          "bytes" : 9421164,
          "unitPrice" : 0.99
@@ -23158,7 +23159,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 167,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Bi Ribeira\/Herbert Vianna\/João Barone",
+         "composer" : "Bi RibeiraHerbert ViannaJoão Barone",
          "milliseconds" : 287059,
          "bytes" : 9495202,
          "unitPrice" : 0.99
@@ -23180,7 +23181,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 167,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Chico Science\/Dengue\/Lúcio Maia",
+         "composer" : "Chico ScienceDengueLúcio Maia",
          "milliseconds" : 162925,
          "bytes" : 5382018,
          "unitPrice" : 0.99
@@ -23224,7 +23225,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 167,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "James Brown\/Tim Maia",
+         "composer" : "James BrownTim Maia",
          "milliseconds" : 244976,
          "bytes" : 8091302,
          "unitPrice" : 0.99
@@ -23246,7 +23247,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 167,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "C. A.\/C.A.\/Celso Alvim\/Herbert Vianna\/Mário Moura\/Pedro Luís\/Sidon Silva",
+         "composer" : "C. A.C.A.Celso AlvimHerbert ViannaMário MouraPedro LuísSidon Silva",
          "milliseconds" : 208013,
          "bytes" : 6921669,
          "unitPrice" : 0.99
@@ -23268,7 +23269,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 167,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Bi Ribeiro\/Herbert Vianna\/João Barone",
+         "composer" : "Bi RibeiroHerbert ViannaJoão Barone",
          "milliseconds" : 148558,
          "bytes" : 4942831,
          "unitPrice" : 0.99
@@ -23290,7 +23291,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 167,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Herbert Vianna\/Tet Tillett",
+         "composer" : "Herbert ViannaTet Tillett",
          "milliseconds" : 198922,
          "bytes" : 6568180,
          "unitPrice" : 0.99
@@ -23323,7 +23324,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 167,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Beto Guedes\/Fernando Brant\/L Borges",
+         "composer" : "Beto GuedesFernando BrantL Borges",
          "milliseconds" : 182517,
          "bytes" : 6001793,
          "unitPrice" : 0.99
@@ -23334,7 +23335,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 167,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Bahiano\/Chuck Rio\/Diego Blanco\/Herbert Vianna",
+         "composer" : "BahianoChuck RioDiego BlancoHerbert Vianna",
          "milliseconds" : 255738,
          "bytes" : 8514961,
          "unitPrice" : 0.99
@@ -23356,7 +23357,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 167,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Chris Frantz\/David Byrne\/Jerry Harrison\/Tina Weymouth",
+         "composer" : "Chris FrantzDavid ByrneJerry HarrisonTina Weymouth",
          "milliseconds" : 259186,
          "bytes" : 8543439,
          "unitPrice" : 0.99
@@ -23389,7 +23390,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 168,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Fito Paez\/Herbert Vianna",
+         "composer" : "Fito PaezHerbert Vianna",
          "milliseconds" : 231653,
          "bytes" : 7638256,
          "unitPrice" : 0.99
@@ -23400,7 +23401,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 168,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Herbert Vianna\/Tetê Tillet",
+         "composer" : "Herbert ViannaTetê Tillet",
          "milliseconds" : 219585,
          "bytes" : 7342776,
          "unitPrice" : 0.99
@@ -23422,7 +23423,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 168,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Bahiano\/Diego Blanco\/Herbert Vianna",
+         "composer" : "BahianoDiego BlancoHerbert Vianna",
          "milliseconds" : 159895,
          "bytes" : 5301882,
          "unitPrice" : 0.99
@@ -23455,7 +23456,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 168,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Carlinhos Brown\/Herbert Vianna",
+         "composer" : "Carlinhos BrownHerbert Vianna",
          "milliseconds" : 217573,
          "bytes" : 7280574,
          "unitPrice" : 0.99
@@ -23510,7 +23511,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 168,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Herbert Vianna\/Paulo Sérgio Valle",
+         "composer" : "Herbert ViannaPaulo Sérgio Valle",
          "milliseconds" : 258089,
          "bytes" : 8470121,
          "unitPrice" : 0.99
@@ -24214,7 +24215,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 177,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Paul Di'Anno\/Steve Harris",
+         "composer" : "Paul Di'AnnoSteve Harris",
          "milliseconds" : 309995,
          "bytes" : 10009697,
          "unitPrice" : 0.99
@@ -24258,7 +24259,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 177,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Paul Di'Anno\/Steve Harris",
+         "composer" : "Paul Di'AnnoSteve Harris",
          "milliseconds" : 326426,
          "bytes" : 10577976,
          "unitPrice" : 0.99
@@ -24269,7 +24270,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 177,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "David Murray\/Paul Di'Anno\/Steve Harris",
+         "composer" : "David MurrayPaul Di'AnnoSteve Harris",
          "milliseconds" : 198844,
          "bytes" : 6423543,
          "unitPrice" : 0.99
@@ -24280,7 +24281,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 177,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Paul Di'Anno\/Steve Harris",
+         "composer" : "Paul Di'AnnoSteve Harris",
          "milliseconds" : 199706,
          "bytes" : 6483496,
          "unitPrice" : 0.99
@@ -24643,7 +24644,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 180,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Eddie Vedder\/Jeff Ament\/Matt Cameron\/Mike McCready\/Stone Gossard",
+         "composer" : "Eddie VedderJeff AmentMatt CameronMike McCreadyStone Gossard",
          "milliseconds" : 230112,
          "bytes" : 7609110,
          "unitPrice" : 0.99
@@ -24760,7 +24761,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
       },
       {
          "trackId" : 2190,
-         "name" : "1\/2 Full",
+         "name" : "12 Full",
          "album" : 180,
          "mediaType" : 1,
          "genre" : 1,
@@ -24841,7 +24842,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 181,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Dave Krusen\/Stone Gossard",
+         "composer" : "Dave KrusenStone Gossard",
          "milliseconds" : 343823,
          "bytes" : 11213314,
          "unitPrice" : 0.99
@@ -24863,7 +24864,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 181,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jeff Ament\/Stone Gossard",
+         "composer" : "Jeff AmentStone Gossard",
          "milliseconds" : 162194,
          "bytes" : 5282368,
          "unitPrice" : 0.99
@@ -24885,7 +24886,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 181,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jeff Ament\/Stone Gossard",
+         "composer" : "Jeff AmentStone Gossard",
          "milliseconds" : 299154,
          "bytes" : 9740738,
          "unitPrice" : 0.99
@@ -24896,7 +24897,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 181,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jeff Ament\/Stone Gossard",
+         "composer" : "Jeff AmentStone Gossard",
          "milliseconds" : 258324,
          "bytes" : 8432497,
          "unitPrice" : 0.99
@@ -24907,7 +24908,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 181,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jeff Ament\/Mike McCready\/Stone Gossard",
+         "composer" : "Jeff AmentMike McCreadyStone Gossard",
          "milliseconds" : 546063,
          "bytes" : 17802673,
          "unitPrice" : 0.99
@@ -24918,7 +24919,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 182,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Dave Abbruzzese\/Eddie Vedder\/Jeff Ament\/Mike McCready\/Stone Gossard",
+         "composer" : "Dave AbbruzzeseEddie VedderJeff AmentMike McCreadyStone Gossard",
          "milliseconds" : 193123,
          "bytes" : 6351920,
          "unitPrice" : 0.99
@@ -24929,7 +24930,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 182,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Dave Abbruzzese\/Eddie Vedder\/Jeff Ament\/Mike McCready\/Stone Gossard",
+         "composer" : "Dave AbbruzzeseEddie VedderJeff AmentMike McCreadyStone Gossard",
          "milliseconds" : 169325,
          "bytes" : 5503459,
          "unitPrice" : 0.99
@@ -24940,7 +24941,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 182,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Dave Abbruzzese\/Eddie Vedder\/Jeff Ament\/Mike McCready\/Stone Gossard",
+         "composer" : "Dave AbbruzzeseEddie VedderJeff AmentMike McCreadyStone Gossard",
          "milliseconds" : 235598,
          "bytes" : 7824586,
          "unitPrice" : 0.99
@@ -24951,7 +24952,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 182,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Dave Abbruzzese\/Eddie Vedder\/Jeff Ament\/Mike McCready\/Stone Gossard",
+         "composer" : "Dave AbbruzzeseEddie VedderJeff AmentMike McCreadyStone Gossard",
          "milliseconds" : 206968,
          "bytes" : 6772116,
          "unitPrice" : 0.99
@@ -24962,7 +24963,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 182,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Dave Abbruzzese\/Eddie Vedder\/Jeff Ament\/Mike McCready\/Stone Gossard",
+         "composer" : "Dave AbbruzzeseEddie VedderJeff AmentMike McCreadyStone Gossard",
          "milliseconds" : 215510,
          "bytes" : 7034500,
          "unitPrice" : 0.99
@@ -24973,7 +24974,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 182,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Dave Abbruzzese\/Eddie Vedder\/Jeff Ament\/Mike McCready\/Stone Gossard",
+         "composer" : "Dave AbbruzzeseEddie VedderJeff AmentMike McCreadyStone Gossard",
          "milliseconds" : 359262,
          "bytes" : 12037261,
          "unitPrice" : 0.99
@@ -24984,7 +24985,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 182,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Dave Abbruzzese\/Eddie Vedder\/Jeff Ament\/Mike McCready\/Stone Gossard",
+         "composer" : "Dave AbbruzzeseEddie VedderJeff AmentMike McCreadyStone Gossard",
          "milliseconds" : 170631,
          "bytes" : 5551478,
          "unitPrice" : 0.99
@@ -24995,7 +24996,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 182,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Dave Abbruzzese\/Eddie Vedder\/Jeff Ament\/Mike McCready\/Stone Gossard",
+         "composer" : "Dave AbbruzzeseEddie VedderJeff AmentMike McCreadyStone Gossard",
          "milliseconds" : 284186,
          "bytes" : 9321053,
          "unitPrice" : 0.99
@@ -25006,7 +25007,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 182,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Dave Abbruzzese\/Eddie Vedder\/Jeff Ament\/Mike McCready\/Stone Gossard",
+         "composer" : "Dave AbbruzzeseEddie VedderJeff AmentMike McCreadyStone Gossard",
          "milliseconds" : 255425,
          "bytes" : 8341934,
          "unitPrice" : 0.99
@@ -25017,7 +25018,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 182,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Dave Abbruzzese\/Eddie Vedder\/Jeff Ament\/Mike McCready\/Stone Gossard",
+         "composer" : "Dave AbbruzzeseEddie VedderJeff AmentMike McCreadyStone Gossard",
          "milliseconds" : 196336,
          "bytes" : 6499398,
          "unitPrice" : 0.99
@@ -25028,7 +25029,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 182,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Dave Abbruzzese\/Eddie Vedder\/Jeff Ament\/Mike McCready\/Stone Gossard",
+         "composer" : "Dave AbbruzzeseEddie VedderJeff AmentMike McCreadyStone Gossard",
          "milliseconds" : 189257,
          "bytes" : 6191560,
          "unitPrice" : 0.99
@@ -25039,7 +25040,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 182,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Dave Abbruzzese\/Eddie Vedder\/Jeff Ament\/Mike McCready\/Stone Gossard",
+         "composer" : "Dave AbbruzzeseEddie VedderJeff AmentMike McCreadyStone Gossard",
          "milliseconds" : 302053,
          "bytes" : 9756133,
          "unitPrice" : 0.99
@@ -25189,11 +25190,11 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
       },
       {
          "trackId" : 2229,
-         "name" : "Speak To Me\/Breathe",
+         "name" : "Speak To MeBreathe",
          "album" : 183,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Mason\/Waters, Gilmour, Wright",
+         "composer" : "MasonWaters, Gilmour, Wright",
          "milliseconds" : 234213,
          "bytes" : 7631305,
          "unitPrice" : 0.99
@@ -25633,7 +25634,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 185,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Deacon, John\/May, Brian",
+         "composer" : "Deacon, JohnMay, Brian",
          "milliseconds" : 122880,
          "bytes" : 4026955,
          "unitPrice" : 0.99
@@ -25776,7 +25777,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 187,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Bill Berry\/Michael Stipe\/Mike Mills\/Peter Buck",
+         "composer" : "Bill BerryMichael StipeMike MillsPeter Buck",
          "milliseconds" : 226298,
          "bytes" : 7475323,
          "unitPrice" : 0.99
@@ -25787,7 +25788,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 187,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Bill Berry\/Michael Stipe\/Mike Mills\/Peter Buck",
+         "composer" : "Bill BerryMichael StipeMike MillsPeter Buck",
          "milliseconds" : 246674,
          "bytes" : 8194751,
          "unitPrice" : 0.99
@@ -25798,7 +25799,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 187,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Bill Berry\/Michael Stipe\/Mike Mills\/Peter Buck",
+         "composer" : "Bill BerryMichael StipeMike MillsPeter Buck",
          "milliseconds" : 255477,
          "bytes" : 8421172,
          "unitPrice" : 0.99
@@ -25974,7 +25975,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 217,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jagger\/Richards",
+         "composer" : "JaggerRichards",
          "milliseconds" : 479242,
          "bytes" : 15749289,
          "unitPrice" : 0.99
@@ -26095,7 +26096,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 187,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Bill Berry\/Michael Stipe\/Mike Mills\/Peter Buck",
+         "composer" : "Bill BerryMichael StipeMike MillsPeter Buck",
          "milliseconds" : 269035,
          "bytes" : 8885672,
          "unitPrice" : 0.99
@@ -26106,7 +26107,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 187,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Bill Berry\/Michael Stipe\/Mike Mills\/Peter Buck",
+         "composer" : "Bill BerryMichael StipeMike MillsPeter Buck",
          "milliseconds" : 296777,
          "bytes" : 9633860,
          "unitPrice" : 0.99
@@ -26117,7 +26118,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 187,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Bill Berry\/Michael Stipe\/Mike Mills\/Peter Buck",
+         "composer" : "Bill BerryMichael StipeMike MillsPeter Buck",
          "milliseconds" : 199862,
          "bytes" : 6610009,
          "unitPrice" : 0.99
@@ -26128,7 +26129,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 187,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Bill Berry\/Michael Stipe\/Mike Mills\/Peter Buck",
+         "composer" : "Bill BerryMichael StipeMike MillsPeter Buck",
          "milliseconds" : 230687,
          "bytes" : 7664479,
          "unitPrice" : 0.99
@@ -26139,7 +26140,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 187,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Bill Berry\/Michael Stipe\/Mike Mills\/Peter Buck",
+         "composer" : "Bill BerryMichael StipeMike MillsPeter Buck",
          "milliseconds" : 247013,
          "bytes" : 8219375,
          "unitPrice" : 0.99
@@ -26150,7 +26151,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 187,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Bill Berry\/Michael Stipe\/Mike Mills\/Peter Buck",
+         "composer" : "Bill BerryMichael StipeMike MillsPeter Buck",
          "milliseconds" : 208431,
          "bytes" : 6837283,
          "unitPrice" : 0.99
@@ -26161,7 +26162,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 187,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Bill Berry\/Michael Stipe\/Mike Mills\/Peter Buck",
+         "composer" : "Bill BerryMichael StipeMike MillsPeter Buck",
          "milliseconds" : 220081,
          "bytes" : 7260681,
          "unitPrice" : 0.99
@@ -26172,7 +26173,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 187,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Bill Berry\/Michael Stipe\/Mike Mills\/Peter Buck",
+         "composer" : "Bill BerryMichael StipeMike MillsPeter Buck",
          "milliseconds" : 249782,
          "bytes" : 8178943,
          "unitPrice" : 0.99
@@ -26623,7 +26624,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 193,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Anthony Kiedis\/Chad Smith\/Flea\/John Frusciante",
+         "composer" : "Anthony KiedisChad SmithFleaJohn Frusciante",
          "milliseconds" : 243591,
          "bytes" : 8148266,
          "unitPrice" : 0.99
@@ -26634,7 +26635,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 193,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Anthony Kiedis\/Chad Smith\/Flea\/John Frusciante",
+         "composer" : "Anthony KiedisChad SmithFleaJohn Frusciante",
          "milliseconds" : 216790,
          "bytes" : 7199175,
          "unitPrice" : 0.99
@@ -26645,7 +26646,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 193,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Anthony Kiedis\/Chad Smith\/Flea\/John Frusciante",
+         "composer" : "Anthony KiedisChad SmithFleaJohn Frusciante",
          "milliseconds" : 295497,
          "bytes" : 9805526,
          "unitPrice" : 0.99
@@ -26656,7 +26657,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 193,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Anthony Kiedis\/Chad Smith\/Flea\/John Frusciante",
+         "composer" : "Anthony KiedisChad SmithFleaJohn Frusciante",
          "milliseconds" : 323395,
          "bytes" : 10708168,
          "unitPrice" : 0.99
@@ -26667,7 +26668,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 193,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Anthony Kiedis\/Chad Smith\/Flea\/John Frusciante",
+         "composer" : "Anthony KiedisChad SmithFleaJohn Frusciante",
          "milliseconds" : 217234,
          "bytes" : 7129137,
          "unitPrice" : 0.99
@@ -26678,7 +26679,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 193,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Anthony Kiedis\/Chad Smith\/Flea\/John Frusciante",
+         "composer" : "Anthony KiedisChad SmithFleaJohn Frusciante",
          "milliseconds" : 244506,
          "bytes" : 8088244,
          "unitPrice" : 0.99
@@ -26689,7 +26690,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 193,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Anthony Kiedis\/Chad Smith\/Flea\/John Frusciante",
+         "composer" : "Anthony KiedisChad SmithFleaJohn Frusciante",
          "milliseconds" : 240091,
          "bytes" : 7971384,
          "unitPrice" : 0.99
@@ -26700,7 +26701,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 193,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Anthony Kiedis\/Chad Smith\/Flea\/John Frusciante",
+         "composer" : "Anthony KiedisChad SmithFleaJohn Frusciante",
          "milliseconds" : 248084,
          "bytes" : 8134096,
          "unitPrice" : 0.99
@@ -26711,7 +26712,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 193,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Anthony Kiedis\/Chad Smith\/Flea\/John Frusciante",
+         "composer" : "Anthony KiedisChad SmithFleaJohn Frusciante",
          "milliseconds" : 283010,
          "bytes" : 9308997,
          "unitPrice" : 0.99
@@ -26722,7 +26723,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 193,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Anthony Kiedis\/Chad Smith\/Flea\/John Frusciante",
+         "composer" : "Anthony KiedisChad SmithFleaJohn Frusciante",
          "milliseconds" : 271229,
          "bytes" : 8940573,
          "unitPrice" : 0.99
@@ -26733,7 +26734,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 193,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Anthony Kiedis\/Chad Smith\/Flea\/John Frusciante",
+         "composer" : "Anthony KiedisChad SmithFleaJohn Frusciante",
          "milliseconds" : 264359,
          "bytes" : 8682716,
          "unitPrice" : 0.99
@@ -26744,7 +26745,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 193,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Anthony Kiedis\/Chad Smith\/Flea\/John Frusciante",
+         "composer" : "Anthony KiedisChad SmithFleaJohn Frusciante",
          "milliseconds" : 265717,
          "bytes" : 8724674,
          "unitPrice" : 0.99
@@ -26755,7 +26756,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 193,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Anthony Kiedis\/Chad Smith\/Flea\/John Frusciante",
+         "composer" : "Anthony KiedisChad SmithFleaJohn Frusciante",
          "milliseconds" : 282226,
          "bytes" : 9312588,
          "unitPrice" : 0.99
@@ -26766,7 +26767,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 193,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Anthony Kiedis\/Chad Smith\/Flea\/John Frusciante",
+         "composer" : "Anthony KiedisChad SmithFleaJohn Frusciante",
          "milliseconds" : 193593,
          "bytes" : 6346507,
          "unitPrice" : 0.99
@@ -26777,7 +26778,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 193,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Anthony Kiedis\/Chad Smith\/Flea\/John Frusciante",
+         "composer" : "Anthony KiedisChad SmithFleaJohn Frusciante",
          "milliseconds" : 279118,
          "bytes" : 9220114,
          "unitPrice" : 0.99
@@ -26788,7 +26789,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 193,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Anthony Kiedis\/Chad Smith\/Flea\/John Frusciante",
+         "composer" : "Anthony KiedisChad SmithFleaJohn Frusciante",
          "milliseconds" : 496692,
          "bytes" : 16354362,
          "unitPrice" : 0.99
@@ -26986,7 +26987,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 195,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Anthony Kiedis\/Chad Smith\/Flea\/John Frusciante",
+         "composer" : "Anthony KiedisChad SmithFleaJohn Frusciante",
          "milliseconds" : 238837,
          "bytes" : 7859167,
          "unitPrice" : 0.99
@@ -27063,7 +27064,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 195,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Anthony Kiedis\/Chad Smith\/Flea\/John Frusciante",
+         "composer" : "Anthony KiedisChad SmithFleaJohn Frusciante",
          "milliseconds" : 163787,
          "bytes" : 5278793,
          "unitPrice" : 0.99
@@ -27107,7 +27108,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 195,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Anthony Kiedis\/Chad Smith\/Flea\/John Frusciante",
+         "composer" : "Anthony KiedisChad SmithFleaJohn Frusciante",
          "milliseconds" : 292493,
          "bytes" : 9551885,
          "unitPrice" : 0.99
@@ -27151,7 +27152,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 196,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Geddy Lee And Alex Lifeson\/Geddy Lee And Neil Peart\/Rush",
+         "composer" : "Geddy Lee And Alex LifesonGeddy Lee And Neil PeartRush",
          "milliseconds" : 299154,
          "bytes" : 9862012,
          "unitPrice" : 0.99
@@ -27162,7 +27163,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 196,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Geddy Lee And Alex Lifeson\/Geddy Lee And Neil Peart\/Rush",
+         "composer" : "Geddy Lee And Alex LifesonGeddy Lee And Neil PeartRush",
          "milliseconds" : 285126,
          "bytes" : 9345473,
          "unitPrice" : 0.99
@@ -27173,7 +27174,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 196,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Geddy Lee And Alex Lifeson\/Geddy Lee And Neil Peart\/Rush",
+         "composer" : "Geddy Lee And Alex LifesonGeddy Lee And Neil PeartRush",
          "milliseconds" : 240770,
          "bytes" : 7898395,
          "unitPrice" : 0.99
@@ -27184,7 +27185,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 196,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Geddy Lee And Alex Lifeson\/Geddy Lee And Neil Peart\/Rush",
+         "composer" : "Geddy Lee And Alex LifesonGeddy Lee And Neil PeartRush",
          "milliseconds" : 324362,
          "bytes" : 10694110,
          "unitPrice" : 0.99
@@ -27195,7 +27196,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 196,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Geddy Lee And Alex Lifeson\/Geddy Lee And Neil Peart\/Rush",
+         "composer" : "Geddy Lee And Alex LifesonGeddy Lee And Neil PeartRush",
          "milliseconds" : 667428,
          "bytes" : 21753168,
          "unitPrice" : 0.99
@@ -27206,7 +27207,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 196,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Geddy Lee And Alex Lifeson\/Geddy Lee And Neil Peart\/Rush",
+         "composer" : "Geddy Lee And Alex LifesonGeddy Lee And Neil PeartRush",
          "milliseconds" : 280528,
          "bytes" : 9264769,
          "unitPrice" : 0.99
@@ -27217,7 +27218,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 196,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Geddy Lee And Alex Lifeson\/Geddy Lee And Neil Peart\/Rush",
+         "composer" : "Geddy Lee And Alex LifesonGeddy Lee And Neil PeartRush",
          "milliseconds" : 519888,
          "bytes" : 17076397,
          "unitPrice" : 0.99
@@ -27228,7 +27229,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 196,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Geddy Lee And Alex Lifeson\/Geddy Lee And Neil Peart\/Rush",
+         "composer" : "Geddy Lee And Alex LifesonGeddy Lee And Neil PeartRush",
          "milliseconds" : 264515,
          "bytes" : 8693343,
          "unitPrice" : 0.99
@@ -27239,7 +27240,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 196,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Geddy Lee And Alex Lifeson\/Geddy Lee And Neil Peart\/Rush",
+         "composer" : "Geddy Lee And Alex LifesonGeddy Lee And Neil PeartRush",
          "milliseconds" : 175412,
          "bytes" : 5767005,
          "unitPrice" : 0.99
@@ -27250,7 +27251,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 196,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Geddy Lee And Alex Lifeson\/Geddy Lee And Neil Peart\/Rush",
+         "composer" : "Geddy Lee And Alex LifesonGeddy Lee And Neil PeartRush",
          "milliseconds" : 272718,
          "bytes" : 8898066,
          "unitPrice" : 0.99
@@ -27261,7 +27262,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 196,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Geddy Lee And Alex Lifeson\/Geddy Lee And Neil Peart\/Rush",
+         "composer" : "Geddy Lee And Alex LifesonGeddy Lee And Neil PeartRush",
          "milliseconds" : 133459,
          "bytes" : 4360163,
          "unitPrice" : 0.99
@@ -27272,7 +27273,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 196,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Geddy Lee And Alex Lifeson\/Geddy Lee And Neil Peart\/Rush",
+         "composer" : "Geddy Lee And Alex LifesonGeddy Lee And Neil PeartRush",
          "milliseconds" : 577488,
          "bytes" : 19137855,
          "unitPrice" : 0.99
@@ -27283,7 +27284,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 196,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Geddy Lee And Alex Lifeson\/Geddy Lee And Neil Peart\/Rush",
+         "composer" : "Geddy Lee And Alex LifesonGeddy Lee And Neil PeartRush",
          "milliseconds" : 202318,
          "bytes" : 6683061,
          "unitPrice" : 0.99
@@ -27294,7 +27295,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 196,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Geddy Lee And Alex Lifeson\/Geddy Lee And Neil Peart\/Rush",
+         "composer" : "Geddy Lee And Alex LifesonGeddy Lee And Neil PeartRush",
          "milliseconds" : 305528,
          "bytes" : 9985701,
          "unitPrice" : 0.99
@@ -27400,7 +27401,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
       },
       {
          "trackId" : 2429,
-         "name" : "We've Got To Get Together\/Jingo",
+         "name" : "We've Got To Get TogetherJingo",
          "album" : 198,
          "mediaType" : 1,
          "genre" : 1,
@@ -27624,7 +27625,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 199,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Chico Amaral\/Edgard Scandurra\/Samuel Rosa",
+         "composer" : "Chico AmaralEdgard ScandurraSamuel Rosa",
          "milliseconds" : 278987,
          "bytes" : 9272272,
          "unitPrice" : 0.99
@@ -27635,7 +27636,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 199,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Chico Amaral\/Samuel Rosa",
+         "composer" : "Chico AmaralSamuel Rosa",
          "milliseconds" : 233665,
          "bytes" : 7699609,
          "unitPrice" : 0.99
@@ -27646,7 +27647,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 199,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Chico Amaral\/Samuel Rosa",
+         "composer" : "Chico AmaralSamuel Rosa",
          "milliseconds" : 250122,
          "bytes" : 8289200,
          "unitPrice" : 0.99
@@ -27657,7 +27658,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 199,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Fausto Fawcett\/Samuel Rosa",
+         "composer" : "Fausto FawcettSamuel Rosa",
          "milliseconds" : 240613,
          "bytes" : 8025816,
          "unitPrice" : 0.99
@@ -27668,7 +27669,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 199,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Chico Amaral\/Lelo Zanettik",
+         "composer" : "Chico AmaralLelo Zanettik",
          "milliseconds" : 238628,
          "bytes" : 7874774,
          "unitPrice" : 0.99
@@ -27679,7 +27680,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 199,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Leão, Rodrigo F.\/Samuel Rosa",
+         "composer" : "Leão, Rodrigo F.Samuel Rosa",
          "milliseconds" : 249600,
          "bytes" : 8270613,
          "unitPrice" : 0.99
@@ -27690,7 +27691,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 199,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Chico Amaral\/Samuel Rosa",
+         "composer" : "Chico AmaralSamuel Rosa",
          "milliseconds" : 245629,
          "bytes" : 8213710,
          "unitPrice" : 0.99
@@ -27701,7 +27702,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 199,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Chico Amaral\/Samuel Rosa",
+         "composer" : "Chico AmaralSamuel Rosa",
          "milliseconds" : 298527,
          "bytes" : 9817847,
          "unitPrice" : 0.99
@@ -27712,7 +27713,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 199,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Leão, Rodrigo F.\/Lô Borges\/Samuel Rosa",
+         "composer" : "Leão, Rodrigo F.Lô BorgesSamuel Rosa",
          "milliseconds" : 314723,
          "bytes" : 10480391,
          "unitPrice" : 0.99
@@ -27723,7 +27724,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 199,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Chico Amaral\/Samuel Rosa",
+         "composer" : "Chico AmaralSamuel Rosa",
          "milliseconds" : 272169,
          "bytes" : 8980972,
          "unitPrice" : 0.99
@@ -27734,7 +27735,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 199,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Nando Reis\/Samuel Rosa",
+         "composer" : "Nando ReisSamuel Rosa",
          "milliseconds" : 306390,
          "bytes" : 10110351,
          "unitPrice" : 0.99
@@ -27745,7 +27746,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 199,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Chico Amaral\/Samuel Rosa",
+         "composer" : "Chico AmaralSamuel Rosa",
          "milliseconds" : 264568,
          "bytes" : 8697658,
          "unitPrice" : 0.99
@@ -28251,7 +28252,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 203,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Chris Cornell\/Kim Thayil",
+         "composer" : "Chris CornellKim Thayil",
          "milliseconds" : 238027,
          "bytes" : 7744833,
          "unitPrice" : 0.99
@@ -28262,7 +28263,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 203,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Chris Cornell\/Kim Thayil",
+         "composer" : "Chris CornellKim Thayil",
          "milliseconds" : 208822,
          "bytes" : 6830732,
          "unitPrice" : 0.99
@@ -28284,7 +28285,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 203,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Chris Cornell\/Kim Thayil",
+         "composer" : "Chris CornellKim Thayil",
          "milliseconds" : 362475,
          "bytes" : 11893108,
          "unitPrice" : 0.99
@@ -28295,7 +28296,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 203,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Chris Cornell\/Kim Thayil",
+         "composer" : "Chris CornellKim Thayil",
          "milliseconds" : 225123,
          "bytes" : 7313744,
          "unitPrice" : 0.99
@@ -28306,7 +28307,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 203,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Ben Shepherd\/Chris Cornell\/Kim Thayil\/Matt Cameron",
+         "composer" : "Ben ShepherdChris CornellKim ThayilMatt Cameron",
          "milliseconds" : 352966,
          "bytes" : 11739886,
          "unitPrice" : 0.99
@@ -28416,7 +28417,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 203,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Ben Shepherd\/Chris Cornell",
+         "composer" : "Ben ShepherdChris Cornell",
          "milliseconds" : 188786,
          "bytes" : 6233136,
          "unitPrice" : 0.99
@@ -28537,7 +28538,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 205,
          "mediaType" : 1,
          "genre" : 6,
-         "composer" : "Doyle Bramhall\/Stevie Ray Vaughan",
+         "composer" : "Doyle BramhallStevie Ray Vaughan",
          "milliseconds" : 144352,
          "bytes" : 4706253,
          "unitPrice" : 0.99
@@ -28548,7 +28549,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 205,
          "mediaType" : 1,
          "genre" : 6,
-         "composer" : "B. Carter\/C. Layton\/R. Ellsworth\/R. Wynans\/T. Shannon",
+         "composer" : "B. CarterC. LaytonR. EllsworthR. WynansT. Shannon",
          "milliseconds" : 251219,
          "bytes" : 8238033,
          "unitPrice" : 0.99
@@ -28559,7 +28560,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 205,
          "mediaType" : 1,
          "genre" : 6,
-         "composer" : "Doyle Bramhall\/Stevie Ray Vaughan",
+         "composer" : "Doyle BramhallStevie Ray Vaughan",
          "milliseconds" : 281155,
          "bytes" : 9254906,
          "unitPrice" : 0.99
@@ -28603,7 +28604,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 205,
          "mediaType" : 1,
          "genre" : 6,
-         "composer" : "Doyle Bramhall\/Stevie Ray Vaughan",
+         "composer" : "Doyle BramhallStevie Ray Vaughan",
          "milliseconds" : 336927,
          "bytes" : 11085915,
          "unitPrice" : 0.99
@@ -28614,7 +28615,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 205,
          "mediaType" : 1,
          "genre" : 6,
-         "composer" : "Doyle Bramhall\/Stevie Ray Vaughan",
+         "composer" : "Doyle BramhallStevie Ray Vaughan",
          "milliseconds" : 163422,
          "bytes" : 5353627,
          "unitPrice" : 0.99
@@ -28647,7 +28648,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 206,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "R. DeLeo\/Weiland",
+         "composer" : "R. DeLeoWeiland",
          "milliseconds" : 310386,
          "bytes" : 10170433,
          "unitPrice" : 0.99
@@ -28658,7 +28659,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 206,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "D. DeLeo\/Kretz\/Weiland",
+         "composer" : "D. DeLeoKretzWeiland",
          "milliseconds" : 218723,
          "bytes" : 7102064,
          "unitPrice" : 0.99
@@ -28669,7 +28670,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 206,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "D. DeLeo\/R. DeLeo\/Weiland",
+         "composer" : "D. DeLeoR. DeLeoWeiland",
          "milliseconds" : 245368,
          "bytes" : 7989505,
          "unitPrice" : 0.99
@@ -28691,7 +28692,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 206,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "R. DeLeo\/Weiland",
+         "composer" : "R. DeLeoWeiland",
          "milliseconds" : 364800,
          "bytes" : 12018823,
          "unitPrice" : 0.99
@@ -28702,7 +28703,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 206,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "D. DeLeo\/Kretz\/R. DeLeo\/Weiland",
+         "composer" : "D. DeLeoKretzR. DeLeoWeiland",
          "milliseconds" : 229720,
          "bytes" : 7444201,
          "unitPrice" : 0.99
@@ -28713,7 +28714,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 206,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "R. DeLeo\/Weiland",
+         "composer" : "R. DeLeoWeiland",
          "milliseconds" : 333191,
          "bytes" : 10894988,
          "unitPrice" : 0.99
@@ -28724,7 +28725,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 206,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "R. DeLeo\/Weiland",
+         "composer" : "R. DeLeoWeiland",
          "milliseconds" : 324623,
          "bytes" : 10605231,
          "unitPrice" : 0.99
@@ -28735,7 +28736,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 206,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "R. DeLeo\/Weiland",
+         "composer" : "R. DeLeoWeiland",
          "milliseconds" : 314017,
          "bytes" : 10229848,
          "unitPrice" : 0.99
@@ -28746,7 +28747,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 206,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "R. DeLeo\/Weiland",
+         "composer" : "R. DeLeoWeiland",
          "milliseconds" : 96914,
          "bytes" : 3198627,
          "unitPrice" : 0.99
@@ -28757,7 +28758,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 206,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Kretz\/R. DeLeo\/Weiland",
+         "composer" : "KretzR. DeLeoWeiland",
          "milliseconds" : 194403,
          "bytes" : 6317361,
          "unitPrice" : 0.99
@@ -28768,7 +28769,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 206,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "D. DeLeo\/Kretz\/Weiland",
+         "composer" : "D. DeLeoKretzWeiland",
          "milliseconds" : 505991,
          "bytes" : 16468904,
          "unitPrice" : 0.99
@@ -28779,7 +28780,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 207,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Dolmayan, John\/Malakian, Daron\/Odadjian, Shavo",
+         "composer" : "Dolmayan, JohnMalakian, DaronOdadjian, Shavo",
          "milliseconds" : 63764,
          "bytes" : 2056079,
          "unitPrice" : 0.99
@@ -28819,11 +28820,11 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
       },
       {
          "trackId" : 2558,
-         "name" : "Radio\/Video",
+         "name" : "RadioVideo",
          "album" : 207,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Dolmayan, John\/Malakian, Daron\/Odadjian, Shavo",
+         "composer" : "Dolmayan, JohnMalakian, DaronOdadjian, Shavo",
          "milliseconds" : 249312,
          "bytes" : 8224917,
          "unitPrice" : 0.99
@@ -28845,7 +28846,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 207,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Dolmayan, John\/Malakian, Daron\/Odadjian, Shavo",
+         "composer" : "Dolmayan, JohnMalakian, DaronOdadjian, Shavo",
          "milliseconds" : 211435,
          "bytes" : 6985960,
          "unitPrice" : 0.99
@@ -28878,7 +28879,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 207,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Dolmayan, John\/Malakian, Daron\/Odadjian, Shavo",
+         "composer" : "Dolmayan, JohnMalakian, DaronOdadjian, Shavo",
          "milliseconds" : 176953,
          "bytes" : 5830258,
          "unitPrice" : 0.99
@@ -28977,7 +28978,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 209,
          "mediaType" : 1,
          "genre" : 6,
-         "composer" : "Chris Robinson\/Rich Robinson",
+         "composer" : "Chris RobinsonRich Robinson",
          "milliseconds" : 286981,
          "bytes" : 9442157,
          "unitPrice" : 0.99
@@ -28988,7 +28989,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 209,
          "mediaType" : 1,
          "genre" : 6,
-         "composer" : "Chris Robinson\/Rich Robinson",
+         "composer" : "Chris RobinsonRich Robinson",
          "milliseconds" : 268094,
          "bytes" : 8813561,
          "unitPrice" : 0.99
@@ -28999,7 +29000,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 209,
          "mediaType" : 1,
          "genre" : 6,
-         "composer" : "Chris Robinson\/Rich Robinson",
+         "composer" : "Chris RobinsonRich Robinson",
          "milliseconds" : 222720,
          "bytes" : 7284377,
          "unitPrice" : 0.99
@@ -29010,7 +29011,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 209,
          "mediaType" : 1,
          "genre" : 6,
-         "composer" : "Chris Robinson\/Rich Robinson",
+         "composer" : "Chris RobinsonRich Robinson",
          "milliseconds" : 218749,
          "bytes" : 7157045,
          "unitPrice" : 0.99
@@ -29021,7 +29022,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 209,
          "mediaType" : 1,
          "genre" : 6,
-         "composer" : "Chris Robinson\/Rich Robinson",
+         "composer" : "Chris RobinsonRich Robinson",
          "milliseconds" : 389146,
          "bytes" : 12749424,
          "unitPrice" : 0.99
@@ -29032,7 +29033,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 209,
          "mediaType" : 1,
          "genre" : 6,
-         "composer" : "Chris Robinson\/Rich Robinson",
+         "composer" : "Chris RobinsonRich Robinson",
          "milliseconds" : 368300,
          "bytes" : 12047978,
          "unitPrice" : 0.99
@@ -29043,7 +29044,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 209,
          "mediaType" : 1,
          "genre" : 6,
-         "composer" : "Chris Robinson\/Rich Robinson",
+         "composer" : "Chris RobinsonRich Robinson",
          "milliseconds" : 372636,
          "bytes" : 12222116,
          "unitPrice" : 0.99
@@ -29054,7 +29055,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 209,
          "mediaType" : 1,
          "genre" : 6,
-         "composer" : "Chris Robinson\/Rich Robinson",
+         "composer" : "Chris RobinsonRich Robinson",
          "milliseconds" : 459990,
          "bytes" : 15161907,
          "unitPrice" : 0.99
@@ -29065,7 +29066,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 209,
          "mediaType" : 1,
          "genre" : 6,
-         "composer" : "Chris Robinson\/Rich Robinson",
+         "composer" : "Chris RobinsonRich Robinson",
          "milliseconds" : 404688,
          "bytes" : 13250848,
          "unitPrice" : 0.99
@@ -29076,7 +29077,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 209,
          "mediaType" : 1,
          "genre" : 6,
-         "composer" : "Chris Robinson\/Rich Robinson",
+         "composer" : "Chris RobinsonRich Robinson",
          "milliseconds" : 308401,
          "bytes" : 10115556,
          "unitPrice" : 0.99
@@ -29087,7 +29088,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 210,
          "mediaType" : 1,
          "genre" : 6,
-         "composer" : "Chris Robinson\/Rich Robinson",
+         "composer" : "Chris RobinsonRich Robinson",
          "milliseconds" : 359314,
          "bytes" : 11740886,
          "unitPrice" : 0.99
@@ -29098,7 +29099,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 210,
          "mediaType" : 1,
          "genre" : 6,
-         "composer" : "Chris Robinson\/Rich Robinson",
+         "composer" : "Chris RobinsonRich Robinson",
          "milliseconds" : 371879,
          "bytes" : 12227998,
          "unitPrice" : 0.99
@@ -29109,7 +29110,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 210,
          "mediaType" : 1,
          "genre" : 6,
-         "composer" : "Chris Robinson\/Rich Robinson",
+         "composer" : "Chris RobinsonRich Robinson",
          "milliseconds" : 505521,
          "bytes" : 16501316,
          "unitPrice" : 0.99
@@ -29120,7 +29121,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 210,
          "mediaType" : 1,
          "genre" : 6,
-         "composer" : "Chris Robinson\/Rich Robinson",
+         "composer" : "Chris RobinsonRich Robinson",
          "milliseconds" : 361978,
          "bytes" : 11837342,
          "unitPrice" : 0.99
@@ -29131,7 +29132,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 210,
          "mediaType" : 1,
          "genre" : 6,
-         "composer" : "Chris Robinson\/Rich Robinson",
+         "composer" : "Chris RobinsonRich Robinson",
          "milliseconds" : 275565,
          "bytes" : 9008067,
          "unitPrice" : 0.99
@@ -29142,7 +29143,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 210,
          "mediaType" : 1,
          "genre" : 6,
-         "composer" : "Chris Robinson\/Rich Robinson",
+         "composer" : "Chris RobinsonRich Robinson",
          "milliseconds" : 314409,
          "bytes" : 10331216,
          "unitPrice" : 0.99
@@ -29153,7 +29154,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 210,
          "mediaType" : 1,
          "genre" : 6,
-         "composer" : "Chris Robinson\/Rich Robinson",
+         "composer" : "Chris RobinsonRich Robinson",
          "milliseconds" : 233639,
          "bytes" : 7672489,
          "unitPrice" : 0.99
@@ -29164,7 +29165,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 210,
          "mediaType" : 1,
          "genre" : 6,
-         "composer" : "A.Isbell\/A.Jones\/O.Redding",
+         "composer" : "A.IsbellA.JonesO.Redding",
          "milliseconds" : 206994,
          "bytes" : 6786304,
          "unitPrice" : 0.99
@@ -29175,7 +29176,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 210,
          "mediaType" : 1,
          "genre" : 6,
-         "composer" : "Chris Robinson\/Rich Robinson",
+         "composer" : "Chris RobinsonRich Robinson",
          "milliseconds" : 337084,
          "bytes" : 11049098,
          "unitPrice" : 0.99
@@ -29186,7 +29187,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 211,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Joe Strummer\/Mick Jones",
+         "composer" : "Joe StrummerMick Jones",
          "milliseconds" : 118726,
          "bytes" : 3922819,
          "unitPrice" : 0.99
@@ -29197,7 +29198,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 211,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Joe Strummer\/Mick Jones",
+         "composer" : "Joe StrummerMick Jones",
          "milliseconds" : 180297,
          "bytes" : 5949647,
          "unitPrice" : 0.99
@@ -29208,7 +29209,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 211,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Joe Strummer\/Mick Jones",
+         "composer" : "Joe StrummerMick Jones",
          "milliseconds" : 192653,
          "bytes" : 6272081,
          "unitPrice" : 0.99
@@ -29219,7 +29220,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 211,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Joe Strummer\/Mick Jones",
+         "composer" : "Joe StrummerMick Jones",
          "milliseconds" : 227500,
          "bytes" : 7555054,
          "unitPrice" : 0.99
@@ -29230,7 +29231,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 211,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Joe Strummer\/Mick Jones",
+         "composer" : "Joe StrummerMick Jones",
          "milliseconds" : 240640,
          "bytes" : 7883532,
          "unitPrice" : 0.99
@@ -29241,7 +29242,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 211,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Joe Strummer\/Mick Jones",
+         "composer" : "Joe StrummerMick Jones",
          "milliseconds" : 195526,
          "bytes" : 6399872,
          "unitPrice" : 0.99
@@ -29252,7 +29253,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 211,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Mick Jones\/Traditional arr. Joe Strummer",
+         "composer" : "Mick JonesTraditional arr. Joe Strummer",
          "milliseconds" : 156708,
          "bytes" : 5111226,
          "unitPrice" : 0.99
@@ -29274,7 +29275,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 211,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Joe Strummer\/Mick Jones",
+         "composer" : "Joe StrummerMick Jones",
          "milliseconds" : 199706,
          "bytes" : 6569007,
          "unitPrice" : 0.99
@@ -29285,7 +29286,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 211,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Joe Strummer\/Mick Jones",
+         "composer" : "Joe StrummerMick Jones",
          "milliseconds" : 189675,
          "bytes" : 6329877,
          "unitPrice" : 0.99
@@ -29296,7 +29297,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 211,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Joe Strummer\/Mick Jones",
+         "composer" : "Joe StrummerMick Jones",
          "milliseconds" : 272431,
          "bytes" : 9067323,
          "unitPrice" : 0.99
@@ -29373,7 +29374,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 218,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jagger\/Richards",
+         "composer" : "JaggerRichards",
          "milliseconds" : 230896,
          "bytes" : 7639774,
          "unitPrice" : 0.99
@@ -29395,7 +29396,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 212,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Billy Duffy\/Ian Astbury",
+         "composer" : "Billy DuffyIan Astbury",
          "milliseconds" : 252630,
          "bytes" : 8254842,
          "unitPrice" : 0.99
@@ -29406,7 +29407,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 212,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Billy Duffy\/Ian Astbury",
+         "composer" : "Billy DuffyIan Astbury",
          "milliseconds" : 216215,
          "bytes" : 7061584,
          "unitPrice" : 0.99
@@ -29417,7 +29418,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 212,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Billy Duffy\/Ian Astbury",
+         "composer" : "Billy DuffyIan Astbury",
          "milliseconds" : 219088,
          "bytes" : 7106195,
          "unitPrice" : 0.99
@@ -29428,7 +29429,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 212,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Billy Duffy\/Ian Astbury",
+         "composer" : "Billy DuffyIan Astbury",
          "milliseconds" : 235755,
          "bytes" : 7650012,
          "unitPrice" : 0.99
@@ -29439,7 +29440,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 212,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Billy Duffy\/Ian Astbury\/Marti Frederiksen\/Mick Jones",
+         "composer" : "Billy DuffyIan AstburyMarti FrederiksenMick Jones",
          "milliseconds" : 299781,
          "bytes" : 9742361,
          "unitPrice" : 0.99
@@ -29450,7 +29451,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 212,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Billy Duffy\/Ian Astbury",
+         "composer" : "Billy DuffyIan Astbury",
          "milliseconds" : 289488,
          "bytes" : 9412323,
          "unitPrice" : 0.99
@@ -29461,7 +29462,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 212,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Billy Duffy\/Ian Astbury",
+         "composer" : "Billy DuffyIan Astbury",
          "milliseconds" : 236878,
          "bytes" : 7739840,
          "unitPrice" : 0.99
@@ -29472,7 +29473,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 212,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Billy Duffy\/Bob Rock\/Ian Astbury",
+         "composer" : "Billy DuffyBob RockIan Astbury",
          "milliseconds" : 300591,
          "bytes" : 9787692,
          "unitPrice" : 0.99
@@ -29483,7 +29484,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 212,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Billy Duffy\/Ian Astbury",
+         "composer" : "Billy DuffyIan Astbury",
          "milliseconds" : 209789,
          "bytes" : 6885647,
          "unitPrice" : 0.99
@@ -29494,7 +29495,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 212,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Billy Duffy\/Bob Rock\/Ian Astbury",
+         "composer" : "Billy DuffyBob RockIan Astbury",
          "milliseconds" : 262817,
          "bytes" : 8563352,
          "unitPrice" : 0.99
@@ -29505,7 +29506,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 212,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Billy Duffy\/Ian Astbury",
+         "composer" : "Billy DuffyIan Astbury",
          "milliseconds" : 308009,
          "bytes" : 9981359,
          "unitPrice" : 0.99
@@ -29516,7 +29517,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 212,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Billy Duffy\/Ian Astbury",
+         "composer" : "Billy DuffyIan Astbury",
          "milliseconds" : 231862,
          "bytes" : 7571370,
          "unitPrice" : 0.99
@@ -30011,7 +30012,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 216,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jagger\/Richards",
+         "composer" : "JaggerRichards",
          "milliseconds" : 164493,
          "bytes" : 5329538,
          "unitPrice" : 0.99
@@ -30033,7 +30034,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 216,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jagger\/Richards",
+         "composer" : "JaggerRichards",
          "milliseconds" : 226612,
          "bytes" : 7398766,
          "unitPrice" : 0.99
@@ -30044,7 +30045,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 216,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jagger\/Richards\/Oldham",
+         "composer" : "JaggerRichardsOldham",
          "milliseconds" : 164284,
          "bytes" : 5357350,
          "unitPrice" : 0.99
@@ -30055,7 +30056,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 216,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jagger\/Richards",
+         "composer" : "JaggerRichards",
          "milliseconds" : 176013,
          "bytes" : 5719514,
          "unitPrice" : 0.99
@@ -30066,7 +30067,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 216,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jagger\/Richards",
+         "composer" : "JaggerRichards",
          "milliseconds" : 167549,
          "bytes" : 5422434,
          "unitPrice" : 0.99
@@ -30077,7 +30078,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 216,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jagger\/Richards",
+         "composer" : "JaggerRichards",
          "milliseconds" : 237923,
          "bytes" : 7742984,
          "unitPrice" : 0.99
@@ -30088,7 +30089,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 216,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jagger\/Richards",
+         "composer" : "JaggerRichards",
          "milliseconds" : 226063,
          "bytes" : 7442888,
          "unitPrice" : 0.99
@@ -30099,7 +30100,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 216,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jagger\/Richards",
+         "composer" : "JaggerRichards",
          "milliseconds" : 221387,
          "bytes" : 7371799,
          "unitPrice" : 0.99
@@ -30110,7 +30111,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 216,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jagger\/Richards",
+         "composer" : "JaggerRichards",
          "milliseconds" : 197459,
          "bytes" : 6433467,
          "unitPrice" : 0.99
@@ -30121,7 +30122,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 216,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jagger\/Richards",
+         "composer" : "JaggerRichards",
          "milliseconds" : 217495,
          "bytes" : 7137048,
          "unitPrice" : 0.99
@@ -30132,7 +30133,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 217,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jagger\/Richards",
+         "composer" : "JaggerRichards",
          "milliseconds" : 49737,
          "bytes" : 1618591,
          "unitPrice" : 0.99
@@ -30143,7 +30144,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 217,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jagger\/Richards",
+         "composer" : "JaggerRichards",
          "milliseconds" : 205766,
          "bytes" : 6734385,
          "unitPrice" : 0.99
@@ -30154,7 +30155,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 217,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jagger\/Richards",
+         "composer" : "JaggerRichards",
          "milliseconds" : 382119,
          "bytes" : 12528764,
          "unitPrice" : 0.99
@@ -30165,7 +30166,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 217,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jagger\/Richards",
+         "composer" : "JaggerRichards",
          "milliseconds" : 252421,
          "bytes" : 8336591,
          "unitPrice" : 0.99
@@ -30176,7 +30177,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 217,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jagger\/Richards",
+         "composer" : "JaggerRichards",
          "milliseconds" : 365844,
          "bytes" : 11982431,
          "unitPrice" : 0.99
@@ -30187,7 +30188,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 217,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jesse Ed Davis III\/Taj Mahal",
+         "composer" : "Jesse Ed Davis IIITaj Mahal",
          "milliseconds" : 257488,
          "bytes" : 8449471,
          "unitPrice" : 0.99
@@ -30198,7 +30199,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 217,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jagger\/Richards",
+         "composer" : "JaggerRichards",
          "milliseconds" : 325694,
          "bytes" : 10725160,
          "unitPrice" : 0.99
@@ -30209,7 +30210,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 217,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jagger\/Richards",
+         "composer" : "JaggerRichards",
          "milliseconds" : 302497,
          "bytes" : 9978046,
          "unitPrice" : 0.99
@@ -30220,7 +30221,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 217,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Faithfull\/Jagger\/Richards",
+         "composer" : "FaithfullJaggerRichards",
          "milliseconds" : 376215,
          "bytes" : 12345289,
          "unitPrice" : 0.99
@@ -30231,7 +30232,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 217,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jagger\/Richards",
+         "composer" : "JaggerRichards",
          "milliseconds" : 234893,
          "bytes" : 7709006,
          "unitPrice" : 0.99
@@ -30242,7 +30243,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 217,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jagger\/Richards",
+         "composer" : "JaggerRichards",
          "milliseconds" : 215693,
          "bytes" : 7099669,
          "unitPrice" : 0.99
@@ -30253,7 +30254,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 217,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "De Beauport\/Jagger\/Richards",
+         "composer" : "De BeauportJaggerRichards",
          "milliseconds" : 337266,
          "bytes" : 10952756,
          "unitPrice" : 0.99
@@ -30264,7 +30265,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 217,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jagger\/Richards",
+         "composer" : "JaggerRichards",
          "milliseconds" : 287294,
          "bytes" : 9498758,
          "unitPrice" : 0.99
@@ -30275,7 +30276,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 218,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jagger\/Richards",
+         "composer" : "JaggerRichards",
          "milliseconds" : 215928,
          "bytes" : 7162159,
          "unitPrice" : 0.99
@@ -30286,7 +30287,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 218,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jagger\/Richards",
+         "composer" : "JaggerRichards",
          "milliseconds" : 196466,
          "bytes" : 6492847,
          "unitPrice" : 0.99
@@ -30297,7 +30298,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 218,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jagger\/Richards",
+         "composer" : "JaggerRichards",
          "milliseconds" : 144613,
          "bytes" : 4750094,
          "unitPrice" : 0.99
@@ -30308,7 +30309,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 218,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jagger\/Richards",
+         "composer" : "JaggerRichards",
          "milliseconds" : 172146,
          "bytes" : 5689122,
          "unitPrice" : 0.99
@@ -30319,7 +30320,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 218,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jagger\/Richards",
+         "composer" : "JaggerRichards",
          "milliseconds" : 222119,
          "bytes" : 7366316,
          "unitPrice" : 0.99
@@ -30330,7 +30331,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 218,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jagger\/Richards",
+         "composer" : "JaggerRichards",
          "milliseconds" : 327418,
          "bytes" : 10677236,
          "unitPrice" : 0.99
@@ -30341,7 +30342,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 218,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jagger\/Richards",
+         "composer" : "JaggerRichards",
          "milliseconds" : 264019,
          "bytes" : 8630833,
          "unitPrice" : 0.99
@@ -30352,7 +30353,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 218,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jagger\/Richards",
+         "composer" : "JaggerRichards",
          "milliseconds" : 256052,
          "bytes" : 8459344,
          "unitPrice" : 0.99
@@ -30363,7 +30364,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 218,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jagger\/Richards",
+         "composer" : "JaggerRichards",
          "milliseconds" : 285492,
          "bytes" : 9550459,
          "unitPrice" : 0.99
@@ -30374,7 +30375,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 218,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jagger\/Richards",
+         "composer" : "JaggerRichards",
          "milliseconds" : 268225,
          "bytes" : 8920566,
          "unitPrice" : 0.99
@@ -30385,7 +30386,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 218,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jagger\/Richards",
+         "composer" : "JaggerRichards",
          "milliseconds" : 273946,
          "bytes" : 8971343,
          "unitPrice" : 0.99
@@ -30396,7 +30397,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 218,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jagger\/Richards",
+         "composer" : "JaggerRichards",
          "milliseconds" : 249417,
          "bytes" : 8197309,
          "unitPrice" : 0.99
@@ -30407,7 +30408,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 218,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jagger\/Richards",
+         "composer" : "JaggerRichards",
          "milliseconds" : 375092,
          "bytes" : 12175406,
          "unitPrice" : 0.99
@@ -30418,7 +30419,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 218,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jagger\/Richards",
+         "composer" : "JaggerRichards",
          "milliseconds" : 249155,
          "bytes" : 8273602,
          "unitPrice" : 0.99
@@ -30583,7 +30584,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 219,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Keith Richards\/Mick Jagger",
+         "composer" : "Keith RichardsMick Jagger",
          "milliseconds" : 214752,
          "bytes" : 7101572,
          "unitPrice" : 0.99
@@ -30737,7 +30738,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 221,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "John Entwistle\/Pete Townshend",
+         "composer" : "John EntwistlePete Townshend",
          "milliseconds" : 197825,
          "bytes" : 6446634,
          "unitPrice" : 0.99
@@ -30825,7 +30826,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 221,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "John Entwistle\/Pete Townshend",
+         "composer" : "John EntwistlePete Townshend",
          "milliseconds" : 181890,
          "bytes" : 6055580,
          "unitPrice" : 0.99
@@ -30847,7 +30848,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 221,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "John Entwistle\/Pete Townshend",
+         "composer" : "John EntwistlePete Townshend",
          "milliseconds" : 309472,
          "bytes" : 10141660,
          "unitPrice" : 0.99
@@ -30858,7 +30859,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 221,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "John Entwistle\/Pete Townshend",
+         "composer" : "John EntwistlePete Townshend",
          "milliseconds" : 513750,
          "bytes" : 16855521,
          "unitPrice" : 0.99
@@ -30913,7 +30914,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 221,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "John Entwistle\/Pete Townshend",
+         "composer" : "John EntwistlePete Townshend",
          "milliseconds" : 299232,
          "bytes" : 9900469,
          "unitPrice" : 0.99
@@ -30935,7 +30936,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 222,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Genival Cassiano\/Silvio Rochael",
+         "composer" : "Genival CassianoSilvio Rochael",
          "milliseconds" : 126615,
          "bytes" : 4152604,
          "unitPrice" : 0.99
@@ -30968,7 +30969,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 222,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Gilson Mendonça\/Michel",
+         "composer" : "Gilson MendonçaMichel",
          "milliseconds" : 262974,
          "bytes" : 8749583,
          "unitPrice" : 0.99
@@ -30990,7 +30991,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 222,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Do Vale, João\/Luiz Wanderley",
+         "composer" : "Do Vale, JoãoLuiz Wanderley",
          "milliseconds" : 131317,
          "bytes" : 4340326,
          "unitPrice" : 0.99
@@ -31034,7 +31035,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 222,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Carlos Imperial\/Edardo Araújo",
+         "composer" : "Carlos ImperialEdardo Araújo",
          "milliseconds" : 115461,
          "bytes" : 3827629,
          "unitPrice" : 0.99
@@ -31056,7 +31057,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 222,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Carlos Imperial\/Tim Maia",
+         "composer" : "Carlos ImperialTim Maia",
          "milliseconds" : 90148,
          "bytes" : 2978589,
          "unitPrice" : 0.99
@@ -31507,7 +31508,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 225,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Branco Mello\/Carlos Barmack\/Ciro Pessoa\/Marcelo Fromer\/Toni Belloto",
+         "composer" : "Branco MelloCarlos BarmackCiro PessoaMarcelo FromerToni Belloto",
          "milliseconds" : 170684,
          "bytes" : 5678290,
          "unitPrice" : 0.99
@@ -31518,7 +31519,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 225,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Arnaldo Antunes\/Charles Gavin\/Marcelo Fromer\/Sérgio Britto\/Toni Bellotto",
+         "composer" : "Arnaldo AntunesCharles GavinMarcelo FromerSérgio BrittoToni Bellotto",
          "milliseconds" : 195840,
          "bytes" : 6472780,
          "unitPrice" : 0.99
@@ -31540,7 +31541,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 225,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Charles Gavin\/Marcelo Fromer\/Sérgio Britto",
+         "composer" : "Charles GavinMarcelo FromerSérgio Britto",
          "milliseconds" : 213289,
          "bytes" : 7067340,
          "unitPrice" : 0.99
@@ -31562,7 +31563,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 225,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Sérgio Britto\/Toni Bellotto",
+         "composer" : "Sérgio BrittoToni Bellotto",
          "milliseconds" : 208613,
          "bytes" : 6883180,
          "unitPrice" : 0.99
@@ -31595,7 +31596,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 225,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Arnaldo Anutnes\/Marcelo Fromer\/Paulo Miklos",
+         "composer" : "Arnaldo AnutnesMarcelo FromerPaulo Miklos",
          "milliseconds" : 203702,
          "bytes" : 6733733,
          "unitPrice" : 0.99
@@ -31606,7 +31607,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 225,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Arnaldo Anutnes\/Branco Mello\/Marcelo Fromer\/Sergio Brotto\/Toni Bellotto",
+         "composer" : "Arnaldo AnutnesBranco MelloMarcelo FromerSergio BrottoToni Bellotto",
          "milliseconds" : 224261,
          "bytes" : 7453156,
          "unitPrice" : 0.99
@@ -31617,7 +31618,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 225,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Arnaldo Antunes\/Britto, SergioMiklos, Paulo",
+         "composer" : "Arnaldo AntunesBritto, SergioMiklos, Paulo",
          "milliseconds" : 262191,
          "bytes" : 8727645,
          "unitPrice" : 0.99
@@ -31650,7 +31651,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 225,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Ciro Pressoa\/Marcelo Fromer",
+         "composer" : "Ciro PressoaMarcelo Fromer",
          "milliseconds" : 209084,
          "bytes" : 6939176,
          "unitPrice" : 0.99
@@ -31661,14 +31662,14 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 225,
          "mediaType" : 1,
          "genre" : 4,
-         "composer" : "Erasmo Carlos\/Roberto Carlos",
+         "composer" : "Erasmo CarlosRoberto Carlos",
          "milliseconds" : 251115,
          "bytes" : 8271418,
          "unitPrice" : 0.99
       },
       {
          "trackId" : 2818,
-         "name" : "Senhor Delegado\/Eu Não Aguento",
+         "name" : "Senhor DelegadoEu Não Aguento",
          "album" : 225,
          "mediaType" : 1,
          "genre" : 4,
@@ -31690,7 +31691,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
       },
       {
          "trackId" : 2820,
-         "name" : "Occupation \/ Precipice",
+         "name" : "Occupation  Precipice",
          "album" : 227,
          "mediaType" : 3,
          "genre" : 19,
@@ -33168,7 +33169,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 234,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Ivan Kral\/Patti Smith",
+         "composer" : "Ivan KralPatti Smith",
          "milliseconds" : 287895,
          "bytes" : 9488294,
          "unitPrice" : 0.99
@@ -33179,7 +33180,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 234,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Buzz Cason\/Mac Gayden",
+         "composer" : "Buzz CasonMac Gayden",
          "milliseconds" : 202631,
          "bytes" : 6708932,
          "unitPrice" : 0.99
@@ -33190,7 +33191,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 234,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Alex North\/Hy Zaret",
+         "composer" : "Alex NorthHy Zaret",
          "milliseconds" : 294164,
          "bytes" : 9597568,
          "unitPrice" : 0.99
@@ -33212,7 +33213,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 234,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Brian Eno\/U2",
+         "composer" : "Brian EnoU2",
          "milliseconds" : 277760,
          "bytes" : 9015513,
          "unitPrice" : 0.99
@@ -33531,7 +33532,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 237,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Lennon, John\/McCartney, Paul",
+         "composer" : "Lennon, JohnMcCartney, Paul",
          "milliseconds" : 187350,
          "bytes" : 6097636,
          "unitPrice" : 0.99
@@ -33542,7 +33543,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 237,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Bono\/Clayton, Adam\/Mullen Jr., Larry\/The Edge",
+         "composer" : "BonoClayton, AdamMullen Jr., LarryThe Edge",
          "milliseconds" : 186044,
          "bytes" : 5990280,
          "unitPrice" : 0.99
@@ -33553,7 +33554,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 237,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Bono\/Clayton, Adam\/Mullen Jr., Larry\/The Edge",
+         "composer" : "BonoClayton, AdamMullen Jr., LarryThe Edge",
          "milliseconds" : 179226,
          "bytes" : 5874535,
          "unitPrice" : 0.99
@@ -33564,7 +33565,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 237,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Bono\/Clayton, Adam\/Mullen Jr., Larry\/The Edge",
+         "composer" : "BonoClayton, AdamMullen Jr., LarryThe Edge",
          "milliseconds" : 382458,
          "bytes" : 12494987,
          "unitPrice" : 0.99
@@ -33586,7 +33587,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 237,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Bono\/Clayton, Adam\/Mullen Jr., Larry\/The Edge",
+         "composer" : "BonoClayton, AdamMullen Jr., LarryThe Edge",
          "milliseconds" : 353567,
          "bytes" : 11542247,
          "unitPrice" : 0.99
@@ -33597,7 +33598,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 237,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Mabins, Macie\/Magee, Sterling\/Robinson, Bobby",
+         "composer" : "Mabins, MacieMagee, SterlingRobinson, Bobby",
          "milliseconds" : 38164,
          "bytes" : 1249764,
          "unitPrice" : 0.99
@@ -33608,7 +33609,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 237,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Bono\/Clayton, Adam\/Mullen Jr., Larry\/The Edge",
+         "composer" : "BonoClayton, AdamMullen Jr., LarryThe Edge",
          "milliseconds" : 349831,
          "bytes" : 11450194,
          "unitPrice" : 0.99
@@ -33619,7 +33620,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 237,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Bono\/Clayton, Adam\/Mullen Jr., Larry\/The Edge",
+         "composer" : "BonoClayton, AdamMullen Jr., LarryThe Edge",
          "milliseconds" : 267807,
          "bytes" : 8806361,
          "unitPrice" : 0.99
@@ -33630,7 +33631,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 237,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Bono\/Clayton, Adam\/Mullen Jr., Larry\/The Edge",
+         "composer" : "BonoClayton, AdamMullen Jr., LarryThe Edge",
          "milliseconds" : 229276,
          "bytes" : 7498022,
          "unitPrice" : 0.99
@@ -33641,7 +33642,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 237,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Bono\/Clayton, Adam\/Dylan, Bob\/Mullen Jr., Larry\/The Edge",
+         "composer" : "BonoClayton, AdamDylan, BobMullen Jr., LarryThe Edge",
          "milliseconds" : 384522,
          "bytes" : 12508716,
          "unitPrice" : 0.99
@@ -33652,7 +33653,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 237,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Bono\/Clayton, Adam\/Mullen Jr., Larry\/The Edge",
+         "composer" : "BonoClayton, AdamMullen Jr., LarryThe Edge",
          "milliseconds" : 255869,
          "bytes" : 8340954,
          "unitPrice" : 0.99
@@ -33663,7 +33664,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 237,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Bono\/Clayton, Adam\/Mullen Jr., Larry\/The Edge",
+         "composer" : "BonoClayton, AdamMullen Jr., LarryThe Edge",
          "milliseconds" : 303360,
          "bytes" : 9867748,
          "unitPrice" : 0.99
@@ -33674,7 +33675,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 237,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Bono\/Clayton, Adam\/Mullen Jr., Larry\/The Edge",
+         "composer" : "BonoClayton, AdamMullen Jr., LarryThe Edge",
          "milliseconds" : 195604,
          "bytes" : 6497570,
          "unitPrice" : 0.99
@@ -33696,7 +33697,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 237,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Bono\/Clayton, Adam\/Mullen Jr., Larry\/The Edge",
+         "composer" : "BonoClayton, AdamMullen Jr., LarryThe Edge",
          "milliseconds" : 337005,
          "bytes" : 10993607,
          "unitPrice" : 0.99
@@ -33707,7 +33708,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 237,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Bono\/Clayton, Adam\/Mullen Jr., Larry\/The Edge",
+         "composer" : "BonoClayton, AdamMullen Jr., LarryThe Edge",
          "milliseconds" : 390243,
          "bytes" : 12729820,
          "unitPrice" : 0.99
@@ -34257,7 +34258,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 242,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Alex Van Halen\/David Lee Roth\/Edward Van Halen\/Michael Anthony",
+         "composer" : "Alex Van HalenDavid Lee RothEdward Van HalenMichael Anthony",
          "milliseconds" : 210259,
          "bytes" : 6872314,
          "unitPrice" : 0.99
@@ -34268,7 +34269,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 242,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Alex Van Halen\/David Lee Roth\/Edward Van Halen\/Michael Anthony",
+         "composer" : "Alex Van HalenDavid Lee RothEdward Van HalenMichael Anthony",
          "milliseconds" : 82860,
          "bytes" : 2650998,
          "unitPrice" : 0.99
@@ -34279,7 +34280,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 242,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Alex Van Halen\/David Lee Roth\/Edward Van Halen\/Michael Anthony",
+         "composer" : "Alex Van HalenDavid Lee RothEdward Van HalenMichael Anthony",
          "milliseconds" : 206968,
          "bytes" : 6803255,
          "unitPrice" : 0.99
@@ -34290,7 +34291,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 242,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Alex Van Halen\/David Lee Roth\/Edward Van Halen\/Michael Anthony",
+         "composer" : "Alex Van HalenDavid Lee RothEdward Van HalenMichael Anthony",
          "milliseconds" : 100153,
          "bytes" : 3282142,
          "unitPrice" : 0.99
@@ -34301,7 +34302,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 242,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Bill Dees\/Roy Orbison",
+         "composer" : "Bill DeesRoy Orbison",
          "milliseconds" : 174680,
          "bytes" : 5665828,
          "unitPrice" : 0.99
@@ -34312,7 +34313,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 242,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Ivy Jo Hunter\/Marvin Gaye\/William Stevenson",
+         "composer" : "Ivy Jo HunterMarvin GayeWilliam Stevenson",
          "milliseconds" : 225985,
          "bytes" : 7461499,
          "unitPrice" : 0.99
@@ -34323,7 +34324,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 242,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Alex Van Halen\/David Lee Roth\/Edward Van Halen\/Michael Anthony",
+         "composer" : "Alex Van HalenDavid Lee RothEdward Van HalenMichael Anthony",
          "milliseconds" : 42240,
          "bytes" : 1439530,
          "unitPrice" : 0.99
@@ -34334,7 +34335,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 242,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Alex Van Halen\/David Lee Roth\/Edward Van Halen\/Michael Anthony",
+         "composer" : "Alex Van HalenDavid Lee RothEdward Van HalenMichael Anthony",
          "milliseconds" : 228806,
          "bytes" : 7453043,
          "unitPrice" : 0.99
@@ -34345,7 +34346,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 242,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Jack Yellen\/Milton Ager",
+         "composer" : "Jack YellenMilton Ager",
          "milliseconds" : 165146,
          "bytes" : 5489609,
          "unitPrice" : 0.99
@@ -34356,7 +34357,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 242,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Alex Van Halen\/David Lee Roth\/Edward Van Halen\/Michael Anthony",
+         "composer" : "Alex Van HalenDavid Lee RothEdward Van HalenMichael Anthony",
          "milliseconds" : 201116,
          "bytes" : 6551013,
          "unitPrice" : 0.99
@@ -34477,7 +34478,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 243,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Edward Van Halen, Alex Van Halen, Michael Anthony,\/Edward Van Halen, Alex Van Halen, Michael Anthony, Sammy Hagar",
+         "composer" : "Edward Van Halen, Alex Van Halen, Michael Anthony,Edward Van Halen, Alex Van Halen, Michael Anthony, Sammy Hagar",
          "milliseconds" : 291813,
          "bytes" : 9504119,
          "unitPrice" : 0.99
@@ -34488,7 +34489,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 243,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Edward Van Halen, Alex Van Halen, Michael Anthony,\/Edward Van Halen, Alex Van Halen, Michael Anthony, Sammy Hagar",
+         "composer" : "Edward Van Halen, Alex Van Halen, Michael Anthony,Edward Van Halen, Alex Van Halen, Michael Anthony, Sammy Hagar",
          "milliseconds" : 338991,
          "bytes" : 11049966,
          "unitPrice" : 0.99
@@ -34499,7 +34500,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 243,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Edward Van Halen, Alex Van Halen, Michael Anthony,\/Edward Van Halen, Alex Van Halen, Michael Anthony, Sammy Hagar",
+         "composer" : "Edward Van Halen, Alex Van Halen, Michael Anthony,Edward Van Halen, Alex Van Halen, Michael Anthony, Sammy Hagar",
          "milliseconds" : 321854,
          "bytes" : 10366978,
          "unitPrice" : 0.99
@@ -34532,7 +34533,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 243,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Edward Van Halen, Alex Van Halen, Michael Anthony,\/Edward Van Halen, Alex Van Halen, Michael Anthony, Sammy Hagar",
+         "composer" : "Edward Van Halen, Alex Van Halen, Michael Anthony,Edward Van Halen, Alex Van Halen, Michael Anthony, Sammy Hagar",
          "milliseconds" : 308950,
          "bytes" : 10014683,
          "unitPrice" : 0.99
@@ -34543,7 +34544,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 243,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Edward Van Halen, Alex Van Halen, Michael Anthony,\/Edward Van Halen, Alex Van Halen, Michael Anthony, David Lee Roth",
+         "composer" : "Edward Van Halen, Alex Van Halen, Michael Anthony,Edward Van Halen, Alex Van Halen, Michael Anthony, David Lee Roth",
          "milliseconds" : 315376,
          "bytes" : 10355753,
          "unitPrice" : 0.99
@@ -34554,7 +34555,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 243,
          "mediaType" : 1,
          "genre" : 1,
-         "composer" : "Edward Van Halen, Alex Van Halen, Michael Anthony,\/Edward Van Halen, Alex Van Halen, Michael Anthony, David Lee Roth",
+         "composer" : "Edward Van Halen, Alex Van Halen, Michael Anthony,Edward Van Halen, Alex Van Halen, Michael Anthony, David Lee Roth",
          "milliseconds" : 366053,
          "bytes" : 12013467,
          "unitPrice" : 0.99
@@ -35258,7 +35259,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 141,
          "mediaType" : 1,
          "genre" : 3,
-         "composer" : "Marsden\/Moody",
+         "composer" : "MarsdenMoody",
          "milliseconds" : 250801,
          "bytes" : 8129820,
          "unitPrice" : 0.99
@@ -35280,7 +35281,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 248,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Beto Gogo\/Jessé Pai\/Luiz Carlos\/Zeca Pagodinho",
+         "composer" : "Beto GogoJessé PaiLuiz CarlosZeca Pagodinho",
          "milliseconds" : 240692,
          "bytes" : 8082036,
          "unitPrice" : 0.99
@@ -35302,7 +35303,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 248,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Jorge Aragão\/Zeca Pagodinho",
+         "composer" : "Jorge AragãoZeca Pagodinho",
          "milliseconds" : 225985,
          "bytes" : 7613817,
          "unitPrice" : 0.99
@@ -35324,7 +35325,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 248,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Mauro Diniz\/Ratino Sigem",
+         "composer" : "Mauro DinizRatino Sigem",
          "milliseconds" : 185208,
          "bytes" : 6225948,
          "unitPrice" : 0.99
@@ -35335,7 +35336,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 248,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Paulinho Rezende\/Toninho Geraes",
+         "composer" : "Paulinho RezendeToninho Geraes",
          "milliseconds" : 219454,
          "bytes" : 7311219,
          "unitPrice" : 0.99
@@ -35346,7 +35347,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 248,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Alcino Corrêa\/Monarco",
+         "composer" : "Alcino CorrêaMonarco",
          "milliseconds" : 270393,
          "bytes" : 9134882,
          "unitPrice" : 0.99
@@ -35357,18 +35358,18 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 248,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Augusto Garcez\/Nelson Cavaquinho",
+         "composer" : "Augusto GarcezNelson Cavaquinho",
          "milliseconds" : 140930,
          "bytes" : 4703182,
          "unitPrice" : 0.99
       },
       {
          "trackId" : 3154,
-         "name" : "Feirinha da Pavuna\/Luz do Repente\/Bagaço da Laranja",
+         "name" : "Feirinha da PavunaLuz do RepenteBagaço da Laranja",
          "album" : 248,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Arlindo Cruz\/Franco\/Marquinhos PQD\/Negro, Jovelina Pérolo\/Zeca Pagodinho",
+         "composer" : "Arlindo CruzFrancoMarquinhos PQDNegro, Jovelina PéroloZeca Pagodinho",
          "milliseconds" : 107206,
          "bytes" : 3593684,
          "unitPrice" : 0.99
@@ -35379,7 +35380,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 248,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Aldir Blanc\/Jayme Vignoli",
+         "composer" : "Aldir BlancJayme Vignoli",
          "milliseconds" : 158484,
          "bytes" : 5332668,
          "unitPrice" : 0.99
@@ -35390,7 +35391,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 248,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Dudu Nobre\/Zeca Pagodinho",
+         "composer" : "Dudu NobreZeca Pagodinho",
          "milliseconds" : 269374,
          "bytes" : 9122188,
          "unitPrice" : 0.99
@@ -35401,7 +35402,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 248,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Almir Guineto\/Dedé Paraiso\/Luverci Ernesto",
+         "composer" : "Almir GuinetoDedé ParaisoLuverci Ernesto",
          "milliseconds" : 217495,
          "bytes" : 7325302,
          "unitPrice" : 0.99
@@ -35412,7 +35413,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 248,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Acyr Marques\/Arlindo Cruz\/Franco",
+         "composer" : "Acyr MarquesArlindo CruzFranco",
          "milliseconds" : 243591,
          "bytes" : 8136475,
          "unitPrice" : 0.99
@@ -35423,7 +35424,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 248,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Acyi Marques\/Arlindo Bruz\/Braço, Beto Sem\/Zeca Pagodinho",
+         "composer" : "Acyi MarquesArlindo BruzBraço, Beto SemZeca Pagodinho",
          "milliseconds" : 299102,
          "bytes" : 10012231,
          "unitPrice" : 0.99
@@ -35434,7 +35435,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 248,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Nei Lopes\/Wilson Moreira",
+         "composer" : "Nei LopesWilson Moreira",
          "milliseconds" : 245394,
          "bytes" : 8268712,
          "unitPrice" : 0.99
@@ -35456,7 +35457,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 248,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Ratinho\/Zeca Pagodinho",
+         "composer" : "RatinhoZeca Pagodinho",
          "milliseconds" : 168463,
          "bytes" : 5719129,
          "unitPrice" : 0.99
@@ -35467,7 +35468,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 248,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Grazielle\/Roque Ferreira",
+         "composer" : "GrazielleRoque Ferreira",
          "milliseconds" : 152816,
          "bytes" : 5121366,
          "unitPrice" : 0.99
@@ -35478,7 +35479,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 248,
          "mediaType" : 1,
          "genre" : 7,
-         "composer" : "Carlinhos Santana\/Nelson Rufino",
+         "composer" : "Carlinhos SantanaNelson Rufino",
          "milliseconds" : 332826,
          "bytes" : 11120708,
          "unitPrice" : 0.99
@@ -36816,7 +36817,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
       },
       {
          "trackId" : 3286,
-         "name" : "Iron Man\/Children of the Grave",
+         "name" : "Iron ManChildren of the Grave",
          "album" : 256,
          "mediaType" : 2,
          "genre" : 1,
@@ -36974,7 +36975,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 258,
          "mediaType" : 1,
          "genre" : 17,
-         "composer" : "E. Schrody\/L. Muggerud",
+         "composer" : "E. SchrodyL. Muggerud",
          "milliseconds" : 217835,
          "bytes" : 8715653,
          "unitPrice" : 0.99
@@ -36985,7 +36986,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 258,
          "mediaType" : 1,
          "genre" : 17,
-         "composer" : "E. Schrody\/L. Dimant",
+         "composer" : "E. SchrodyL. Dimant",
          "milliseconds" : 69120,
          "bytes" : 2767047,
          "unitPrice" : 0.99
@@ -36996,7 +36997,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 258,
          "mediaType" : 1,
          "genre" : 17,
-         "composer" : "E. Schrody\/L. Freese\/L. Muggerud",
+         "composer" : "E. SchrodyL. FreeseL. Muggerud",
          "milliseconds" : 182230,
          "bytes" : 7291473,
          "unitPrice" : 0.99
@@ -37007,7 +37008,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 258,
          "mediaType" : 1,
          "genre" : 17,
-         "composer" : "E. Schrody\/L. Dimant",
+         "composer" : "E. SchrodyL. Dimant",
          "milliseconds" : 216633,
          "bytes" : 8667599,
          "unitPrice" : 0.99
@@ -37029,7 +37030,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 258,
          "mediaType" : 1,
          "genre" : 17,
-         "composer" : "E. Schrody\/J. Vasquez\/L. Dimant",
+         "composer" : "E. SchrodyJ. VasquezL. Dimant",
          "milliseconds" : 219402,
          "bytes" : 8778369,
          "unitPrice" : 0.99
@@ -37040,7 +37041,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 258,
          "mediaType" : 1,
          "genre" : 17,
-         "composer" : "E. Schrody\/L. Dimant",
+         "composer" : "E. SchrodyL. Dimant",
          "milliseconds" : 218331,
          "bytes" : 8735518,
          "unitPrice" : 0.99
@@ -37051,7 +37052,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 258,
          "mediaType" : 1,
          "genre" : 17,
-         "composer" : "E. Schrody\/L. Dimant",
+         "composer" : "E. SchrodyL. Dimant",
          "milliseconds" : 155611,
          "bytes" : 6226713,
          "unitPrice" : 0.99
@@ -37062,7 +37063,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 258,
          "mediaType" : 1,
          "genre" : 17,
-         "composer" : "E. Schrody\/L. Muggerud",
+         "composer" : "E. SchrodyL. Muggerud",
          "milliseconds" : 114520,
          "bytes" : 4583091,
          "unitPrice" : 0.99
@@ -37073,7 +37074,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 258,
          "mediaType" : 1,
          "genre" : 17,
-         "composer" : "E. Schrody\/L. Muggerud",
+         "composer" : "E. SchrodyL. Muggerud",
          "milliseconds" : 238393,
          "bytes" : 9537994,
          "unitPrice" : 0.99
@@ -37095,7 +37096,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 258,
          "mediaType" : 1,
          "genre" : 17,
-         "composer" : "E. Schrody\/L. Muggerud",
+         "composer" : "E. SchrodyL. Muggerud",
          "milliseconds" : 190432,
          "bytes" : 7619569,
          "unitPrice" : 0.99
@@ -37106,7 +37107,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 258,
          "mediaType" : 1,
          "genre" : 17,
-         "composer" : "E. Schrody\/L. Muggerud\/R. Medrano",
+         "composer" : "E. SchrodyL. MuggerudR. Medrano",
          "milliseconds" : 170475,
          "bytes" : 6821279,
          "unitPrice" : 0.99
@@ -37117,7 +37118,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 258,
          "mediaType" : 1,
          "genre" : 17,
-         "composer" : "E. Schrody\/R. Medrano",
+         "composer" : "E. SchrodyR. Medrano",
          "milliseconds" : 163030,
          "bytes" : 6523458,
          "unitPrice" : 0.99
@@ -37128,7 +37129,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 258,
          "mediaType" : 1,
          "genre" : 17,
-         "composer" : "E. Schrody\/L. Dimant\/L. Muggerud",
+         "composer" : "E. SchrodyL. DimantL. Muggerud",
          "milliseconds" : 170213,
          "bytes" : 6810820,
          "unitPrice" : 0.99
@@ -37139,7 +37140,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 258,
          "mediaType" : 1,
          "genre" : 17,
-         "composer" : "E. Schrody\/R. Medrano",
+         "composer" : "E. SchrodyR. Medrano",
          "milliseconds" : 239908,
          "bytes" : 9598588,
          "unitPrice" : 0.99
@@ -37150,7 +37151,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 258,
          "mediaType" : 1,
          "genre" : 17,
-         "composer" : "E. Schrody\/L. Dimant",
+         "composer" : "E. SchrodyL. Dimant",
          "milliseconds" : 200620,
          "bytes" : 8027065,
          "unitPrice" : 0.99
@@ -37161,18 +37162,18 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 258,
          "mediaType" : 1,
          "genre" : 17,
-         "composer" : "E. Schrody\/L. Muggerud",
+         "composer" : "E. SchrodyL. Muggerud",
          "milliseconds" : 236120,
          "bytes" : 9447101,
          "unitPrice" : 0.99
       },
       {
          "trackId" : 3318,
-         "name" : "Shamrocks And Shenanigans (Boom Shalock Lock Boom\/Butch Vig Mix)",
+         "name" : "Shamrocks And Shenanigans (Boom Shalock Lock BoomButch Vig Mix)",
          "album" : 258,
          "mediaType" : 1,
          "genre" : 17,
-         "composer" : "E. Schrody\/L. Dimant",
+         "composer" : "E. SchrodyL. Dimant",
          "milliseconds" : 237035,
          "bytes" : 9483705,
          "unitPrice" : 0.99
@@ -37546,7 +37547,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 264,
          "mediaType" : 5,
          "genre" : 15,
-         "composer" : "Karsh Kale\/Vishal Vaid",
+         "composer" : "Karsh KaleVishal Vaid",
          "milliseconds" : 327122,
          "bytes" : 5327463,
          "unitPrice" : 0.99
@@ -37557,7 +37558,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 265,
          "mediaType" : 5,
          "genre" : 1,
-         "composer" : "Darius \"Take One\" Minwalla\/Jon Auer\/Ken Stringfellow\/Matt Harris",
+         "composer" : "Darius \"Take One\" MinwallaJon AuerKen StringfellowMatt Harris",
          "milliseconds" : 212044,
          "bytes" : 3453849,
          "unitPrice" : 0.99
@@ -37579,7 +37580,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "album" : 265,
          "mediaType" : 5,
          "genre" : 1,
-         "composer" : "Darius \"Take One\" Minwalla\/Jon Auer\/Ken Stringfellow\/Matt Harris",
+         "composer" : "Darius \"Take One\" MinwallaJon AuerKen StringfellowMatt Harris",
          "milliseconds" : 199923,
          "bytes" : 3240609,
          "unitPrice" : 0.99
@@ -38807,7 +38808,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
       },
       {
          "trackId" : 3467,
-         "name" : "Intro \/ Stronger Than Me",
+         "name" : "Intro  Stronger Than Me",
          "album" : 322,
          "mediaType" : 2,
          "genre" : 9,
@@ -38818,7 +38819,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
       },
       {
          "trackId" : 3468,
-         "name" : "You Sent Me Flying \/ Cherry",
+         "name" : "You Sent Me Flying  Cherry",
          "album" : 322,
          "mediaType" : 2,
          "genre" : 9,
@@ -39192,7 +39193,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
       },
       {
          "trackId" : 3502,
-         "name" : "Quintet for Horn, Violin, 2 Violas, and Cello in E Flat Major, K. 407\/386c: III. Allegro",
+         "name" : "Quintet for Horn, Violin, 2 Violas, and Cello in E Flat Major, K. 407386c: III. Allegro",
          "album" : 346,
          "mediaType" : 2,
          "genre" : 24,
@@ -39212,7 +39213,10 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "bytes" : 3305164,
          "unitPrice" : 0.99
       }
-   ] as any)
+   ]
+
+   for (const tracksChunk of OrmUtils.chunk(tracks, 250))
+      await dataSource.getRepository(Track).insert(tracksChunk as any)
 
    await dataSource.getRepository(Employee).insert([
       {
@@ -39419,7 +39423,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "firstName" : "František",
          "lastName" : "Wichterlová",
          "company" : "JetBrains s.r.o.",
-         "address" : "Klanova 9\/506",
+         "address" : "Klanova 9506",
          "city" : "Prague",
          "state" : null,
          "country" : "Czech Republic",
@@ -39434,7 +39438,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "firstName" : "Helena",
          "lastName" : "Holý",
          "company" : null,
-         "address" : "Rilská 3174\/6",
+         "address" : "Rilská 31746",
          "city" : "Prague",
          "state" : null,
          "country" : "Czech Republic",
@@ -40094,7 +40098,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "firstName" : "Enrique",
          "lastName" : "Muñoz",
          "company" : null,
-         "address" : "C\/ San Bernardo 85",
+         "address" : "C San Bernardo 85",
          "city" : "Madrid",
          "state" : null,
          "country" : "Spain",
@@ -40686,7 +40690,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
 		"invoiceId" : 41,
 		"customer" : 50,
 		"invoiceDate" : "2021-06-22T19:00:00.000Z",
-		"billingAddress" : "C\/ San Bernardo 85",
+		"billingAddress" : "C San Bernardo 85",
 		"billingCity" : "Madrid",
 		"billingState" : null,
 		"billingCountry" : "Spain",
@@ -40741,7 +40745,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
 		"invoiceId" : 46,
 		"customer" : 6,
 		"invoiceDate" : "2021-07-10T19:00:00.000Z",
-		"billingAddress" : "Rilská 3174\/6",
+		"billingAddress" : "Rilská 31746",
 		"billingCity" : "Prague",
 		"billingState" : null,
 		"billingCountry" : "Czech Republic",
@@ -41082,7 +41086,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
 		"invoiceId" : 77,
 		"customer" : 5,
 		"invoiceDate" : "2021-12-07T19:00:00.000Z",
-		"billingAddress" : "Klanova 9\/506",
+		"billingAddress" : "Klanova 9506",
 		"billingCity" : "Prague",
 		"billingState" : null,
 		"billingCountry" : "Czech Republic",
@@ -41335,7 +41339,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
 		"invoiceId" : 100,
 		"customer" : 5,
 		"invoiceDate" : "2022-03-11T19:00:00.000Z",
-		"billingAddress" : "Klanova 9\/506",
+		"billingAddress" : "Klanova 9506",
 		"billingCity" : "Prague",
 		"billingState" : null,
 		"billingCountry" : "Czech Republic",
@@ -41577,7 +41581,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
 		"invoiceId" : 122,
 		"customer" : 5,
 		"invoiceDate" : "2022-06-13T19:00:00.000Z",
-		"billingAddress" : "Klanova 9\/506",
+		"billingAddress" : "Klanova 9506",
 		"billingCity" : "Prague",
 		"billingState" : null,
 		"billingCountry" : "Czech Republic",
@@ -42017,7 +42021,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
 		"invoiceId" : 162,
 		"customer" : 50,
 		"invoiceDate" : "2022-12-14T19:00:00.000Z",
-		"billingAddress" : "C\/ San Bernardo 85",
+		"billingAddress" : "C San Bernardo 85",
 		"billingCity" : "Madrid",
 		"billingState" : null,
 		"billingCountry" : "Spain",
@@ -42138,7 +42142,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
 		"invoiceId" : 173,
 		"customer" : 50,
 		"invoiceDate" : "2023-01-24T19:00:00.000Z",
-		"billingAddress" : "C\/ San Bernardo 85",
+		"billingAddress" : "C San Bernardo 85",
 		"billingCity" : "Madrid",
 		"billingState" : null,
 		"billingCountry" : "Spain",
@@ -42149,7 +42153,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
 		"invoiceId" : 174,
 		"customer" : 5,
 		"invoiceDate" : "2023-02-01T19:00:00.000Z",
-		"billingAddress" : "Klanova 9\/506",
+		"billingAddress" : "Klanova 9506",
 		"billingCity" : "Prague",
 		"billingState" : null,
 		"billingCountry" : "Czech Republic",
@@ -42160,7 +42164,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
 		"invoiceId" : 175,
 		"customer" : 6,
 		"invoiceDate" : "2023-02-14T19:00:00.000Z",
-		"billingAddress" : "Rilská 3174\/6",
+		"billingAddress" : "Rilská 31746",
 		"billingCity" : "Prague",
 		"billingState" : null,
 		"billingCountry" : "Czech Republic",
@@ -42413,7 +42417,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
 		"invoiceId" : 198,
 		"customer" : 6,
 		"invoiceDate" : "2023-05-19T19:00:00.000Z",
-		"billingAddress" : "Rilská 3174\/6",
+		"billingAddress" : "Rilská 31746",
 		"billingCity" : "Prague",
 		"billingState" : null,
 		"billingCountry" : "Czech Republic",
@@ -42655,7 +42659,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
 		"invoiceId" : 220,
 		"customer" : 6,
 		"invoiceDate" : "2023-08-21T19:00:00.000Z",
-		"billingAddress" : "Rilská 3174\/6",
+		"billingAddress" : "Rilská 31746",
 		"billingCity" : "Prague",
 		"billingState" : null,
 		"billingCountry" : "Czech Republic",
@@ -42743,7 +42747,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
 		"invoiceId" : 228,
 		"customer" : 50,
 		"invoiceDate" : "2023-09-24T19:00:00.000Z",
-		"billingAddress" : "C\/ San Bernardo 85",
+		"billingAddress" : "C San Bernardo 85",
 		"billingCity" : "Madrid",
 		"billingState" : null,
 		"billingCountry" : "Spain",
@@ -43227,7 +43231,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
 		"invoiceId" : 272,
 		"customer" : 6,
 		"invoiceDate" : "2024-04-10T19:00:00.000Z",
-		"billingAddress" : "Rilská 3174\/6",
+		"billingAddress" : "Rilská 31746",
 		"billingCity" : "Prague",
 		"billingState" : null,
 		"billingCountry" : "Czech Republic",
@@ -43480,7 +43484,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
 		"invoiceId" : 295,
 		"customer" : 5,
 		"invoiceDate" : "2024-07-25T19:00:00.000Z",
-		"billingAddress" : "Klanova 9\/506",
+		"billingAddress" : "Klanova 9506",
 		"billingCity" : "Prague",
 		"billingState" : null,
 		"billingCountry" : "Czech Republic",
@@ -43601,7 +43605,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
 		"invoiceId" : 306,
 		"customer" : 5,
 		"invoiceDate" : "2024-09-04T19:00:00.000Z",
-		"billingAddress" : "Klanova 9\/506",
+		"billingAddress" : "Klanova 9506",
 		"billingCity" : "Prague",
 		"billingState" : null,
 		"billingCountry" : "Czech Republic",
@@ -44162,7 +44166,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
 		"invoiceId" : 357,
 		"customer" : 50,
 		"invoiceDate" : "2025-04-30T19:00:00.000Z",
-		"billingAddress" : "C\/ San Bernardo 85",
+		"billingAddress" : "C San Bernardo 85",
 		"billingCity" : "Madrid",
 		"billingState" : null,
 		"billingCountry" : "Spain",
@@ -44206,7 +44210,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
 		"invoiceId" : 361,
 		"customer" : 5,
 		"invoiceDate" : "2025-05-05T19:00:00.000Z",
-		"billingAddress" : "Klanova 9\/506",
+		"billingAddress" : "Klanova 9506",
 		"billingCity" : "Prague",
 		"billingState" : null,
 		"billingCountry" : "Czech Republic",
@@ -44415,7 +44419,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
 		"invoiceId" : 380,
 		"customer" : 50,
 		"invoiceDate" : "2025-08-02T19:00:00.000Z",
-		"billingAddress" : "C\/ San Bernardo 85",
+		"billingAddress" : "C San Bernardo 85",
 		"billingCity" : "Madrid",
 		"billingState" : null,
 		"billingCountry" : "Spain",
@@ -44558,7 +44562,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
 		"invoiceId" : 393,
 		"customer" : 6,
 		"invoiceDate" : "2025-10-02T19:00:00.000Z",
-		"billingAddress" : "Rilská 3174\/6",
+		"billingAddress" : "Rilská 31746",
 		"billingCity" : "Prague",
 		"billingState" : null,
 		"billingCountry" : "Czech Republic",
@@ -44657,7 +44661,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
 		"invoiceId" : 402,
 		"customer" : 50,
 		"invoiceDate" : "2025-11-04T19:00:00.000Z",
-		"billingAddress" : "C\/ San Bernardo 85",
+		"billingAddress" : "C San Bernardo 85",
 		"billingCity" : "Madrid",
 		"billingState" : null,
 		"billingCountry" : "Spain",
@@ -44679,7 +44683,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
 		"invoiceId" : 404,
 		"customer" : 6,
 		"invoiceDate" : "2025-11-12T19:00:00.000Z",
-		"billingAddress" : "Rilská 3174\/6",
+		"billingAddress" : "Rilská 31746",
 		"billingCity" : "Prague",
 		"billingState" : null,
 		"billingCountry" : "Czech Republic",
