@@ -16,7 +16,7 @@
  * 2. Dimensions of numbers (floats/doubles)
  */
 
-import { Column, Entity, Index, JoinColumn, JoinTable, ManyToMany, ManyToOne, PrimaryColumn } from "../../../../src";
+import { Column, Entity, Index, JoinColumn, JoinTable, OneToMany, ManyToMany, ManyToOne, PrimaryColumn } from "../../../../src";
 
 @Entity("artist") 
 export class Artist {
@@ -53,9 +53,7 @@ export class Playlist {
     @Column({name: "name", nullable: true})
     name: string;
 
-    
-    @ManyToMany(() => Track, {onDelete: "NO ACTION", onUpdate: "NO ACTION", nullable: false})
-    @JoinTable({name: "playlist_track", joinColumn: {name: "track_id", foreignKeyConstraintName: "playlist_track_track_id_fkey"}})
+    @OneToMany(() => PlaylistTrack, o => o.track)
     tracks: Track[];
 }
 
@@ -322,8 +320,7 @@ export class Track {
     @Column({name: "unit_price", type: "numeric"})
     unitPrice: number;
 
-    @ManyToMany(() => Playlist, {onDelete: "NO ACTION", onUpdate: "NO ACTION", nullable: false})
-    @JoinTable({name: "playlist_track", joinColumn: {name: "playlist_id", foreignKeyConstraintName: "playlist_track_playlist_id_fkey"}})
+    @OneToMany(() => PlaylistTrack, o => o.playlist)
     playlists: Playlist[];
 }
 
@@ -361,31 +358,31 @@ export class InvoiceLine {
     quantity: number;
 }
 
-// @Entity("playlist_track")
-// export class PlaylistTrack {
-//     // playlist_id INT NOT NULL,
-//     // CONSTRAINT playlist_track_pkey PRIMARY KEY  (playlist_id, track_id)
-//     // ALTER TABLE playlist_track ADD CONSTRAINT playlist_track_playlist_id_fkey
-//     //     FOREIGN KEY (playlist_id) REFERENCES playlist (playlist_id) ON DELETE NO ACTION ON UPDATE NO ACTION;
-//     // CREATE INDEX playlist_track_playlist_id_idx ON playlist_track (playlist_id);
-//     @PrimaryColumn({name: "playlist_id", primaryKeyConstraintName: "playlist_track_pkey"})
-//     playlistId: number;
+@Entity("playlist_track")
+export class PlaylistTrack {
+    // playlist_id INT NOT NULL,
+    // CONSTRAINT playlist_track_pkey PRIMARY KEY  (playlist_id, track_id)
+    // ALTER TABLE playlist_track ADD CONSTRAINT playlist_track_playlist_id_fkey
+    //     FOREIGN KEY (playlist_id) REFERENCES playlist (playlist_id) ON DELETE NO ACTION ON UPDATE NO ACTION;
+    // CREATE INDEX playlist_track_playlist_id_idx ON playlist_track (playlist_id);
+    @PrimaryColumn({name: "playlist_id", primaryKeyConstraintName: "playlist_track_pkey"})
+    playlistId: number;
 
-//     @Index("playlist_track_playlist_id_idx")
-//     @ManyToOne(() => Playlist, {onDelete: "NO ACTION", onUpdate: "NO ACTION", nullable: false})
-//     @JoinColumn({name: "playlist_id", foreignKeyConstraintName: "playlist_track_playlist_id_fkey"})
-//     playlist: Playlist;
+    @Index("playlist_track_playlist_id_idx")
+    @ManyToOne(() => Playlist, {onDelete: "NO ACTION", onUpdate: "NO ACTION", nullable: false})
+    @JoinColumn({name: "playlist_id", foreignKeyConstraintName: "playlist_track_playlist_id_fkey"})
+    playlist: Playlist;
     
-//     // track_id INT NOT NULL,
-//     // CONSTRAINT playlist_track_pkey PRIMARY KEY  (playlist_id, track_id)
-//     // ALTER TABLE playlist_track ADD CONSTRAINT playlist_track_track_id_fkey
-//     //     FOREIGN KEY (track_id) REFERENCES track (track_id) ON DELETE NO ACTION ON UPDATE NO ACTION;
-//     // CREATE INDEX playlist_track_track_id_idx ON playlist_track (track_id);
-//     @PrimaryColumn({name: "track_id", primaryKeyConstraintName: "playlist_track_pkey"})
-//     trackId: number;
+    // track_id INT NOT NULL,
+    // CONSTRAINT playlist_track_pkey PRIMARY KEY  (playlist_id, track_id)
+    // ALTER TABLE playlist_track ADD CONSTRAINT playlist_track_track_id_fkey
+    //     FOREIGN KEY (track_id) REFERENCES track (track_id) ON DELETE NO ACTION ON UPDATE NO ACTION;
+    // CREATE INDEX playlist_track_track_id_idx ON playlist_track (track_id);
+    @PrimaryColumn({name: "track_id", primaryKeyConstraintName: "playlist_track_pkey"})
+    trackId: number;
 
-//     @Index("playlist_track_track_id_idx")
-//     @ManyToOne(() => Track, {onDelete: "NO ACTION", onUpdate: "NO ACTION", nullable: false})
-//     @JoinColumn({name: "playlist_id", foreignKeyConstraintName: "playlist_track_track_id_fkey"})
-//     track: Track;
-// }
+    @Index("playlist_track_track_id_idx")
+    @ManyToOne(() => Track, {onDelete: "NO ACTION", onUpdate: "NO ACTION", nullable: false})
+    @JoinColumn({name: "playlist_id", foreignKeyConstraintName: "playlist_track_track_id_fkey"})
+    track: Track;
+}
