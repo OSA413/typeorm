@@ -5,7 +5,7 @@ import {
 } from "../../utils/test-utils"
 import { DataSource } from "../../../src/data-source/DataSource"
 import { expect } from "chai"
-import { Album, Artist, Customer, Employee, Genre, Invoice, InvoiceLine, MediaType, Playlist, Track } from "../chinook_database/entity/Entities"
+import { Album, Artist, Customer, Employee, Genre, Invoice, InvoiceLine, MediaType, Playlist, Track, PlaylistTrack } from "../chinook_database/entity/Entities"
 import { seedChinookDatabase } from "../chinook_database/seed"
 
 describe("Ultimate Test Suite > DML", () => {
@@ -15,7 +15,7 @@ describe("Ultimate Test Suite > DML", () => {
             schemaCreate: true,
             dropSchema: true,
             entities: [
-                Album, Artist, Customer, Employee, Genre, Invoice, InvoiceLine, MediaType, Playlist, Track
+                Album, Artist, Customer, Employee, Genre, Invoice, InvoiceLine, MediaType, Playlist, Track, PlaylistTrack
             ],
         });
 
