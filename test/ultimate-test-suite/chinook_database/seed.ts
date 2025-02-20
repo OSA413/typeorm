@@ -40090,7 +40090,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "postalCode" : "00-358",
          "phone" : "+48 22 828 37 39",
          "fax" : null,
-         "email" : "stanisław.wójcik@wp.pl",
+         "email" : "stanislaw.wójcik@wp.pl",
          "supportRep" : 4
       },
       {
