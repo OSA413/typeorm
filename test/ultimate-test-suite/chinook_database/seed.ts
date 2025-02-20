@@ -39357,7 +39357,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
       }
    ] as any)
 
-   await dataSource.getRepository(Customer).insert([
+   const customers = [
       {
          "customerId" : 1,
          "firstName" : "Luís",
@@ -40243,7 +40243,10 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "email" : "puja_srivastava@yahoo.in",
          "supportRep" : 3
       }
-   ] as any)
+   ]
+
+   for (const customersChunk of OrmUtils.chunk(customers, 1))
+      await dataSource.getRepository(Customer).insert(customersChunk as any)
 
    const invoices = [
       {
