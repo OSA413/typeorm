@@ -16,7 +16,7 @@
  * 2. Dimensions of numbers (floats/doubles)
  */
 
-import { Column, Entity, Index, JoinColumn, JoinTable, OneToMany, ManyToMany, ManyToOne, PrimaryColumn } from "../../../../src";
+import { Column, Entity, Index, JoinColumn, OneToMany, ManyToOne, PrimaryColumn } from "../../../../src";
 
 @Entity("artist") 
 export class Artist {
