@@ -39218,7 +39218,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
    for (const tracksChunk of OrmUtils.chunk(tracks, 100))
       await dataSource.getRepository(Track).insert(tracksChunk as any)
 
-   await dataSource.getRepository(Employee).insert([
+   const employees = [
       {
          "employeeId" : 1,
          "lastName" : "Adams",
@@ -39355,7 +39355,13 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
          "fax" : "+1 (403) 467-8772",
          "email" : "laura@chinookcorp.com"
       }
-   ] as any)
+   ]
+
+   if (dataSource.driver.options.type === "oracle") {
+      for (const employeesChunk of OrmUtils.chunk(employees, 1))
+         await dataSource.getRepository(Employee).insert(employeesChunk as any)
+   }
+   else await dataSource.getRepository(Employee).insert(employees as any)
 
    const customers = [
       {
@@ -60493,7 +60499,8 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
       {playlistId: 18, name: 'On-The-Go 1'},
    ])
 
-   await dataSource.getRepository(PlaylistTrack).insert([
+   // Save instead of Insert because Oracle tries to insert a Null into the primary column
+   await dataSource.getRepository(PlaylistTrack).save([
       {playlist: 1, track: 3402},
       {playlist: 1, track: 3389},
       {playlist: 1, track: 3390},
@@ -61496,7 +61503,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
       {playlist: 1, track: 985},
    ] as any)
 
-   await dataSource.getRepository(PlaylistTrack).insert([
+   await dataSource.getRepository(PlaylistTrack).save([
       {playlist: 1, track: 986},
       {playlist: 1, track: 987},
       {playlist: 1, track: 988},
@@ -62499,7 +62506,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
       {playlist: 1, track: 688},
    ] as any)
 
-   await dataSource.getRepository(PlaylistTrack).insert([
+   await dataSource.getRepository(PlaylistTrack).save([
       {playlist: 1, track: 689},
       {playlist: 1, track: 690},
       {playlist: 1, track: 691},
@@ -63502,7 +63509,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
       {playlist: 1, track: 2550},
    ] as any)
 
-   await dataSource.getRepository(PlaylistTrack).insert([
+   await dataSource.getRepository(PlaylistTrack).save([
       {playlist: 1, track: 2551},
       {playlist: 1, track: 2552},
       {playlist: 1, track: 2553},
@@ -64505,7 +64512,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
       {playlist: 5, track: 2515},
    ] as any);
 
-   await dataSource.getRepository(PlaylistTrack).insert([
+   await dataSource.getRepository(PlaylistTrack).save([
       {playlist: 5, track: 2516},
       {playlist: 5, track: 2517},
       {playlist: 5, track: 3132},
@@ -65508,7 +65515,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
       {playlist: 8, track: 22},
    ] as any)
 
-   await dataSource.getRepository(PlaylistTrack).insert([
+   await dataSource.getRepository(PlaylistTrack).save([
       {playlist: 8, track: 3411},
       {playlist: 8, track: 3412},
       {playlist: 8, track: 3419},
@@ -66511,7 +66518,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
       {playlist: 8, track: 504},
    ] as any)
 
-   await dataSource.getRepository(PlaylistTrack).insert([
+   await dataSource.getRepository(PlaylistTrack).save([
       {playlist: 8, track: 505},
       {playlist: 8, track: 506},
       {playlist: 8, track: 507},
@@ -67514,7 +67521,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
       {playlist: 8, track: 1948},
    ] as any)
 
-   await dataSource.getRepository(PlaylistTrack).insert([
+   await dataSource.getRepository(PlaylistTrack).save([
       {playlist: 8, track: 1949},
       {playlist: 8, track: 1950},
       {playlist: 8, track: 1951},
@@ -68517,7 +68524,7 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
       {playlist: 8, track: 3067},
    ] as any)
 
-   await dataSource.getRepository(PlaylistTrack).insert([
+   await dataSource.getRepository(PlaylistTrack).save([
       {playlist: 8, track: 3068},
       {playlist: 8, track: 3069},
       {playlist: 8, track: 3070},
