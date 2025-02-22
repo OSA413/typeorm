@@ -1,7 +1,6 @@
 import {
     closeTestingConnections,
     createTestingConnections,
-    reloadTestingDatabases,
 } from "../../../utils/test-utils"
 import { DataSource } from "../../../../src/data-source/DataSource"
 import { Album, Artist, Customer, Employee, Genre, Invoice, InvoiceLine, MediaType, Playlist, Track, PlaylistTrack } from "../../chinook_database/entity/Entities"
