@@ -29,5 +29,8 @@ export const seedChinookDatabase = async (dataSource: DataSource) => {
    await dataSource.getRepository(Playlist).insert(ChinookDataset.Playlists)
 
    // Save instead of Insert because Oracle tries to insert a Null into the primary column
-   await dataSource.getRepository(PlaylistTrack).save(ChinookDataset.PLaylistTracks as any)
+   if (dataSource.driver.options.type === "mssql") {
+      for (const playlistTracksChunk of OrmUtils.chunk(ChinookDataset.PLaylistTracks, 1000))
+         await dataSource.getRepository(PlaylistTrack).save(playlistTracksChunk as any)
+   } else await dataSource.getRepository(PlaylistTrack).save(ChinookDataset.PLaylistTracks as any)
 }
