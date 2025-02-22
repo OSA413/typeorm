@@ -8,7 +8,7 @@
     "username": "root",
     "password": "admin",
     "database": "test",
-    "logging": true
+    "logging": false
   },
   {
     "skip": false,
@@ -19,7 +19,7 @@
     "username": "root",
     "password": "admin",
     "database": "test",
-    "logging": true
+    "logging": false
   },
 
   {
