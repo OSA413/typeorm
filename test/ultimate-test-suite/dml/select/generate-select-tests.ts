@@ -44,25 +44,25 @@ const select: SelectTestDescription[] = [
         },
         sqlSelectCondition: (entity) => {
             if (entity.name === Album.name) {
-                return "albumId"
+                return "album_id"
             } else if (entity.name === Artist.name) {
-                return "artistId"
+                return "artist_id"
             } else if (entity.name === Customer.name) {
-                return "customerId"
+                return "customer_id"
             } else if (entity.name === Employee.name) {
-                return "employeeId"
+                return "employee_id"
             } else if (entity.name === Genre.name) {
-                return "genreId"
+                return "genre_id"
             } else if (entity.name === Invoice.name) {
-                return "invoiceId"
+                return "invoice_id"
             } else if (entity.name === InvoiceLine.name) {
-                return "invoiceLineId"
+                return "invoice_line_id"
             } else if (entity.name === MediaType.name) {
-                return "mediaTypeId"
+                return "media_type_id"
             } else if (entity.name === Playlist.name) {
-                return "playlistId"
+                return "playlist_id"
             } else if (entity.name === Track.name) {
-                return "trackId"
+                return "track_id"
             } else if (entity.name === PlaylistTrack.name) {
                 return "id";
             }
@@ -70,25 +70,25 @@ const select: SelectTestDescription[] = [
         },
         applySelectToQB: (entity, qb) => {
             if (entity.name === Album.name) {
-                return qb.select("albumId")
+                return qb.select("album_id")
             } else if (entity.name === Artist.name) {
-                return qb.select("artistId")
+                return qb.select("artist_id")
             } else if (entity.name === Customer.name) {
-                return qb.select("customerId")
+                return qb.select("customer_id")
             } else if (entity.name === Employee.name) {
-                return qb.select("employeeId")
+                return qb.select("employee_id")
             } else if (entity.name === Genre.name) {
-                return qb.select("genreId")
+                return qb.select("genre_id")
             } else if (entity.name === Invoice.name) {
-                return qb.select("invoiceId")
+                return qb.select("invoice_id")
             } else if (entity.name === InvoiceLine.name) {
-                return qb.select("invoiceLineId")
+                return qb.select("invoice_line_id")
             } else if (entity.name === MediaType.name) {
-                return qb.select("mediaTypeId")
+                return qb.select("media_type_id")
             } else if (entity.name === Playlist.name) {
-                return qb.select("playlistId")
+                return qb.select("playlist_id")
             } else if (entity.name === Track.name) {
-                return qb.select("trackId")
+                return qb.select("track_id")
             } else if (entity.name === PlaylistTrack.name) {
                 return qb.select("id");
             }
