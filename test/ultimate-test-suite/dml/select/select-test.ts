@@ -25,13 +25,27 @@ describe("Ultimate Test Suite > DML", () => {
 
     generateTests().map(testCase => {
         describe(getTestName(...testCase), () => {
-            it("query", () => Promise.all(dataSources.map(async (dataSource) => dataSource.query(`SELECT * FROM ${dataSource.driver.options.type === "oracle" ? `"` : ""}${testCase[1].tableName}${dataSource.driver.options.type === "oracle" ? `"` : ""}`))));
-            it("repository qb getOne", () => Promise.all(dataSources.map(async (dataSource) => dataSource.getRepository(testCase[1].entity).createQueryBuilder().getOne())));
-            it("repository qb getRawOne", () => Promise.all(dataSources.map(async (dataSource) => dataSource.getRepository(testCase[1].entity).createQueryBuilder().getRawOne())));
-            it("repository qb getMany", () => Promise.all(dataSources.map(async (dataSource) => dataSource.getRepository(testCase[1].entity).createQueryBuilder().getMany())));
-            it("repository qb getRawMany", () => Promise.all(dataSources.map(async (dataSource) => dataSource.getRepository(testCase[1].entity).createQueryBuilder().getRawMany())));
-            it("repository findOne", () => Promise.all(dataSources.map(async (dataSource) => dataSource.getRepository(testCase[1].entity).findOne({where: {}}))));
-            it("repository find", () => Promise.all(dataSources.map(async (dataSource) => dataSource.getRepository(testCase[1].entity).find())));
+            it("query", () => Promise.all(dataSources.map(async (dataSource) => dataSource.query(`SELECT ${testCase[0].sqlSelectCondition(testCase[1].entity)} FROM ${dataSource.driver.options.type === "oracle" ? `"` : ""}${testCase[1].tableName}${dataSource.driver.options.type === "oracle" ? `"` : ""}`))));
+            it("repository qb getOne", () => Promise.all(dataSources.map(async (dataSource) =>
+                testCase[0].applySelectToQB(testCase[1].entity, 
+                    dataSource.getRepository(testCase[1].entity).createQueryBuilder()
+                ).getOne())));
+            it("repository qb getRawOne", () => Promise.all(dataSources.map(async (dataSource) =>
+                testCase[0].applySelectToQB(testCase[1].entity, 
+                    dataSource.getRepository(testCase[1].entity).createQueryBuilder()
+                ).getRawOne())));
+            it("repository qb getMany", () => Promise.all(dataSources.map(async (dataSource) =>
+                testCase[0].applySelectToQB(testCase[1].entity, 
+                    dataSource.getRepository(testCase[1].entity).createQueryBuilder()
+                ).getMany())));
+            it("repository qb getRawMany", () => Promise.all(dataSources.map(async (dataSource) =>
+                testCase[0].applySelectToQB(testCase[1].entity, 
+                    dataSource.getRepository(testCase[1].entity).createQueryBuilder()
+                ).getRawMany())));
+            it("repository findOne", () => Promise.all(dataSources.map(async (dataSource) =>
+                dataSource.getRepository(testCase[1].entity).findOne({where: {}, select: testCase[0].selectOption(testCase[1].entity)}))));
+            it("repository find", () => Promise.all(dataSources.map(async (dataSource) =>
+                dataSource.getRepository(testCase[1].entity).find({select: testCase[0].selectOption(testCase[1].entity)}))));
             // it("repository qb stream", (done) => Promise.all(dataSources.map(async (dataSource) => {
             //     if (!(dataSource.driver instanceof AbstractSqliteDriver)) {
             //         const stream = await dataSource.getRepository(testCase[1].entity).createQueryBuilder().stream()
@@ -40,10 +54,22 @@ describe("Ultimate Test Suite > DML", () => {
             //         done()
             //     }
             // })));
-            it("qb from getOne", () => Promise.all(dataSources.map(async (dataSource) => dataSource.createQueryBuilder().from(testCase[1].entity, testCase[1].nameAlias).getOne())));
-            it("qb from getRawOne", () => Promise.all(dataSources.map(async (dataSource) => dataSource.createQueryBuilder().from(testCase[1].entity, testCase[1].nameAlias).getRawOne())));
-            it("qb from getMany", () => Promise.all(dataSources.map(async (dataSource) => dataSource.createQueryBuilder().from(testCase[1].entity, testCase[1].nameAlias).getMany())));
-            it("qb from getRawMany", () => Promise.all(dataSources.map(async (dataSource) => dataSource.createQueryBuilder().from(testCase[1].entity, testCase[1].nameAlias).getRawMany())));
+            it("qb from getOne", () => Promise.all(dataSources.map(async (dataSource) =>    
+                testCase[0].applySelectToQB(testCase[1].entity,
+                    dataSource.createQueryBuilder()
+                ).from(testCase[1].entity, testCase[1].nameAlias).getOne())));
+            it("qb from getRawOne", () => Promise.all(dataSources.map(async (dataSource) =>
+                testCase[0].applySelectToQB(testCase[1].entity,
+                    dataSource.createQueryBuilder()
+                ).from(testCase[1].entity, testCase[1].nameAlias).getRawOne())));
+            it("qb from getMany", () => Promise.all(dataSources.map(async (dataSource) =>
+                testCase[0].applySelectToQB(testCase[1].entity,
+                    dataSource.createQueryBuilder()
+                ).from(testCase[1].entity, testCase[1].nameAlias).getMany())));
+            it("qb from getRawMany", () => Promise.all(dataSources.map(async (dataSource) =>
+                testCase[0].applySelectToQB(testCase[1].entity,
+                    dataSource.createQueryBuilder()
+                ).from(testCase[1].entity, testCase[1].nameAlias).getRawMany())));
             // it("qb from stream", (done) => Promise.all(dataSources.map(async (dataSource) => {
             //     if (!(dataSource.driver instanceof AbstractSqliteDriver)) {
             //         const stream = await dataSource.createQueryBuilder().from(testCase[1].entity, testCase[1].nameAlias).stream()
