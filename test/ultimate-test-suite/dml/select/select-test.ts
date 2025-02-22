@@ -25,7 +25,7 @@ describe("Ultimate Test Suite > DML", () => {
 
     generateTests().map(testCase => {
         describe(getTestName(...testCase), () => {
-            it("query", () => Promise.all(dataSources.map(async (dataSource) => dataSource.query(`SELECT * FROM ${testCase[1].tableName}`))));
+            it("query", () => Promise.all(dataSources.map(async (dataSource) => dataSource.query(`SELECT * FROM "${testCase[1].tableName}"`))));
             it("repository qb getOne", () => Promise.all(dataSources.map(async (dataSource) => dataSource.getRepository(testCase[1].entity).createQueryBuilder().getOne())));
             it("repository qb getRawOne", () => Promise.all(dataSources.map(async (dataSource) => dataSource.getRepository(testCase[1].entity).createQueryBuilder().getRawOne())));
             it("repository qb getMany", () => Promise.all(dataSources.map(async (dataSource) => dataSource.getRepository(testCase[1].entity).createQueryBuilder().getMany())));
