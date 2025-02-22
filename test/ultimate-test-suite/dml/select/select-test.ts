@@ -22,7 +22,6 @@ describe("Ultimate Test Suite > DML", () => {
 
         await Promise.all(dataSources.map(seedChinookDatabase))
     })
-    beforeEach(() => reloadTestingDatabases(dataSources))
     after(() => closeTestingConnections(dataSources))
 
     generateTests().map(testCase => {
