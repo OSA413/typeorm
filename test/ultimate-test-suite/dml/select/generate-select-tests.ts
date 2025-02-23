@@ -1,4 +1,4 @@
-import { FindOneOptions, ILike, MoreThan, ObjectLiteral, OrderByCondition, SelectQueryBuilder } from "../../../../src";
+import { FindOneOptions, FindOptionsOrder, ILike, MoreThan, ObjectLiteral, SelectQueryBuilder } from "../../../../src";
 import { Album, Artist, Customer, Employee, Genre, Invoice, InvoiceLine, MediaType, Playlist, PlaylistTrack, Track } from "../../chinook_database/entity/Entities"
 import { CartesianProduct } from "../../helpers/product";
 
@@ -321,53 +321,53 @@ const orders: OrderTestDescription[] = [
         title: "1 order condition",
         applyOption: (entity, qb) => {
             if (entity.name === Album.name) {
-                return qb.orderBy({title: "ASC"} as Record<keyof Album, unknown> as OrderByCondition)
+                return qb.orderBy("title", "ASC")
             } else if (entity.name === Artist.name) {
-                return qb.orderBy({name: "ASC"} as Record<keyof Artist, unknown> as OrderByCondition)
+                return qb.orderBy("name", "ASC")
             } else if (entity.name === Customer.name) {
-                return qb.orderBy({country: "ASC"} as Record<keyof Customer, unknown> as OrderByCondition)
+                return qb.orderBy("country", "ASC")
             } else if (entity.name === Employee.name) {
-                return qb.orderBy({email: "ASC"} as Record<keyof Employee, unknown> as OrderByCondition)
+                return qb.orderBy("email", "ASC")
             } else if (entity.name === Genre.name) {
-                return qb.orderBy({name: "ASC"} as Record<keyof Genre, unknown> as OrderByCondition)
+                return qb.orderBy("name", "ASC")
             } else if (entity.name === Invoice.name) {
-                return qb.orderBy({billingAddress: "ASC"} as Record<keyof Invoice, unknown> as OrderByCondition)
+                return qb.orderBy("billingAddress", "ASC")
             } else if (entity.name === InvoiceLine.name) {
-                return qb.orderBy({unitPrice: "ASC"} as Record<keyof InvoiceLine, unknown> as OrderByCondition)
+                return qb.orderBy("unitPrice", "ASC")
             } else if (entity.name === MediaType.name) {
-                return qb.orderBy({name: "ASC"} as Record<keyof MediaType, unknown> as OrderByCondition)
+                return qb.orderBy("name", "ASC")
             } else if (entity.name === Playlist.name) {
-                return qb.orderBy({name: "ASC"} as Record<keyof Playlist, unknown> as OrderByCondition)
+                return qb.orderBy("name", "ASC")
             } else if (entity.name === Track.name) {
-                return qb.orderBy({name: "ASC"} as Record<keyof Track, unknown> as OrderByCondition)
+                return qb.orderBy("name", "ASC")
             } else if (entity.name === PlaylistTrack.name) {
-                return qb.orderBy({id: "ASC"} as Record<keyof PlaylistTrack, unknown> as OrderByCondition)
+                return qb.orderBy("id", "ASC")
             }
             throw new Error(`Unsupported entity ${entity.name}`);
         },
         optionForRepo: (entity) => {
             if (entity.name === Album.name) {
-                return {title: "ASC"} as Record<keyof Album, unknown> as OrderByCondition;
+                return {title: "ASC"} as FindOptionsOrder<Album>;
             } else if (entity.name === Artist.name) {
-                return {name: "ASC"} as Record<keyof Artist, unknown> as OrderByCondition
+                return {name: "ASC"} as FindOptionsOrder<Artist>
             } else if (entity.name === Customer.name) {
-                return {country: "ASC"} as Record<keyof Customer, unknown> as OrderByCondition
+                return {country: "ASC"} as FindOptionsOrder<Customer>
             } else if (entity.name === Employee.name) {
-                return {email: "ASC"} as Record<keyof Employee, unknown> as OrderByCondition
+                return {email: "ASC"} as FindOptionsOrder<Employee>
             } else if (entity.name === Genre.name) {
-                return {name: "ASC"} as Record<keyof Genre, unknown> as OrderByCondition
+                return {name: "ASC"} as FindOptionsOrder<Genre>
             } else if (entity.name === Invoice.name) {
-                return {billingAddress: "ASC"} as Record<keyof Invoice, unknown> as OrderByCondition
+                return {billingAddress: "ASC"} as FindOptionsOrder<Invoice>
             } else if (entity.name === InvoiceLine.name) {
-                return {unitPrice: "ASC"} as Record<keyof InvoiceLine, unknown> as OrderByCondition
+                return {unitPrice: "ASC"} as FindOptionsOrder<InvoiceLine>
             } else if (entity.name === MediaType.name) {
-                return {name: "ASC"} as Record<keyof MediaType, unknown> as OrderByCondition
+                return {name: "ASC"} as FindOptionsOrder<MediaType>
             } else if (entity.name === Playlist.name) {
-                return {name: "ASC"} as Record<keyof Playlist, unknown> as OrderByCondition
+                return {name: "ASC"} as FindOptionsOrder<Playlist>
             } else if (entity.name === Track.name) {
-                return {name: "ASC"} as Record<keyof Track, unknown> as OrderByCondition
+                return {name: "ASC"} as FindOptionsOrder<Track>
             } else if (entity.name === PlaylistTrack.name) {
-                return {id: "ASC"} as Record<keyof PlaylistTrack, unknown> as OrderByCondition
+                return {id: "ASC"} as FindOptionsOrder<PlaylistTrack>
             }
             throw new Error(`Unsupported entity ${entity.name}`);
         }
