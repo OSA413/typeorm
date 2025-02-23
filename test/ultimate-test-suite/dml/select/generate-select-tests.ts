@@ -331,9 +331,9 @@ const orders: OrderTestDescription[] = [
             } else if (entity.name === Genre.name) {
                 return qb.orderBy("name", "ASC")
             } else if (entity.name === Invoice.name) {
-                return qb.orderBy("billingAddress", "ASC")
+                return qb.orderBy("billing_address", "ASC")
             } else if (entity.name === InvoiceLine.name) {
-                return qb.orderBy("unitPrice", "ASC")
+                return qb.orderBy("unit_price", "ASC")
             } else if (entity.name === MediaType.name) {
                 return qb.orderBy("name", "ASC")
             } else if (entity.name === Playlist.name) {
