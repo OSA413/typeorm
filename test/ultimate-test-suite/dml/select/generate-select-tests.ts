@@ -434,4 +434,4 @@ export const generateTests = () => CartesianProduct.product(select, entities, wh
         offset: testCase[5],
     }));
 export const getTestName = (testCase: ReturnType<typeof generateTests>[number]) =>
-    `SELECT ${testCase.entity.entity.name} ${testCase.select.title} ${testCase.where.title} ${testCase.order.title} ${testCase.limit.title} ${testCase.offset.title}`
+    `SELECT ${testCase.entity.entity.name}, ${testCase.select.title}, ${testCase.where.title}, ${testCase.order.title}, ${testCase.limit.title}, ${testCase.offset.title}`
