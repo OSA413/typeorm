@@ -376,14 +376,44 @@ const orders = [
     ""
 ]
 
-const limits = [
-    ""
+interface LimitTestDescription {
+    title: string,
+    // We need three different options because we have three different interfaces
+    option: (entity: any) => string,
+    sql: (entity: any) => string,
+}
+
+const limits: LimitTestDescription[] = [
+    {
+        title: "no limit",
+        option: () => undefined as never as string,
+        sql: () => ""
+    }
 ]
 
-const offsets = [
-    ""
+interface OffsetTestDescription {
+    title: string,
+    // We need three different options because we have three different interfaces
+    option: (entity: any) => string,
+    sql: (entity: any) => string,
+}
+
+const offsets: OffsetTestDescription[] = [
+    {
+        title: "no offset",
+        option: () => undefined as never as string,
+        sql: () => ""
+    }
 ]
 
-export const generateTests = () => CartesianProduct.product(select, entities, wheres, orders, limits, offsets);
-export const getTestName = (select: SelectTestDescription, entity: EntityTestDescription, where: string, order: string, limit: string, offset: string) =>
-    `SELECT ${entity.entity.name} ${select.title}`
+export const generateTests = () => CartesianProduct.product(select, entities, wheres, orders, limits, offsets)
+    .map(testCase => ({
+        select: testCase[0],
+        entity: testCase[1],
+        where: testCase[2],
+        order: testCase[3],
+        limit: testCase[4],
+        offset: testCase[5],
+    }));
+export const getTestName = (testCase: ReturnType<typeof generateTests>[number]) =>
+    `SELECT ${testCase.entity.entity.name} ${testCase.select.title} ${testCase.limit.title} ${testCase.offset.title}`
