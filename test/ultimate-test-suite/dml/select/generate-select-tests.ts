@@ -424,7 +424,25 @@ const offsets: OffsetTestDescription[] = [
     }
 ]
 
-export const generateTests = () => CartesianProduct.product(select, entities, wheres, orders, limits, offsets)
+const optimizeTests = (testCases: ReturnType<typeof _generateTests>) => {
+    const testMap = new Map<string, typeof testCases[number]>()
+    for (const testCase of testCases) {
+        const entity = testCase.entity.entity;
+        const select = JSON.stringify(testCase.select.selectOption(entity)) ?? "empty";
+        const where = JSON.stringify(testCase.where.option(entity));
+        const order = JSON.stringify(testCase.order.optionForRepo(entity));
+        const limit = testCase.limit.option;
+        const offset = testCase.offset.option;
+        const stringRepresentationOfTest = `ENTITY: ${entity.name}, SELECT: ${select}, WHERE: ${where}, ORDER: ${order}, LIMIT: ${limit}, OFFSET: ${offset}`;
+        if (!testMap.has(stringRepresentationOfTest))
+            testMap.set(stringRepresentationOfTest, testCase);
+    }
+
+    return Array.from(testMap.values());
+}
+
+export const _generateTests = () => {
+    return CartesianProduct.product(select, entities, wheres, orders, limits, offsets)
     .map(testCase => ({
         select: testCase[0],
         entity: testCase[1],
@@ -433,5 +451,16 @@ export const generateTests = () => CartesianProduct.product(select, entities, wh
         limit: testCase[4],
         offset: testCase[5],
     }));
+}
+
+export const generateTests = () => {
+    console.log("Generating tests...")
+    const allTests = _generateTests()
+    console.log(`Generated ${allTests.length} tests, optimizing...`)
+    const optimizedTests = optimizeTests(allTests);
+    console.log(`Optimization complete, reduced to ${optimizedTests.length} tests (${Math.floor(100-(optimizedTests.length / allTests.length * 100))}% reduction)`)
+    return optimizedTests;
+}
+
 export const getTestName = (testCase: ReturnType<typeof generateTests>[number]) =>
     `SELECT ${testCase.entity.entity.name}, ${testCase.select.title}, ${testCase.where.title}, ${testCase.order.title}, ${testCase.limit.title}, ${testCase.offset.title}`
