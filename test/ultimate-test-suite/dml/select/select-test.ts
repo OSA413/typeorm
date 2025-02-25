@@ -19,6 +19,10 @@ const doesTheDBNotSupportOffsetWithoutLimit = (dataSource: DataSource) => {
     )
 }
 
+const cantDoOffsetWithoutLimit = (dataSource: DataSource, testCase: ReturnType<typeof generateTests>[number]) => {
+    return doesTheDBNotSupportOffsetWithoutLimit(dataSource) && testCase.offset.option && !testCase.limit.option
+}
+
 describe("Ultimate Test Suite > DML > Select", () => {
     let dataSources: DataSource[]
     before(async () => {
@@ -37,7 +41,7 @@ describe("Ultimate Test Suite > DML > Select", () => {
     generateTests().map(testCase => {
         describe(getTestName(testCase), () => {   
             it("repository qb getOne", () => Promise.all(dataSources.map(async (dataSource) => {
-                if (doesTheDBNotSupportOffsetWithoutLimit(dataSource)) return;
+                if (cantDoOffsetWithoutLimit(dataSource, testCase)) return;
                 return await testCase.order.applyOption(testCase.entity.entity,
                     testCase.select.applySelectToQB(testCase.entity.entity,
                         dataSource.getRepository(testCase.entity.entity).createQueryBuilder()
@@ -50,7 +54,7 @@ describe("Ultimate Test Suite > DML > Select", () => {
             })));
 
             it("repository qb getRawOne", () => Promise.all(dataSources.map(async (dataSource) => {
-                if (doesTheDBNotSupportOffsetWithoutLimit(dataSource)) return;
+                if (cantDoOffsetWithoutLimit(dataSource, testCase)) return;
                 testCase.order.applyOption(testCase.entity.entity,
                     testCase.select.applySelectToQB(testCase.entity.entity,
                         dataSource.getRepository(testCase.entity.entity).createQueryBuilder()
@@ -63,7 +67,7 @@ describe("Ultimate Test Suite > DML > Select", () => {
             })));
 
             it("repository qb getMany", () => Promise.all(dataSources.map(async (dataSource) => {
-                if (doesTheDBNotSupportOffsetWithoutLimit(dataSource)) return;
+                if (cantDoOffsetWithoutLimit(dataSource, testCase)) return;
                 testCase.order.applyOption(testCase.entity.entity,
                     testCase.select.applySelectToQB(testCase.entity.entity,
                         dataSource.getRepository(testCase.entity.entity).createQueryBuilder()
@@ -76,7 +80,7 @@ describe("Ultimate Test Suite > DML > Select", () => {
             })));
 
             it("repository qb getRawMany", () => Promise.all(dataSources.map(async (dataSource) => {
-                if (doesTheDBNotSupportOffsetWithoutLimit(dataSource)) return;
+                if (cantDoOffsetWithoutLimit(dataSource, testCase)) return;
                 testCase.order.applyOption(testCase.entity.entity,
                     testCase.select.applySelectToQB(testCase.entity.entity,
                         dataSource.getRepository(testCase.entity.entity).createQueryBuilder()
@@ -89,7 +93,7 @@ describe("Ultimate Test Suite > DML > Select", () => {
             })));
 
             it("repository findOne", () => Promise.all(dataSources.map(async (dataSource) => {
-                if (doesTheDBNotSupportOffsetWithoutLimit(dataSource)) return;
+                if (cantDoOffsetWithoutLimit(dataSource, testCase)) return;
                 dataSource.getRepository(testCase.entity.entity).findOne({
                     where: testCase.where.option(testCase.entity.entity),
                     select: testCase.select.selectOption(testCase.entity.entity),
@@ -98,7 +102,7 @@ describe("Ultimate Test Suite > DML > Select", () => {
             })));
             
             it("repository find", () => Promise.all(dataSources.map(async (dataSource) => {
-                if (doesTheDBNotSupportOffsetWithoutLimit(dataSource)) return;
+                if (cantDoOffsetWithoutLimit(dataSource, testCase)) return;
                 dataSource.getRepository(testCase.entity.entity).find({
                     where: testCase.where.option(testCase.entity.entity),
                     select: testCase.select.selectOption(testCase.entity.entity),
@@ -109,7 +113,7 @@ describe("Ultimate Test Suite > DML > Select", () => {
             })));
             
             it("repository qb stream", () => Promise.all(dataSources.map(async (dataSource) => {
-                if (doesTheDBNotSupportOffsetWithoutLimit(dataSource)) return;
+                if (cantDoOffsetWithoutLimit(dataSource, testCase)) return;
                 if (!(dataSource.driver instanceof AbstractSqliteDriver)) {
                     const stream = await testCase.order.applyOption(testCase.entity.entity,
                         testCase.select.applySelectToQB(testCase.entity.entity,
@@ -129,7 +133,7 @@ describe("Ultimate Test Suite > DML > Select", () => {
             })));
             
             it("qb from getOne", () => Promise.all(dataSources.map(async (dataSource) => {
-                if (doesTheDBNotSupportOffsetWithoutLimit(dataSource)) return;
+                if (cantDoOffsetWithoutLimit(dataSource, testCase)) return;
                 testCase.order.applyOption(testCase.entity.entity,
                     testCase.select.applySelectToQB(testCase.entity.entity,
                         dataSource.createQueryBuilder()
@@ -142,7 +146,7 @@ describe("Ultimate Test Suite > DML > Select", () => {
             })));
 
             it("qb from getRawOne", () => Promise.all(dataSources.map(async (dataSource) => {
-                if (doesTheDBNotSupportOffsetWithoutLimit(dataSource)) return;
+                if (cantDoOffsetWithoutLimit(dataSource, testCase)) return;
                 testCase.order.applyOption(testCase.entity.entity,
                     testCase.select.applySelectToQB(testCase.entity.entity,
                         dataSource.createQueryBuilder()
@@ -155,7 +159,7 @@ describe("Ultimate Test Suite > DML > Select", () => {
             })));
 
             it("qb from getMany", () => Promise.all(dataSources.map(async (dataSource) => {
-                if (doesTheDBNotSupportOffsetWithoutLimit(dataSource)) return;
+                if (cantDoOffsetWithoutLimit(dataSource, testCase)) return;
                 testCase.order.applyOption(testCase.entity.entity,
                     testCase.select.applySelectToQB(testCase.entity.entity,
                         dataSource.createQueryBuilder()
@@ -168,7 +172,7 @@ describe("Ultimate Test Suite > DML > Select", () => {
             })));
 
             it("qb from getRawMany", () => Promise.all(dataSources.map(async (dataSource) => {
-                if (doesTheDBNotSupportOffsetWithoutLimit(dataSource)) return;
+                if (cantDoOffsetWithoutLimit(dataSource, testCase)) return;
                 testCase.order.applyOption(testCase.entity.entity,
                     testCase.select.applySelectToQB(testCase.entity.entity,
                         dataSource.createQueryBuilder()
@@ -181,7 +185,7 @@ describe("Ultimate Test Suite > DML > Select", () => {
             })));
 
             it("qb from stream", () => Promise.all(dataSources.map(async (dataSource) => {
-                if (doesTheDBNotSupportOffsetWithoutLimit(dataSource)) return;
+                if (cantDoOffsetWithoutLimit(dataSource, testCase)) return;
                 if (!(dataSource.driver instanceof AbstractSqliteDriver)) {
                     const stream = await testCase.order.applyOption(testCase.entity.entity,
                         testCase.select.applySelectToQB(testCase.entity.entity,
