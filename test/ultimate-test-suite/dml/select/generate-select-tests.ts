@@ -11,8 +11,10 @@ interface SelectTestDescription {
     title: string,
     // We need three different options because we have three different interfaces
     selectOption: (entity: any) => FindOneOptions<ObjectLiteral>["select"],
-    applySelectToQB: (entity: any, qb: SelectQueryBuilder<ObjectLiteral>) => SelectQueryBuilder<ObjectLiteral>
+    applySelectToQB: (entity: any, qb: SelectQueryBuilder<ObjectLiteral>, oracleFix: boolean) => SelectQueryBuilder<ObjectLiteral>
 }
+
+const fixOracle = (x: string, doINeedToFixIt: boolean) => doINeedToFixIt ? `"${x}"` : x;
 
 const select: SelectTestDescription[] = [
     { 
@@ -48,29 +50,29 @@ const select: SelectTestDescription[] = [
             }
             throw new Error(`Unsupported entity ${entity.name}`);
         },
-        applySelectToQB: (entity, qb) => {
+        applySelectToQB: (entity, qb, oracleFix) => {
             if (entity.name === Album.name) {
-                return qb.select("album_id")
+                return qb.select(fixOracle("album_id", oracleFix))
             } else if (entity.name === Artist.name) {
-                return qb.select("artist_id")
+                return qb.select(fixOracle("artist_id", oracleFix))
             } else if (entity.name === Customer.name) {
-                return qb.select("customer_id")
+                return qb.select(fixOracle("customer_id", oracleFix))
             } else if (entity.name === Employee.name) {
-                return qb.select("employee_id")
+                return qb.select(fixOracle("employee_id", oracleFix))
             } else if (entity.name === Genre.name) {
-                return qb.select("genre_id")
+                return qb.select(fixOracle("genre_id", oracleFix))
             } else if (entity.name === Invoice.name) {
-                return qb.select("invoice_id")
+                return qb.select(fixOracle("invoice_id", oracleFix))
             } else if (entity.name === InvoiceLine.name) {
-                return qb.select("invoice_line_id")
+                return qb.select(fixOracle("invoice_line_id", oracleFix))
             } else if (entity.name === MediaType.name) {
-                return qb.select("media_type_id")
+                return qb.select(fixOracle("media_type_id", oracleFix))
             } else if (entity.name === Playlist.name) {
-                return qb.select("playlist_id")
+                return qb.select(fixOracle("playlist_id", oracleFix))
             } else if (entity.name === Track.name) {
-                return qb.select("track_id")
+                return qb.select(fixOracle("track_id", oracleFix))
             } else if (entity.name === PlaylistTrack.name) {
-                return qb.select("id");
+                return qb.select(fixOracle("id", oracleFix));
             }
             throw new Error(`Unsupported entity ${entity.name}`);
         }
@@ -103,29 +105,29 @@ const select: SelectTestDescription[] = [
             }
             throw new Error(`Unsupported entity ${entity.name}`);
         },
-        applySelectToQB: (entity, qb) => {
+        applySelectToQB: (entity, qb, oracleFix) => {
             if (entity.name === Album.name) {
-                return qb.select(["album_id", "title"])
+                return qb.select(["album_id", "title"].map(x => fixOracle(x, oracleFix)))
             } else if (entity.name === Artist.name) {
-                return qb.select(["artist_id", "name"])
+                return qb.select(["artist_id", "name"].map(x => fixOracle(x, oracleFix)))
             } else if (entity.name === Customer.name) {
-                return qb.select(["customer_id", "address"])
+                return qb.select(["customer_id", "address"].map(x => fixOracle(x, oracleFix)))
             } else if (entity.name === Employee.name) {
-                return qb.select(["employee_id", "phone"])
+                return qb.select(["employee_id", "phone"].map(x => fixOracle(x, oracleFix)))
             } else if (entity.name === Genre.name) {
-                return qb.select(["genre_id", "name"])
+                return qb.select(["genre_id", "name"].map(x => fixOracle(x, oracleFix)))
             } else if (entity.name === Invoice.name) {
-                return qb.select(["invoice_id", "invoice_date"])
+                return qb.select(["invoice_id", "invoice_date"].map(x => fixOracle(x, oracleFix)))
             } else if (entity.name === InvoiceLine.name) {
-                return qb.select(["invoice_line_id", "quantity"])
+                return qb.select(["invoice_line_id", "quantity"].map(x => fixOracle(x, oracleFix)))
             } else if (entity.name === MediaType.name) {
-                return qb.select(["media_type_id", "name"])
+                return qb.select(["media_type_id", "name"].map(x => fixOracle(x, oracleFix)))
             } else if (entity.name === Playlist.name) {
-                return qb.select(["playlist_id", "name"])
+                return qb.select(["playlist_id", "name"].map(x => fixOracle(x, oracleFix)))
             } else if (entity.name === Track.name) {
-                return qb.select(["track_id", "milliseconds"])
+                return qb.select(["track_id", "milliseconds"].map(x => fixOracle(x, oracleFix)))
             } else if (entity.name === PlaylistTrack.name) {
-                return qb.select(["id"]);
+                return qb.select(["id"].map(x => fixOracle(x, oracleFix)));
             }
             throw new Error(`Unsupported entity ${entity.name}`);
         }
@@ -158,29 +160,29 @@ const select: SelectTestDescription[] = [
             }
             throw new Error(`Unsupported entity ${entity.name}`);
         },
-        applySelectToQB: (entity, qb) => {
+        applySelectToQB: (entity, qb, oracleFix) => {
             if (entity.name === Album.name) {
-                return qb.select(["album_id", "title"])
+                return qb.select(["album_id", "title"].map(x => fixOracle(x, oracleFix)))
             } else if (entity.name === Artist.name) {
                 return qb.select(["artist_id", "name"])
             } else if (entity.name === Customer.name) {
-                return qb.select(["customer_id", "address", "city", "first_name"])
+                return qb.select(["customer_id", "address", "city", "first_name"].map(x => fixOracle(x, oracleFix)))
             } else if (entity.name === Employee.name) {
-                return qb.select(["employee_id", "phone", "address", "postal_code"])
+                return qb.select(["employee_id", "phone", "address", "postal_code"].map(x => fixOracle(x, oracleFix)))
             } else if (entity.name === Genre.name) {
-                return qb.select(["genre_id", "name"])
+                return qb.select(["genre_id", "name"].map(x => fixOracle(x, oracleFix)))
             } else if (entity.name === Invoice.name) {
-                return qb.select(["invoice_id", "invoice_date", "billing_country", "billing_state"])
+                return qb.select(["invoice_id", "invoice_date", "billing_country", "billing_state"].map(x => fixOracle(x, oracleFix)))
             } else if (entity.name === InvoiceLine.name) {
-                return qb.select(["invoice_line_id", "quantity", "unit_price"])
+                return qb.select(["invoice_line_id", "quantity", "unit_price"].map(x => fixOracle(x, oracleFix)))
             } else if (entity.name === MediaType.name) {
-                return qb.select(["media_type_id", "name"])
+                return qb.select(["media_type_id", "name"].map(x => fixOracle(x, oracleFix)))
             } else if (entity.name === Playlist.name) {
-                return qb.select(["playlist_id", "name"])
+                return qb.select(["playlist_id", "name"].map(x => fixOracle(x, oracleFix)))
             } else if (entity.name === Track.name) {
-                return qb.select(["track_id", "milliseconds", "composer", "bytes"])
+                return qb.select(["track_id", "milliseconds", "composer", "bytes"].map(x => fixOracle(x, oracleFix)))
             } else if (entity.name === PlaylistTrack.name) {
-                return qb.select(["id"]);
+                return qb.select(["id"].map(x => fixOracle(x, oracleFix)));
             }
             throw new Error(`Unsupported entity ${entity.name}`);
         }
@@ -213,29 +215,29 @@ const select: SelectTestDescription[] = [
             }
             throw new Error(`Unsupported entity ${entity.name}`);
         },
-        applySelectToQB: (entity, qb) => {
+        applySelectToQB: (entity, qb, oracleFix) => {
             if (entity.name === Album.name) {
-                return qb.select(["album_id", "title"])
+                return qb.select(["album_id", "title"].map(x => fixOracle(x, oracleFix)))
             } else if (entity.name === Artist.name) {
-                return qb.select(["artist_id", "name"])
+                return qb.select(["artist_id", "name"].map(x => fixOracle(x, oracleFix)))
             } else if (entity.name === Customer.name) {
-                return qb.select(["customer_id", "address", "city", "first_name", "company", "country", "email", "fax", "last_name", "phone", "postal_code", "state"])
+                return qb.select(["customer_id", "address", "city", "first_name", "company", "country", "email", "fax", "last_name", "phone", "postal_code", "state"].map(x => fixOracle(x, oracleFix)))
             } else if (entity.name === Employee.name) {
-                return qb.select(["employee_id", "phone", "address", "postal_code", "birth_date", "city", "coutry", "email", "fax", "first_name", "hire_date", "last_name", "state", "title"])
+                return qb.select(["employee_id", "phone", "address", "postal_code", "birth_date", "city", "coutry", "email", "fax", "first_name", "hire_date", "last_name", "state", "title"].map(x => fixOracle(x, oracleFix)))
             } else if (entity.name === Genre.name) {
-                return qb.select(["genre_id", "name"])
+                return qb.select(["genre_id", "name"].map(x => fixOracle(x, oracleFix)))
             } else if (entity.name === Invoice.name) {
-                return qb.select(["invoice_id", "invoice_date", "billing_country", "billing_state", "billing_address", "billing_city", "billing_postal_code", "total"])
+                return qb.select(["invoice_id", "invoice_date", "billing_country", "billing_state", "billing_address", "billing_city", "billing_postal_code", "total"].map(x => fixOracle(x, oracleFix)))
             } else if (entity.name === InvoiceLine.name) {
-                return qb.select(["invoice_line_id", "quantity", "unit_price"])
+                return qb.select(["invoice_line_id", "quantity", "unit_price"].map(x => fixOracle(x, oracleFix)))
             } else if (entity.name === MediaType.name) {
-                return qb.select(["media_type_id", "name"])
+                return qb.select(["media_type_id", "name"].map(x => fixOracle(x, oracleFix)))
             } else if (entity.name === Playlist.name) {
-                return qb.select(["playlist_id", "name"])
+                return qb.select(["playlist_id", "name"].map(x => fixOracle(x, oracleFix)))
             } else if (entity.name === Track.name) {
-                return qb.select(["track_id", "milliseconds", "composer", "bytes", "name", "unit_price"])
+                return qb.select(["track_id", "milliseconds", "composer", "bytes", "name", "unit_price"].map(x => fixOracle(x, oracleFix)))
             } else if (entity.name === PlaylistTrack.name) {
-                return qb.select(["id"]);
+                return qb.select(["id"].map(x => fixOracle(x, oracleFix)));
             }
             throw new Error(`Unsupported entity ${entity.name}`);
         }
@@ -307,7 +309,7 @@ const wheres: WhereTestDescription[] = [
 interface OrderTestDescription {
     title: string,
     // We need three different options because we have three different interfaces
-    applyOption: (entity: any, qb: SelectQueryBuilder<ObjectLiteral>) => SelectQueryBuilder<ObjectLiteral>,
+    applyOption: (entity: any, qb: SelectQueryBuilder<ObjectLiteral>, oracleFix: boolean) => SelectQueryBuilder<ObjectLiteral>,
     optionForRepo: (entity: any) => FindOneOptions<ObjectLiteral>["order"],
 }
 
@@ -319,29 +321,29 @@ const orders: OrderTestDescription[] = [
     },
     {
         title: "1 order condition",
-        applyOption: (entity, qb) => {
+        applyOption: (entity, qb, oracleFix) => {
             if (entity.name === Album.name) {
-                return qb.orderBy("title", "ASC")
+                return qb.orderBy(fixOracle("title", oracleFix), "ASC")
             } else if (entity.name === Artist.name) {
-                return qb.orderBy("name", "ASC")
+                return qb.orderBy(fixOracle("name", oracleFix), "ASC")
             } else if (entity.name === Customer.name) {
-                return qb.orderBy("country", "ASC")
+                return qb.orderBy(fixOracle("country", oracleFix), "ASC")
             } else if (entity.name === Employee.name) {
-                return qb.orderBy("email", "ASC")
+                return qb.orderBy(fixOracle("email", oracleFix), "ASC")
             } else if (entity.name === Genre.name) {
-                return qb.orderBy("name", "ASC")
+                return qb.orderBy(fixOracle("name", oracleFix), "ASC")
             } else if (entity.name === Invoice.name) {
-                return qb.orderBy("billing_address", "ASC")
+                return qb.orderBy(fixOracle("billing_address", oracleFix), "ASC")
             } else if (entity.name === InvoiceLine.name) {
-                return qb.orderBy("unit_price", "ASC")
+                return qb.orderBy(fixOracle("unit_price", oracleFix), "ASC")
             } else if (entity.name === MediaType.name) {
-                return qb.orderBy("name", "ASC")
+                return qb.orderBy(fixOracle("name", oracleFix), "ASC")
             } else if (entity.name === Playlist.name) {
-                return qb.orderBy("name", "ASC")
+                return qb.orderBy(fixOracle("name", oracleFix), "ASC")
             } else if (entity.name === Track.name) {
-                return qb.orderBy("name", "ASC")
+                return qb.orderBy(fixOracle("name", oracleFix), "ASC")
             } else if (entity.name === PlaylistTrack.name) {
-                return qb.orderBy("id", "ASC")
+                return qb.orderBy(fixOracle("id", oracleFix), "ASC")
             }
             throw new Error(`Unsupported entity ${entity.name}`);
         },

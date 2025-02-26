@@ -45,8 +45,8 @@ describe("Ultimate Test Suite > DML > Select", () => {
                 return await testCase.order.applyOption(testCase.entity.entity,
                     testCase.select.applySelectToQB(testCase.entity.entity,
                         dataSource.getRepository(testCase.entity.entity).createQueryBuilder()
-                    )
-                )
+                    , dataSource.driver.options.type === "oracle")
+                , dataSource.driver.options.type === "oracle")
                 .where(testCase.where.option(testCase.entity.entity))
                 .limit(testCase.limit.option)
                 .offset(testCase.offset.option)
@@ -58,8 +58,8 @@ describe("Ultimate Test Suite > DML > Select", () => {
                 testCase.order.applyOption(testCase.entity.entity,
                     testCase.select.applySelectToQB(testCase.entity.entity,
                         dataSource.getRepository(testCase.entity.entity).createQueryBuilder()
-                    )
-                )
+                    , dataSource.driver.options.type === "oracle")
+                , dataSource.driver.options.type === "oracle")
                 .where(testCase.where.option(testCase.entity.entity))
                 .limit(testCase.limit.option)
                 .offset(testCase.offset.option)
@@ -71,8 +71,8 @@ describe("Ultimate Test Suite > DML > Select", () => {
                 testCase.order.applyOption(testCase.entity.entity,
                     testCase.select.applySelectToQB(testCase.entity.entity,
                         dataSource.getRepository(testCase.entity.entity).createQueryBuilder()
-                    )
-                )
+                    , dataSource.driver.options.type === "oracle")
+                , dataSource.driver.options.type === "oracle")
                 .where(testCase.where.option(testCase.entity.entity))
                 .limit(testCase.limit.option)
                 .offset(testCase.offset.option)
@@ -84,8 +84,8 @@ describe("Ultimate Test Suite > DML > Select", () => {
                 testCase.order.applyOption(testCase.entity.entity,
                     testCase.select.applySelectToQB(testCase.entity.entity,
                         dataSource.getRepository(testCase.entity.entity).createQueryBuilder()
-                    )
-                )
+                    , dataSource.driver.options.type === "oracle")
+                , dataSource.driver.options.type === "oracle")
                 .where(testCase.where.option(testCase.entity.entity))
                 .limit(testCase.limit.option)
                 .offset(testCase.offset.option)
@@ -118,8 +118,8 @@ describe("Ultimate Test Suite > DML > Select", () => {
                     const stream = await testCase.order.applyOption(testCase.entity.entity,
                         testCase.select.applySelectToQB(testCase.entity.entity,
                             dataSource.getRepository(testCase.entity.entity).createQueryBuilder()
-                        )
-                    )
+                        , dataSource.driver.options.type === "oracle")
+                    , dataSource.driver.options.type === "oracle")
                     .where(testCase.where.option(testCase.entity.entity))
                     .limit(testCase.limit.option)
                     .offset(testCase.offset.option)
@@ -137,8 +137,9 @@ describe("Ultimate Test Suite > DML > Select", () => {
                 testCase.order.applyOption(testCase.entity.entity,
                     testCase.select.applySelectToQB(testCase.entity.entity,
                         dataSource.createQueryBuilder()
-                    )
-                ).from(testCase.entity.entity, testCase.entity.nameAlias)
+                    , dataSource.driver.options.type === "oracle")
+                , dataSource.driver.options.type === "oracle")
+                .from(testCase.entity.entity, testCase.entity.nameAlias)
                 .where(testCase.where.option(testCase.entity.entity))
                 .limit(testCase.limit.option)
                 .offset(testCase.offset.option)
@@ -150,8 +151,9 @@ describe("Ultimate Test Suite > DML > Select", () => {
                 testCase.order.applyOption(testCase.entity.entity,
                     testCase.select.applySelectToQB(testCase.entity.entity,
                         dataSource.createQueryBuilder()
-                    )
-                ).from(testCase.entity.entity, testCase.entity.nameAlias)
+                    , dataSource.driver.options.type === "oracle")
+                , dataSource.driver.options.type === "oracle")
+                .from(testCase.entity.entity, testCase.entity.nameAlias)
                 .where(testCase.where.option(testCase.entity.entity))
                 .limit(testCase.limit.option)
                 .offset(testCase.offset.option)
@@ -163,8 +165,9 @@ describe("Ultimate Test Suite > DML > Select", () => {
                 testCase.order.applyOption(testCase.entity.entity,
                     testCase.select.applySelectToQB(testCase.entity.entity,
                         dataSource.createQueryBuilder()
-                    )
-                ).from(testCase.entity.entity, testCase.entity.nameAlias)
+                    , dataSource.driver.options.type === "oracle")
+                , dataSource.driver.options.type === "oracle")
+                .from(testCase.entity.entity, testCase.entity.nameAlias)
                 .where(testCase.where.option(testCase.entity.entity))
                 .limit(testCase.limit.option)
                 .offset(testCase.offset.option)
@@ -176,8 +179,9 @@ describe("Ultimate Test Suite > DML > Select", () => {
                 testCase.order.applyOption(testCase.entity.entity,
                     testCase.select.applySelectToQB(testCase.entity.entity,
                         dataSource.createQueryBuilder()
-                    )
-                ).from(testCase.entity.entity, testCase.entity.nameAlias)
+                    , dataSource.driver.options.type === "oracle")
+                , dataSource.driver.options.type === "oracle")
+                .from(testCase.entity.entity, testCase.entity.nameAlias)
                 .where(testCase.where.option(testCase.entity.entity))
                 .limit(testCase.limit.option)
                 .offset(testCase.offset.option)
@@ -190,8 +194,9 @@ describe("Ultimate Test Suite > DML > Select", () => {
                     const stream = await testCase.order.applyOption(testCase.entity.entity,
                         testCase.select.applySelectToQB(testCase.entity.entity,
                             dataSource.createQueryBuilder()
-                        )
-                    ).from(testCase.entity.entity, testCase.entity.nameAlias)
+                        , dataSource.driver.options.type === "oracle")
+                    , dataSource.driver.options.type === "oracle")
+                    .from(testCase.entity.entity, testCase.entity.nameAlias)
                     .where(testCase.where.option(testCase.entity.entity))
                     .limit(testCase.limit.option)
                     .offset(testCase.offset.option)
