@@ -39,102 +39,50 @@ describe("Ultimate Test Suite > DML > Select", () => {
     after(() => closeTestingConnections(dataSources))
 
     generateTests().map(testCase => {
-        describe(getTestName(testCase), () => {   
-            it("repository qb getOne", () => Promise.all(dataSources.map(async (dataSource) => {
+        it(getTestName(testCase), async () => {
+            await Promise.all(dataSources.map(async (dataSource) => {
                 if (cantDoOffsetWithoutLimit(dataSource, testCase)) return;
-                return await testCase.order.applyOption(testCase.entity.entity,
+
+                const repo = dataSource.getRepository(testCase.entity.entity);
+
+                const baseRepoQueryBuilder = testCase.order.applyOption(testCase.entity.entity,
                     testCase.select.applySelectToQB(testCase.entity.entity,
-                        dataSource.getRepository(testCase.entity.entity).createQueryBuilder()
+                        repo.createQueryBuilder()
                     , dataSource.driver.options.type === "oracle")
                 , dataSource.driver.options.type === "oracle")
                 .where(testCase.where.option(testCase.entity.entity))
                 .limit(testCase.limit.option)
-                .offset(testCase.offset.option)
-                .getOne()
-            })));
+                .offset(testCase.offset.option);
 
-            it("repository qb getRawOne", () => Promise.all(dataSources.map(async (dataSource) => {
-                if (cantDoOffsetWithoutLimit(dataSource, testCase)) return;
-                testCase.order.applyOption(testCase.entity.entity,
-                    testCase.select.applySelectToQB(testCase.entity.entity,
-                        dataSource.getRepository(testCase.entity.entity).createQueryBuilder()
-                    , dataSource.driver.options.type === "oracle")
-                , dataSource.driver.options.type === "oracle")
-                .where(testCase.where.option(testCase.entity.entity))
-                .limit(testCase.limit.option)
-                .offset(testCase.offset.option)
-                .getRawOne()
-            })));
+                await baseRepoQueryBuilder.getOne();
+                await baseRepoQueryBuilder.getRawOne();
+                await baseRepoQueryBuilder.getMany();
+                await baseRepoQueryBuilder.getRawMany();
 
-            it("repository qb getMany", () => Promise.all(dataSources.map(async (dataSource) => {
-                if (cantDoOffsetWithoutLimit(dataSource, testCase)) return;
-                testCase.order.applyOption(testCase.entity.entity,
-                    testCase.select.applySelectToQB(testCase.entity.entity,
-                        dataSource.getRepository(testCase.entity.entity).createQueryBuilder()
-                    , dataSource.driver.options.type === "oracle")
-                , dataSource.driver.options.type === "oracle")
-                .where(testCase.where.option(testCase.entity.entity))
-                .limit(testCase.limit.option)
-                .offset(testCase.offset.option)
-                .getMany()
-            })));
-
-            it("repository qb getRawMany", () => Promise.all(dataSources.map(async (dataSource) => {
-                if (cantDoOffsetWithoutLimit(dataSource, testCase)) return;
-                testCase.order.applyOption(testCase.entity.entity,
-                    testCase.select.applySelectToQB(testCase.entity.entity,
-                        dataSource.getRepository(testCase.entity.entity).createQueryBuilder()
-                    , dataSource.driver.options.type === "oracle")
-                , dataSource.driver.options.type === "oracle")
-                .where(testCase.where.option(testCase.entity.entity))
-                .limit(testCase.limit.option)
-                .offset(testCase.offset.option)
-                .getRawMany()
-            })));
-
-            it("repository findOne", () => Promise.all(dataSources.map(async (dataSource) => {
-                if (cantDoOffsetWithoutLimit(dataSource, testCase)) return;
-                dataSource.getRepository(testCase.entity.entity).findOne({
+                const commonOptions = {
                     where: testCase.where.option(testCase.entity.entity),
                     select: testCase.select.selectOption(testCase.entity.entity),
                     order: testCase.order.optionForRepo(testCase.entity.entity),
-                })
-            })));
-            
-            it("repository find", () => Promise.all(dataSources.map(async (dataSource) => {
-                if (cantDoOffsetWithoutLimit(dataSource, testCase)) return;
-                dataSource.getRepository(testCase.entity.entity).find({
-                    where: testCase.where.option(testCase.entity.entity),
-                    select: testCase.select.selectOption(testCase.entity.entity),
-                    order: testCase.order.optionForRepo(testCase.entity.entity),
+                }
+
+                await repo.findOne(commonOptions);
+
+                await repo.find({
+                    ...commonOptions,
                     skip: testCase.offset.option,
                     take: testCase.limit.option,
                 })
-            })));
-            
-            it("repository qb stream", () => Promise.all(dataSources.map(async (dataSource) => {
-                if (cantDoOffsetWithoutLimit(dataSource, testCase)) return;
+
                 if (!(dataSource.driver instanceof AbstractSqliteDriver)) {
-                    const stream = await testCase.order.applyOption(testCase.entity.entity,
-                        testCase.select.applySelectToQB(testCase.entity.entity,
-                            dataSource.getRepository(testCase.entity.entity).createQueryBuilder()
-                        , dataSource.driver.options.type === "oracle")
-                    , dataSource.driver.options.type === "oracle")
-                    .where(testCase.where.option(testCase.entity.entity))
-                    .limit(testCase.limit.option)
-                    .offset(testCase.offset.option)
-                    .stream()
+                    const stream = await baseRepoQueryBuilder.stream()
                     if (!(dataSource.driver.options.type === "spanner"))
                         await new Promise((ok) => stream.once("readable", ok))
                     const data: any[] = []
                     stream.on("data", (row) => data.push(row))
                     await new Promise((ok) => stream.once("end", ok))
                 }
-            })));
-            
-            it("qb from getOne", () => Promise.all(dataSources.map(async (dataSource) => {
-                if (cantDoOffsetWithoutLimit(dataSource, testCase)) return;
-                testCase.order.applyOption(testCase.entity.entity,
+
+                const baseQueryBuilderFrom = testCase.order.applyOption(testCase.entity.entity,
                     testCase.select.applySelectToQB(testCase.entity.entity,
                         dataSource.createQueryBuilder()
                     , dataSource.driver.options.type === "oracle")
@@ -143,71 +91,21 @@ describe("Ultimate Test Suite > DML > Select", () => {
                 .where(testCase.where.option(testCase.entity.entity))
                 .limit(testCase.limit.option)
                 .offset(testCase.offset.option)
-                .getOne()
-            })));
+                
+                await baseQueryBuilderFrom.getOne();
+                await baseQueryBuilderFrom.getRawOne()
+                await baseQueryBuilderFrom.getMany()
+                await baseQueryBuilderFrom.getRawMany()
 
-            it("qb from getRawOne", () => Promise.all(dataSources.map(async (dataSource) => {
-                if (cantDoOffsetWithoutLimit(dataSource, testCase)) return;
-                testCase.order.applyOption(testCase.entity.entity,
-                    testCase.select.applySelectToQB(testCase.entity.entity,
-                        dataSource.createQueryBuilder()
-                    , dataSource.driver.options.type === "oracle")
-                , dataSource.driver.options.type === "oracle")
-                .from(testCase.entity.entity, testCase.entity.nameAlias)
-                .where(testCase.where.option(testCase.entity.entity))
-                .limit(testCase.limit.option)
-                .offset(testCase.offset.option)
-                .getRawOne()
-            })));
-
-            it("qb from getMany", () => Promise.all(dataSources.map(async (dataSource) => {
-                if (cantDoOffsetWithoutLimit(dataSource, testCase)) return;
-                testCase.order.applyOption(testCase.entity.entity,
-                    testCase.select.applySelectToQB(testCase.entity.entity,
-                        dataSource.createQueryBuilder()
-                    , dataSource.driver.options.type === "oracle")
-                , dataSource.driver.options.type === "oracle")
-                .from(testCase.entity.entity, testCase.entity.nameAlias)
-                .where(testCase.where.option(testCase.entity.entity))
-                .limit(testCase.limit.option)
-                .offset(testCase.offset.option)
-                .getMany()
-            })));
-
-            it("qb from getRawMany", () => Promise.all(dataSources.map(async (dataSource) => {
-                if (cantDoOffsetWithoutLimit(dataSource, testCase)) return;
-                testCase.order.applyOption(testCase.entity.entity,
-                    testCase.select.applySelectToQB(testCase.entity.entity,
-                        dataSource.createQueryBuilder()
-                    , dataSource.driver.options.type === "oracle")
-                , dataSource.driver.options.type === "oracle")
-                .from(testCase.entity.entity, testCase.entity.nameAlias)
-                .where(testCase.where.option(testCase.entity.entity))
-                .limit(testCase.limit.option)
-                .offset(testCase.offset.option)
-                .getRawMany()
-            })));
-
-            it("qb from stream", () => Promise.all(dataSources.map(async (dataSource) => {
-                if (cantDoOffsetWithoutLimit(dataSource, testCase)) return;
                 if (!(dataSource.driver instanceof AbstractSqliteDriver)) {
-                    const stream = await testCase.order.applyOption(testCase.entity.entity,
-                        testCase.select.applySelectToQB(testCase.entity.entity,
-                            dataSource.createQueryBuilder()
-                        , dataSource.driver.options.type === "oracle")
-                    , dataSource.driver.options.type === "oracle")
-                    .from(testCase.entity.entity, testCase.entity.nameAlias)
-                    .where(testCase.where.option(testCase.entity.entity))
-                    .limit(testCase.limit.option)
-                    .offset(testCase.offset.option)
-                    .stream()
+                    const stream = await baseQueryBuilderFrom.stream()
                     if (!(dataSource.driver.options.type === "spanner"))
                         await new Promise((ok) => stream.once("readable", ok))
                     const data: any[] = []
                     stream.on("data", (row) => data.push(row))
                     await new Promise((ok) => stream.once("end", ok))
                 }
-            })));
+            }));
         })
     })
 })
