@@ -8,6 +8,7 @@ import { seedChinookDatabase } from "../../chinook_database/seed"
 import { generateTests, getTestName } from "./generate-select-tests"
 import { AbstractSqliteDriver } from "../../../../src/driver/sqlite-abstract/AbstractSqliteDriver"
 import { DriverUtils } from "../../../../src/driver/DriverUtils"
+import { expect } from "chai"
 
 // TODO: move this function to the main source code
 const doesTheDBNotSupportOffsetWithoutLimit = (dataSource: DataSource) => {
@@ -54,10 +55,10 @@ describe("Ultimate Test Suite > DML > Select", () => {
                 .limit(testCase.limit.option)
                 .offset(testCase.offset.option);
 
-                await baseRepoQueryBuilder.getOne();
-                await baseRepoQueryBuilder.getRawOne();
-                await baseRepoQueryBuilder.getMany();
-                await baseRepoQueryBuilder.getRawMany();
+                const repoOne = await baseRepoQueryBuilder.comment("repoOne").getOne();
+                const repoRawOne = await baseRepoQueryBuilder.comment("repoRawOne").getRawOne();
+                const repoMany = await baseRepoQueryBuilder.comment("repoMany").getMany();
+                const repoRawMany = await baseRepoQueryBuilder.comment("repoRawMany").getRawMany();
 
                 const commonOptions = {
                     where: testCase.where.option(testCase.entity.entity),
@@ -65,13 +66,17 @@ describe("Ultimate Test Suite > DML > Select", () => {
                     order: testCase.order.optionForRepo(testCase.entity.entity),
                 }
 
-                await repo.findOne(commonOptions);
+                const repoFindOne = await repo.findOne(commonOptions);
+                console.log(repoFindOne);
+                console.log(repoRawOne);
 
-                await repo.find({
+                const repoFind = await repo.find({
                     ...commonOptions,
                     skip: testCase.offset.option,
                     take: testCase.limit.option,
-                })
+                });
+
+                expect(repoFind).to.deep.equal(repoMany);
 
                 if (!(dataSource.driver instanceof AbstractSqliteDriver)) {
                     const stream = await baseRepoQueryBuilder.stream()
@@ -80,6 +85,7 @@ describe("Ultimate Test Suite > DML > Select", () => {
                     const data: any[] = []
                     stream.on("data", (row) => data.push(row))
                     await new Promise((ok) => stream.once("end", ok))
+                    expect(data).to.deep.equal(repoRawMany);
                 }
 
                 const baseQueryBuilderFrom = testCase.order.applyOption(testCase.entity.entity,
@@ -92,10 +98,15 @@ describe("Ultimate Test Suite > DML > Select", () => {
                 .limit(testCase.limit.option)
                 .offset(testCase.offset.option)
                 
-                await baseQueryBuilderFrom.getOne();
-                await baseQueryBuilderFrom.getRawOne()
-                await baseQueryBuilderFrom.getMany()
-                await baseQueryBuilderFrom.getRawMany()
+                const fromOne = await baseQueryBuilderFrom.getOne();
+                const fromRawOne = await baseQueryBuilderFrom.getRawOne()
+                const fromMany = await baseQueryBuilderFrom.getMany()
+                const fromRawMany = await baseQueryBuilderFrom.getRawMany()
+
+                expect(repoOne).to.deep.equal(fromOne);
+                expect(repoRawOne).to.deep.equal(fromRawOne);
+                expect(repoMany).to.deep.equal(fromMany)
+                expect(repoRawMany).to.deep.equal(fromRawMany);
 
                 if (!(dataSource.driver instanceof AbstractSqliteDriver)) {
                     const stream = await baseQueryBuilderFrom.stream()
@@ -104,6 +115,7 @@ describe("Ultimate Test Suite > DML > Select", () => {
                     const data: any[] = []
                     stream.on("data", (row) => data.push(row))
                     await new Promise((ok) => stream.once("end", ok))
+                    expect(data).to.deep.equal(repoRawMany);
                 }
             }));
         })
