@@ -139,8 +139,8 @@ export class Employee {
     state: string;
 
     // country VARCHAR(40),
-    @Column({name: "coutry", nullable: true})
-    coutry: string;
+    @Column({name: "country", nullable: true})
+    country: string;
 
     // postal_code VARCHAR(10),
     @Column({name: "postal_code", nullable: true})
@@ -255,7 +255,7 @@ export class Invoice {
     
     // billing_country VARCHAR(40),
     @Column({name: "billing_country", nullable: true})
-    billingCoutry: string;
+    billingCountry: string;
     
     // billing_postal_code VARCHAR(10),
     @Column({name: "billing_postal_code", nullable: true})

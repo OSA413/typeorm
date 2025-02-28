@@ -1,4 +1,5 @@
 import { FindOneOptions, FindOptionsOrder, ILike, MoreThan, ObjectLiteral, SelectQueryBuilder } from "../../../../src";
+import { ChinookDataset } from "../../chinook_database/dataset";
 import { Album, Artist, Customer, Employee, Genre, Invoice, InvoiceLine, MediaType, Playlist, PlaylistTrack, Track } from "../../chinook_database/entity/Entities"
 import { CartesianProduct } from "../../helpers/product";
 
@@ -146,7 +147,7 @@ const select: SelectTestDescription[] = [
             } else if (entity.name === Genre.name) {
                 return {genreId: true, name: true} satisfies FindOneOptions<Genre>["select"];
             } else if (entity.name === Invoice.name) {
-                return {invoiceId: true, invoiceDate: true, billingCoutry: true, billingState: true} satisfies FindOneOptions<Invoice>["select"];
+                return {invoiceId: true, invoiceDate: true, billingCountry: true, billingState: true} satisfies FindOneOptions<Invoice>["select"];
             } else if (entity.name === InvoiceLine.name) {
                 return {invoiceLineId: true, quantity: true, unitPrice: true} satisfies FindOneOptions<InvoiceLine>["select"];
             } else if (entity.name === MediaType.name) {
@@ -197,11 +198,11 @@ const select: SelectTestDescription[] = [
             } else if (entity.name === Customer.name) {
                 return {customerId: true, address: true, city: true, firstName: true, company: true, country: true, email: true, fax: true, lastName: true, phone: true, postalCode: true, state: true} satisfies FindOneOptions<Customer>["select"];
             } else if (entity.name === Employee.name) {
-                return {employeeId: true, phone: true, address: true, postalCode: true, birthDate: true, city: true, coutry: true, email: true, fax: true, firstName: true, hireDate: true, lastName: true, state: true, title: true} satisfies FindOneOptions<Employee>["select"];
+                return {employeeId: true, phone: true, address: true, postalCode: true, birthDate: true, city: true, country: true, email: true, fax: true, firstName: true, hireDate: true, lastName: true, state: true, title: true} satisfies FindOneOptions<Employee>["select"];
             } else if (entity.name === Genre.name) {
                 return {genreId: true, name: true} satisfies FindOneOptions<Genre>["select"];
             } else if (entity.name === Invoice.name) {
-                return {invoiceId: true, invoiceDate: true, billingCoutry: true, billingState: true, billingAddress: true, billingCity: true, billingPostalCode: true, total: true} satisfies FindOneOptions<Invoice>["select"];
+                return {invoiceId: true, invoiceDate: true, billingCountry: true, billingState: true, billingAddress: true, billingCity: true, billingPostalCode: true, total: true} satisfies FindOneOptions<Invoice>["select"];
             } else if (entity.name === InvoiceLine.name) {
                 return {invoiceLineId: true, quantity: true, unitPrice: true} satisfies FindOneOptions<InvoiceLine>["select"];
             } else if (entity.name === MediaType.name) {
@@ -223,7 +224,7 @@ const select: SelectTestDescription[] = [
             } else if (entity.name === Customer.name) {
                 return qb.select(["customer_id", "address", "city", "first_name", "company", "country", "email", "fax", "last_name", "phone", "postal_code", "state"].map(x => fixOracle(x, oracleFix)))
             } else if (entity.name === Employee.name) {
-                return qb.select(["employee_id", "phone", "address", "postal_code", "birth_date", "city", "coutry", "email", "fax", "first_name", "hire_date", "last_name", "state", "title"].map(x => fixOracle(x, oracleFix)))
+                return qb.select(["employee_id", "phone", "address", "postal_code", "birth_date", "city", "country", "email", "fax", "first_name", "hire_date", "last_name", "state", "title"].map(x => fixOracle(x, oracleFix)))
             } else if (entity.name === Genre.name) {
                 return qb.select(["genre_id", "name"].map(x => fixOracle(x, oracleFix)))
             } else if (entity.name === Invoice.name) {
@@ -248,20 +249,68 @@ interface EntityTestDescription {
     entity: any;
     nameAlias: string,
     tableName: string,
+    rawMapper: (x: any) => any,
+    rawFromMapper: (x: any) => any,
+    datasetMapper: (x: any) => any,
+    dataset: any[],
 }
 
 const entities: EntityTestDescription[] = [
-    { entity: Album, tableName: "album", nameAlias: "album" },
-    { entity: Artist, tableName: "artist", nameAlias: "artist" },
-    { entity: Customer, tableName: "customer", nameAlias: "customer" },
-    { entity: Employee, tableName: "employee", nameAlias: "employee" },
-    { entity: Genre, tableName: "genre", nameAlias: "genre" },
-    { entity: Invoice, tableName: "invoice", nameAlias: "invoice" },
-    { entity: InvoiceLine, tableName: "invoice_line", nameAlias: "invoice_line" },
-    { entity: MediaType, tableName: "media_type", nameAlias: "media_type" },
-    { entity: Playlist, tableName: "playlist", nameAlias: "playlist" },
-    { entity: Track, tableName: "track", nameAlias: "track" },
-    { entity: PlaylistTrack, tableName: "playlist_track", nameAlias: "playlist_track" },
+    { entity: Album, tableName: "album", nameAlias: "album",
+        rawMapper: (x) => ({albumId: x.Album_album_id, title: x.Album_title}),
+        rawFromMapper: (x) => ({albumId: x.album_id, title: x.title}),
+        datasetMapper: (x: typeof ChinookDataset.Albums[number]) => ({albumId: x.albumId, title: x.title}),
+        dataset: ChinookDataset.Albums },
+    { entity: Artist, tableName: "artist", nameAlias: "artist" ,
+        rawMapper: (x) => ({artistId: x.Artist_artist_id, name: x.Artist_name}),
+        rawFromMapper: (x) => ({artistId: x.artist_id, name: x.name}),
+        datasetMapper: (x: typeof ChinookDataset.Artists[number]) => x,
+        dataset: ChinookDataset.Artists  },
+    { entity: Customer, tableName: "customer", nameAlias: "customer",
+        rawMapper: (x) => ({address: x.Customer_address, city: x.Customer_city, company: x.Customer_company, country: x.Customer_country, customerId: x.Customer_customer_id, email: x.Customer_email, fax: x.Customer_fax, firstName: x.Customer_first_name, lastName: x.Customer_last_name, phone: x.Customer_phone, postalCode: x.Customer_postal_code, state: x.Customer_state}),
+        rawFromMapper: (x) => ({address: x.address, city: x.city, company: x.company, country: x.country, customerId: x.customer_id, email: x.email, fax: x.fax, firstName: x.first_name, lastName: x.last_name, phone: x.phone, postalCode: x.postal_code, state: x.state}),
+        datasetMapper: (x: typeof ChinookDataset.Customers[number]) => {const res = {...x}; delete (res as any).supportRep; return res;},
+        dataset: ChinookDataset.Customers   },
+    { entity: Employee, tableName: "employee", nameAlias: "employee",
+        rawMapper: (x) => ({address: x.Employee_address, birthDate: new Date(x.Employee_birth_date), city: x.Employee_city, country: x.Employee_country, email: x.Employee_email, employeeId: x.Employee_employee_id, fax: x.Employee_fax, firstName: x.Employee_first_name, hireDate: new Date(x.Employee_hire_date), lastName: x.Employee_last_name, phone: x.Employee_phone, postalCode: x.Employee_postal_code, state: x.Employee_state, title: x.Employee_title}),
+        rawFromMapper: (x) => ({address: x.address, birthDate: new Date(x.birth_date), city: x.city, country: x.country, email: x.email, employeeId: x.employee_id, fax: x.fax, firstName: x.first_name, hireDate: new Date(x.hire_date), lastName: x.last_name, phone: x.phone, postalCode: x.postal_code, state: x.state, title: x.title}),
+        datasetMapper: (x) => (x: typeof ChinookDataset.Customers[number]) => {const res = {...x}; delete (res as any).reportsTo; return res;},
+        dataset: ChinookDataset.Employees   },
+    { entity: Genre, tableName: "genre", nameAlias: "genre",
+        rawMapper: (x) => (x),
+        rawFromMapper: (x) => x,
+        datasetMapper: (x) => x,
+        dataset: ChinookDataset.Genres   },
+    { entity: Invoice, tableName: "invoice", nameAlias: "invoice",
+        rawMapper: (x) => (x),
+        rawFromMapper: (x) => x,
+        datasetMapper: (x) => x,
+        dataset: ChinookDataset.Invoices   },
+    { entity: InvoiceLine, tableName: "invoice_line", nameAlias: "invoice_line",
+        rawMapper: (x) => (x),
+        rawFromMapper: (x) => x,
+        datasetMapper: (x) => x,
+        dataset: ChinookDataset.InvoiceLines },
+    { entity: MediaType, tableName: "media_type", nameAlias: "media_type",
+        rawMapper: (x) => (x),
+        rawFromMapper: (x) => x,
+        datasetMapper: (x) => x,
+        dataset: ChinookDataset.MediaTypes},
+    { entity: Playlist, tableName: "playlist", nameAlias: "playlist",
+        rawMapper: (x) => (x),
+        rawFromMapper: (x) => x,
+        datasetMapper: (x) => x,
+        dataset: ChinookDataset.Playlists},
+    { entity: Track, tableName: "track", nameAlias: "track",
+        rawMapper: (x) => (x),
+        rawFromMapper: (x) => x,
+        datasetMapper: (x) => x,
+        dataset: ChinookDataset.Tracks },
+    { entity: PlaylistTrack, tableName: "playlist_track", nameAlias: "playlist_track",
+        rawMapper: (x) => (x),
+        rawFromMapper: (x) => x,
+        datasetMapper: (x) => x,
+        dataset: ChinookDataset.PLaylistTracks },
 ]
 
 interface WhereTestDescription {
@@ -311,6 +360,7 @@ interface OrderTestDescription {
     // We need three different options because we have three different interfaces
     applyOption: (entity: any, qb: SelectQueryBuilder<ObjectLiteral>, oracleFix: boolean) => SelectQueryBuilder<ObjectLiteral>,
     optionForRepo: (entity: any) => FindOneOptions<ObjectLiteral>["order"],
+    orderDataset: (entity: any) => (x: any[]) => any[];
 }
 
 const orders: OrderTestDescription[] = [
@@ -318,6 +368,7 @@ const orders: OrderTestDescription[] = [
         title: "no order condition",
         applyOption: (entity, qb) => qb,
         optionForRepo: () => undefined,
+        orderDataset: () => (x) => x,
     },
     {
         title: "1 order condition",
@@ -372,7 +423,33 @@ const orders: OrderTestDescription[] = [
                 return {id: "ASC"} as FindOptionsOrder<PlaylistTrack>
             }
             throw new Error(`Unsupported entity ${entity.name}`);
-        }
+        },
+        orderDataset: (entity) => {
+            if (entity.name === Album.name) {
+                return (dataset) => dataset.slice().sort((a: Album, b: Album) => a.title.localeCompare(b.title))
+            } else if (entity.name === Artist.name) {
+                return (dataset) => dataset.slice().sort((a: Artist, b: Artist) => a.name.localeCompare(b.name))
+            } else if (entity.name === Customer.name) {
+                return (dataset) => dataset.slice().sort((a: Customer, b: Customer) => a.country.localeCompare(b.country))
+            } else if (entity.name === Employee.name) {
+                return (dataset) => dataset.slice().sort((a: Employee, b: Employee) => a.email.localeCompare(b.email))
+            } else if (entity.name === Genre.name) {
+                return (dataset) => dataset.slice().sort((a: Genre, b: Genre) => a.name.localeCompare(b.name))
+            } else if (entity.name === Invoice.name) {
+                return (dataset) => dataset.slice().sort((a: Invoice, b: Invoice) => a.billingAddress.localeCompare(b.billingAddress))
+            } else if (entity.name === InvoiceLine.name) {
+                return (dataset) => dataset.slice().sort((a: InvoiceLine, b: InvoiceLine) => a.unitPrice - b.unitPrice)
+            } else if (entity.name === MediaType.name) {
+                return (dataset) => dataset.slice().sort((a: MediaType, b: MediaType) => a.name.localeCompare(b.name))
+            } else if (entity.name === Playlist.name) {
+                return (dataset) => dataset.slice().sort((a: Playlist, b: Playlist) => a.name.localeCompare(b.name))
+            } else if (entity.name === Track.name) {
+                return (dataset) => dataset.slice().sort((a: Track, b: Track) => a.name.localeCompare(b.name))
+            } else if (entity.name === PlaylistTrack.name) {
+                return (dataset) => dataset.slice().sort((a: PlaylistTrack, b: PlaylistTrack) => a.id - b.id)
+            }
+            throw new Error(`Unsupported entity ${entity.name}`);
+        },
     }
 ]
 
