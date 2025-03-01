@@ -9,6 +9,7 @@ import { generateTests, getTestName } from "./generate-select-tests"
 import { AbstractSqliteDriver } from "../../../../src/driver/sqlite-abstract/AbstractSqliteDriver"
 import { DriverUtils } from "../../../../src/driver/DriverUtils"
 import { expect } from "chai"
+import { pickProperties } from "../../helpers/pickProperties"
 
 // TODO: move this function to the main source code
 const doesTheDBNotSupportOffsetWithoutLimit = (dataSource: DataSource) => {
@@ -48,7 +49,7 @@ describe("Ultimate Test Suite > DML > Select", () => {
 
                 const baseRepoQueryBuilder = testCase.order.applyOption(testCase.entity.entity,
                     testCase.select.applySelectToQB(testCase.entity.entity,
-                        repo.createQueryBuilder()
+                        repo.createQueryBuilder(testCase.entity.nameAlias)
                     , dataSource.driver.options.type === "oracle")
                 , dataSource.driver.options.type === "oracle")
                 .where(testCase.where.option(testCase.entity.entity))
@@ -74,6 +75,7 @@ describe("Ultimate Test Suite > DML > Select", () => {
                     testCase.order.orderDataset(testCase.entity.entity, dataSource.driver.options.type)(
                         testCase.entity.dataset
                     )).map(testCase.entity.datasetMapper)
+                    .map(x => pickProperties(x, testCase.select.arrayForDataset(testCase.entity.entity)))
                 
                 const repoFindOne = await repo.findOne(commonOptions);
                 if (testCase.entity.entity !== PlaylistTrack)
