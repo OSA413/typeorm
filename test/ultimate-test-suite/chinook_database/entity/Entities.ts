@@ -262,7 +262,7 @@ export class Invoice {
     billingPostalCode: string;
     
     // total NUMERIC(10,2) NOT NULL,
-    @Column({name: "total", type: "numeric"})
+    @Column({name: "total", type: "numeric", precision: 10, scale: 2})
     total: number;
 }
 
@@ -317,7 +317,7 @@ export class Track {
     bytes: number;
 
     // unit_price NUMERIC(10,2) NOT NULL,
-    @Column({name: "unit_price", type: "numeric"})
+    @Column({name: "unit_price", type: "numeric", precision: 10, scale: 2})
     unitPrice: number;
 
     @OneToMany(() => PlaylistTrack, o => o.playlist)
@@ -350,7 +350,7 @@ export class InvoiceLine {
     track: Track;
 
     // unit_price NUMERIC(10,2) NOT NULL,
-    @Column({name: "unit_price", type: "numeric"})
+    @Column({name: "unit_price", type: "numeric", precision: 10, scale: 2})
     unitPrice: number;
 
     // quantity INT NOT NULL,
