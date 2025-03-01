@@ -274,42 +274,43 @@ const entities: EntityTestDescription[] = [
     { entity: Employee, tableName: "employee", nameAlias: "employee",
         rawMapper: (x) => ({address: x.Employee_address, birthDate: new Date(x.Employee_birth_date), city: x.Employee_city, country: x.Employee_country, email: x.Employee_email, employeeId: x.Employee_employee_id, fax: x.Employee_fax, firstName: x.Employee_first_name, hireDate: new Date(x.Employee_hire_date), lastName: x.Employee_last_name, phone: x.Employee_phone, postalCode: x.Employee_postal_code, state: x.Employee_state, title: x.Employee_title}),
         rawFromMapper: (x) => ({address: x.address, birthDate: new Date(x.birth_date), city: x.city, country: x.country, email: x.email, employeeId: x.employee_id, fax: x.fax, firstName: x.first_name, hireDate: new Date(x.hire_date), lastName: x.last_name, phone: x.phone, postalCode: x.postal_code, state: x.state, title: x.title}),
-        datasetMapper: (x) => (x: typeof ChinookDataset.Customers[number]) => {const res = {...x}; delete (res as any).reportsTo; return res;},
+        datasetMapper: (x: typeof ChinookDataset.Employees[number]) => {const res = {...x, hireDate: new Date(x.hireDate), birthDate: new Date(x.birthDate)}; delete (res as any).reportsTo; return res;},
         dataset: ChinookDataset.Employees   },
     { entity: Genre, tableName: "genre", nameAlias: "genre",
-        rawMapper: (x) => (x),
-        rawFromMapper: (x) => x,
-        datasetMapper: (x) => x,
+        rawMapper: (x) => ({genreId: x.Genre_genre_id, name: x.Genre_name}),
+        rawFromMapper: (x) => ({genreId: x.genre_id, name: x.name}),
+        datasetMapper: (x: typeof ChinookDataset.Genres[number]) => x,
         dataset: ChinookDataset.Genres   },
     { entity: Invoice, tableName: "invoice", nameAlias: "invoice",
-        rawMapper: (x) => (x),
-        rawFromMapper: (x) => x,
-        datasetMapper: (x) => x,
+        rawMapper: (x) => ({billingAddress: x.Invoice_billing_address, billingCity: x.Invoice_billing_city, billingCountry: x.Invoice_billing_country, billingPostalCode: x.Invoice_billing_postal_code, billingState: x.Invoice_billing_state, invoiceDate: new Date(x.Invoice_invoice_date), invoiceId: x.Invoice_invoice_id, total: x.Invoice_total}),
+        rawFromMapper: (x) => ({billingAddress: x.billing_address, billingCity: x.billing_city, billingCountry: x.billing_country, billingPostalCode: x.billing_postal_code, billingState: x.billing_state, invoiceDate: new Date(x.invoice_date), invoiceId: x.invoice_id, total: x.total}),
+        datasetMapper: (x: typeof ChinookDataset.Invoices[number]) => {const res = {...x, invoiceDate: new Date(x.invoiceDate), total: String(x.total)}; delete (res as any).customer; return res;},
         dataset: ChinookDataset.Invoices   },
     { entity: InvoiceLine, tableName: "invoice_line", nameAlias: "invoice_line",
-        rawMapper: (x) => (x),
-        rawFromMapper: (x) => x,
-        datasetMapper: (x) => x,
+        rawMapper: (x) => ({invoiceLineId: x.InvoiceLine_invoice_line_id, quantity: x.InvoiceLine_quantity, unitPrice: x.InvoiceLine_unit_price}),
+        rawFromMapper: (x) => ({invoiceLineId: x.invoice_line_id, quantity: x.quantity, unitPrice: x.unit_price}),
+        datasetMapper: (x: typeof ChinookDataset.InvoiceLines[number]) => {const res = {...x, unitPrice: String(x.unitPrice)}; delete (res as any).track; delete (res as any).invoice; return res;},
         dataset: ChinookDataset.InvoiceLines },
     { entity: MediaType, tableName: "media_type", nameAlias: "media_type",
-        rawMapper: (x) => (x),
-        rawFromMapper: (x) => x,
+        rawMapper: (x) => ({mediaTypeId: x.MediaType_media_type_id, name: x.MediaType_name}),
+        rawFromMapper: (x) => ({mediaTypeId: x.media_type_id, name: x.name}),
         datasetMapper: (x) => x,
         dataset: ChinookDataset.MediaTypes},
     { entity: Playlist, tableName: "playlist", nameAlias: "playlist",
-        rawMapper: (x) => (x),
-        rawFromMapper: (x) => x,
+        rawMapper: (x) => ({name: x.Playlist_name, playlistId: x.Playlist_playlist_id}),
+        rawFromMapper: (x) => ({name: x.name, playlistId: x.playlist_id}),
         datasetMapper: (x) => x,
         dataset: ChinookDataset.Playlists},
     { entity: Track, tableName: "track", nameAlias: "track",
-        rawMapper: (x) => (x),
-        rawFromMapper: (x) => x,
-        datasetMapper: (x) => x,
+        rawMapper: (x) => ({bytes: x.Track_bytes, composer: x.Track_composer, milliseconds: x.Track_milliseconds, name: x.Track_name, trackId: x.Track_track_id, unitPrice: x.Track_unit_price}),
+        rawFromMapper: (x) => ({bytes: x.bytes, composer: x.composer, milliseconds: x.milliseconds, name: x.name, trackId: x.track_id, unitPrice: x.unit_price}),
+        datasetMapper: (x: typeof ChinookDataset.Tracks[number]) => {const res = {...x, unitPrice: String(x.unitPrice)}; delete (res as any).album; delete (res as any).genre; delete (res as any).mediaType; return res;},
         dataset: ChinookDataset.Tracks },
     { entity: PlaylistTrack, tableName: "playlist_track", nameAlias: "playlist_track",
-        rawMapper: (x) => (x),
-        rawFromMapper: (x) => x,
-        datasetMapper: (x) => x,
+        rawMapper: (x) => ({id: x.PlaylistTrack_id}),
+        rawFromMapper: (x) => ({id: x.id}),
+        // Exception!
+        datasetMapper: (x) => (x),
         dataset: ChinookDataset.PLaylistTracks },
 ]
 
@@ -317,12 +318,14 @@ interface WhereTestDescription {
     title: string,
     // We need three different options because we have three different interfaces
     option: (entity: any) => ObjectLiteral[],
+    filterDataset: (entity: any) => (x: any[]) => any[];
 }
 
 const wheres: WhereTestDescription[] = [
     {
         title: "no where condition",
         option: (entity: any) => ({}) as any,
+        filterDataset: x => x => x.filter(() => true),
     },
     {
         title: "1 where condition",
@@ -351,6 +354,32 @@ const wheres: WhereTestDescription[] = [
                 return [{id: MoreThan(5000)}] as Record<keyof PlaylistTrack, unknown>[]
             }
             throw new Error(`Unsupported entity ${entity.name}`);
+        },
+        filterDataset: (entity) => {
+            if (entity.name === Album.name) {
+                return x => x.filter(y => y.title.includes("a") || y.title.includes("A"))
+            } else if (entity.name === Artist.name) {
+                return x => x.filter(y => y.name.includes("a") || y.name.includes("A"))
+            } else if (entity.name === Customer.name) {
+                return x => x.filter(y => y.country.includes("a") || y.country.includes("A"))
+            } else if (entity.name === Employee.name) {
+                return x => x.filter(y => y.email.includes("a") || y.email.includes("A"))
+            } else if (entity.name === Genre.name) {
+                return x => x.filter(y => y.name.includes("a") || y.name.includes("A"))
+            } else if (entity.name === Invoice.name) {
+                return x => x.filter(y => y.billingAddress.includes("a") || y.billingAddress.includes("A"))
+            } else if (entity.name === InvoiceLine.name) {
+                return x => x.filter(y => y.unitPrice > 0.5)
+            } else if (entity.name === MediaType.name) {
+                return x => x.filter(y => y.name.includes("a") || y.name.includes("A"))
+            } else if (entity.name === Playlist.name) {
+                return x => x.filter(y => y.name.includes("a") || y.name.includes("A"))
+            } else if (entity.name === Track.name) {
+                return x => x.filter(y => y.name.includes("a") || y.name.includes("A"))
+            } else if (entity.name === PlaylistTrack.name) {
+                return x => x.filter(y => y.id > 5000)
+            }
+            throw new Error(`Unsupported entity ${entity.name}`);
         }
     }
 ]
@@ -360,7 +389,16 @@ interface OrderTestDescription {
     // We need three different options because we have three different interfaces
     applyOption: (entity: any, qb: SelectQueryBuilder<ObjectLiteral>, oracleFix: boolean) => SelectQueryBuilder<ObjectLiteral>,
     optionForRepo: (entity: any) => FindOneOptions<ObjectLiteral>["order"],
-    orderDataset: (entity: any) => (x: any[]) => any[];
+    orderDataset: (entity: any, dbDialect: string) => (x: any[]) => any[];
+}
+
+const datasetOrderDependingOnDialect = (dbDialict: string, a: string, b: string) => {
+    if (["postgres"].includes(dbDialict))
+        return a.localeCompare(b, undefined, {
+            ignorePunctuation: true,
+            usage: "search"
+        })
+    return a.localeCompare(b);
 }
 
 const orders: OrderTestDescription[] = [
@@ -424,27 +462,27 @@ const orders: OrderTestDescription[] = [
             }
             throw new Error(`Unsupported entity ${entity.name}`);
         },
-        orderDataset: (entity) => {
+        orderDataset: (entity, dbDialect) => {
             if (entity.name === Album.name) {
-                return (dataset) => dataset.slice().sort((a: Album, b: Album) => a.title.localeCompare(b.title))
+                return (dataset) => dataset.slice().sort((a: Album, b: Album) => datasetOrderDependingOnDialect(dbDialect, a.title, b.title))
             } else if (entity.name === Artist.name) {
-                return (dataset) => dataset.slice().sort((a: Artist, b: Artist) => a.name.localeCompare(b.name))
+                return (dataset) => dataset.slice().sort((a: Artist, b: Artist) => datasetOrderDependingOnDialect(dbDialect, a.name, b.name))
             } else if (entity.name === Customer.name) {
-                return (dataset) => dataset.slice().sort((a: Customer, b: Customer) => a.country.localeCompare(b.country))
+                return (dataset) => dataset.slice().sort((a: Customer, b: Customer) => datasetOrderDependingOnDialect(dbDialect, a.country, b.country))
             } else if (entity.name === Employee.name) {
-                return (dataset) => dataset.slice().sort((a: Employee, b: Employee) => a.email.localeCompare(b.email))
+                return (dataset) => dataset.slice().sort((a: Employee, b: Employee) => datasetOrderDependingOnDialect(dbDialect, a.email, b.email))
             } else if (entity.name === Genre.name) {
-                return (dataset) => dataset.slice().sort((a: Genre, b: Genre) => a.name.localeCompare(b.name))
+                return (dataset) => dataset.slice().sort((a: Genre, b: Genre) => datasetOrderDependingOnDialect(dbDialect, a.name, b.name))
             } else if (entity.name === Invoice.name) {
-                return (dataset) => dataset.slice().sort((a: Invoice, b: Invoice) => a.billingAddress.localeCompare(b.billingAddress))
+                return (dataset) => dataset.slice().sort((a: Invoice, b: Invoice) => datasetOrderDependingOnDialect(dbDialect, a.billingAddress, b.billingAddress))
             } else if (entity.name === InvoiceLine.name) {
                 return (dataset) => dataset.slice().sort((a: InvoiceLine, b: InvoiceLine) => a.unitPrice - b.unitPrice)
             } else if (entity.name === MediaType.name) {
-                return (dataset) => dataset.slice().sort((a: MediaType, b: MediaType) => a.name.localeCompare(b.name))
+                return (dataset) => dataset.slice().sort((a: MediaType, b: MediaType) => datasetOrderDependingOnDialect(dbDialect, a.name, b.name))
             } else if (entity.name === Playlist.name) {
-                return (dataset) => dataset.slice().sort((a: Playlist, b: Playlist) => a.name.localeCompare(b.name))
+                return (dataset) => dataset.slice().sort((a: Playlist, b: Playlist) => datasetOrderDependingOnDialect(dbDialect, a.name, b.name))
             } else if (entity.name === Track.name) {
-                return (dataset) => dataset.slice().sort((a: Track, b: Track) => a.name.localeCompare(b.name))
+                return (dataset) => dataset.slice().sort((a: Track, b: Track) => datasetOrderDependingOnDialect(dbDialect, a.name, b.name))
             } else if (entity.name === PlaylistTrack.name) {
                 return (dataset) => dataset.slice().sort((a: PlaylistTrack, b: PlaylistTrack) => a.id - b.id)
             }

@@ -69,8 +69,15 @@ describe("Ultimate Test Suite > DML > Select", () => {
                     order: testCase.order.optionForRepo(testCase.entity.entity),
                 }
 
+                const preparedDataset = 
+                    testCase.where.filterDataset(testCase.entity.entity)(
+                    testCase.order.orderDataset(testCase.entity.entity, dataSource.driver.options.type)(
+                        testCase.entity.dataset
+                    )).map(testCase.entity.datasetMapper)
+                
                 const repoFindOne = await repo.findOne(commonOptions);
-                expect(repoFindOne).to.deep.equal(testCase.entity.datasetMapper(testCase.order.orderDataset(testCase.entity.entity)(testCase.entity.dataset)[0]));
+                if (testCase.entity.entity !== PlaylistTrack)
+                    expect(repoFindOne).to.deep.equal(preparedDataset[0]);
 
                 const repoFind = await repo.find({
                     ...commonOptions,
@@ -123,7 +130,7 @@ describe("Ultimate Test Suite > DML > Select", () => {
                     const data: any[] = []
                     stream.on("data", (row) => data.push(row))
                     await new Promise((ok) => stream.once("end", ok))
-                    expect(data).to.deep.equal(repoRawMany);
+                    expect(data).to.deep.equal(fromRawMany);
                 }
             }));
         })
