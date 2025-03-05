@@ -1,6 +1,7 @@
 import { FindOneOptions, FindOptionsOrder, ILike, MoreThan, ObjectLiteral, SelectQueryBuilder } from "../../../../src";
 import { ChinookDataset } from "../../chinook_database/dataset";
 import { Album, Artist, Customer, Employee, Genre, Invoice, InvoiceLine, MediaType, Playlist, PlaylistTrack, Track } from "../../chinook_database/entity/Entities"
+import { pickProperties } from "../../helpers/pickProperties";
 import { CartesianProduct } from "../../helpers/product";
 
 /**
@@ -55,27 +56,27 @@ const select: SelectTestDescription[] = [
         },
         applySelectToQB: (entity, qb, oracleFix) => {
             if (entity.name === Album.name) {
-                return qb.select(["album", "album_id"].map(x => fixOracle(x, false)).join("."))
+                return qb.select(["album","albumId"].map(x => fixOracle(x, oracleFix)).join("."))
             } else if (entity.name === Artist.name) {
-                return qb.select(fixOracle("artist_id", oracleFix))
+                return qb.select(["artist","artistId"].map(x => fixOracle(x, oracleFix)).join("."))
             } else if (entity.name === Customer.name) {
-                return qb.select(fixOracle("customer_id", oracleFix))
+                return qb.select(["customer","customerId"].map(x => fixOracle(x, oracleFix)).join("."))
             } else if (entity.name === Employee.name) {
-                return qb.select(fixOracle("employee_id", oracleFix))
+                return qb.select(["employee","employeeId"].map(x => fixOracle(x, oracleFix)).join("."))
             } else if (entity.name === Genre.name) {
-                return qb.select(fixOracle("genre_id", oracleFix))
+                return qb.select(["genre","genreId"].map(x => fixOracle(x, oracleFix)).join("."))
             } else if (entity.name === Invoice.name) {
-                return qb.select(fixOracle("invoice_id", oracleFix))
+                return qb.select(["invoice","invoiceId"].map(x => fixOracle(x, oracleFix)).join("."))
             } else if (entity.name === InvoiceLine.name) {
-                return qb.select(fixOracle("invoice_line_id", oracleFix))
+                return qb.select(["invoiceLine","invoiceLineId"].map(x => fixOracle(x, oracleFix)).join("."))
             } else if (entity.name === MediaType.name) {
-                return qb.select(fixOracle("media_type_id", oracleFix))
+                return qb.select(["mediaType","mediaTypeId"].map(x => fixOracle(x, oracleFix)).join("."))
             } else if (entity.name === Playlist.name) {
-                return qb.select(fixOracle("playlist_id", oracleFix))
+                return qb.select(["playlist","playlistId"].map(x => fixOracle(x, oracleFix)).join("."))
             } else if (entity.name === Track.name) {
-                return qb.select(fixOracle("track_id", oracleFix))
+                return qb.select(["track","trackId"].map(x => fixOracle(x, oracleFix)).join("."))
             } else if (entity.name === PlaylistTrack.name) {
-                return qb.select(fixOracle("id", oracleFix));
+                return qb.select(["playlistTrack","id"].map(x => fixOracle(x, oracleFix)).join("."));
             }
             throw new Error(`Unsupported entity ${entity.name}`);
         },
@@ -424,7 +425,7 @@ const datasetOrderDependingOnDialect = (dbDialict: string, a: string, b: string)
     if (["postgres"].includes(dbDialict))
         return a.localeCompare(b, undefined, {
             ignorePunctuation: true,
-            usage: "search"
+            usage: "sort"
         })
     return a.localeCompare(b);
 }
@@ -444,7 +445,7 @@ const orders: OrderTestDescription[] = [
             } else if (entity.name === Artist.name) {
                 return qb.orderBy(fixOracle("name", oracleFix), "ASC")
             } else if (entity.name === Customer.name) {
-                return qb.orderBy(fixOracle("country", oracleFix), "ASC")
+                return qb.orderBy(fixOracle("country", oracleFix), "ASC").addOrderBy(fixOracle("customer_id", oracleFix), "ASC")
             } else if (entity.name === Employee.name) {
                 return qb.orderBy(fixOracle("email", oracleFix), "ASC")
             } else if (entity.name === Genre.name) {
@@ -470,7 +471,7 @@ const orders: OrderTestDescription[] = [
             } else if (entity.name === Artist.name) {
                 return {name: "ASC"} as FindOptionsOrder<Artist>
             } else if (entity.name === Customer.name) {
-                return {country: "ASC"} as FindOptionsOrder<Customer>
+                return {country: "ASC", customerId: "ASC"} as FindOptionsOrder<Customer>
             } else if (entity.name === Employee.name) {
                 return {email: "ASC"} as FindOptionsOrder<Employee>
             } else if (entity.name === Genre.name) {
@@ -496,7 +497,7 @@ const orders: OrderTestDescription[] = [
             } else if (entity.name === Artist.name) {
                 return (dataset) => dataset.slice().sort((a: Artist, b: Artist) => datasetOrderDependingOnDialect(dbDialect, a.name, b.name))
             } else if (entity.name === Customer.name) {
-                return (dataset) => dataset.slice().sort((a: Customer, b: Customer) => datasetOrderDependingOnDialect(dbDialect, a.country, b.country))
+                return (dataset) => dataset.slice().sort((a: Customer, b: Customer) => datasetOrderDependingOnDialect(dbDialect, a.country, b.country) | (a.customerId - b.customerId))
             } else if (entity.name === Employee.name) {
                 return (dataset) => dataset.slice().sort((a: Employee, b: Employee) => datasetOrderDependingOnDialect(dbDialect, a.email, b.email))
             } else if (entity.name === Genre.name) {
@@ -609,3 +610,30 @@ export const generateTests = () => {
 
 export const getTestName = (testCase: ReturnType<typeof generateTests>[number]) =>
     `SELECT ${testCase.entity.entity.name}, ${testCase.select.title}, ${testCase.where.title}, ${testCase.order.title}, ${testCase.limit.title}, ${testCase.offset.title}`
+
+const calculateOffsetForSlice = (testCase: ReturnType<typeof generateTests>[number]) => {
+    if (testCase.offset.option === undefined && testCase.limit.option === undefined)
+        return undefined;
+    if (testCase.limit.option === undefined)
+        return undefined;
+    return (testCase.offset.option ?? 0) + testCase.limit.option;
+}
+
+export const prepareDataset = (testCase: ReturnType<typeof generateTests>[number], dataSourceDriverOptionsType: string) => {
+    const orderedDataset = testCase.order.orderDataset(testCase.entity.entity, dataSourceDriverOptionsType)(
+        testCase.entity.dataset
+    );
+
+    const filteredDataset = testCase.where.filterDataset(testCase.entity.entity)(
+        orderedDataset
+    )
+
+    const datasetBeforeSlice = filteredDataset
+    .map(testCase.entity.datasetMapper)
+    .map(x => pickProperties(x, testCase.select.arrayForDataset(testCase.entity.entity)))
+
+    return {
+        dataset: datasetBeforeSlice.slice(testCase.offset.option, calculateOffsetForSlice(testCase)),
+        first: datasetBeforeSlice[0],
+    }
+}

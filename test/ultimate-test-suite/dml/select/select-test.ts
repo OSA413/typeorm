@@ -5,11 +5,11 @@ import {
 import { DataSource } from "../../../../src/data-source/DataSource"
 import { Album, Artist, Customer, Employee, Genre, Invoice, InvoiceLine, MediaType, Playlist, Track, PlaylistTrack } from "../../chinook_database/entity/Entities"
 import { seedChinookDatabase } from "../../chinook_database/seed"
-import { generateTests, getTestName } from "./generate-select-tests"
+import { generateTests, getTestName, prepareDataset } from "./generate-select-tests"
 import { AbstractSqliteDriver } from "../../../../src/driver/sqlite-abstract/AbstractSqliteDriver"
 import { DriverUtils } from "../../../../src/driver/DriverUtils"
 import { expect } from "chai"
-import { pickProperties } from "../../helpers/pickProperties"
+import { cleanUndefinedProperties } from "../../helpers/cleanUndefinedProperties"
 
 // TODO: move this function to the main source code
 const doesTheDBNotSupportOffsetWithoutLimit = (dataSource: DataSource) => {
@@ -59,7 +59,7 @@ describe("Ultimate Test Suite > DML > Select", () => {
                 const repoOne = await baseRepoQueryBuilder.comment("repoOne").getOne();
                 const repoRawOne = await baseRepoQueryBuilder.comment("repoRawOne").getRawOne();
 
-                expect(repoOne).to.deep.equal(repoRawOne ? testCase.entity.rawMapper(repoRawOne) : null)
+                expect(repoOne).to.deep.equal(repoRawOne ? cleanUndefinedProperties(testCase.entity.rawMapper(repoRawOne)) : null)
 
                 const repoMany = await baseRepoQueryBuilder.comment("repoMany").getMany();
                 const repoRawMany = await baseRepoQueryBuilder.comment("repoRawMany").getRawMany();
@@ -70,16 +70,11 @@ describe("Ultimate Test Suite > DML > Select", () => {
                     order: testCase.order.optionForRepo(testCase.entity.entity),
                 }
 
-                const preparedDataset = 
-                    testCase.where.filterDataset(testCase.entity.entity)(
-                    testCase.order.orderDataset(testCase.entity.entity, dataSource.driver.options.type)(
-                        testCase.entity.dataset
-                    )).map(testCase.entity.datasetMapper)
-                    .map(x => pickProperties(x, testCase.select.arrayForDataset(testCase.entity.entity)))
+                const {dataset: preparedDataset, first: firstFromDataset} = prepareDataset(testCase, dataSource.driver.options.type);
                 
                 const repoFindOne = await repo.findOne(commonOptions);
                 if (testCase.entity.entity !== PlaylistTrack)
-                    expect(repoFindOne).to.deep.equal(preparedDataset[0]);
+                    expect(repoFindOne).to.deep.equal(firstFromDataset);
 
                 const repoFind = await repo.find({
                     ...commonOptions,
@@ -114,16 +109,21 @@ describe("Ultimate Test Suite > DML > Select", () => {
                 const fromMany = await baseQueryBuilderFrom.comment("fromMany").getMany()
                 const fromRawMany = await baseQueryBuilderFrom.comment("fromRawMany").getRawMany()
 
-                // expect(repoOne).to.deep.equal(fromOne);
-                // FIXME
-                expect(fromOne).to.equal(null);
-                expect(repoRawOne ? testCase.entity.rawMapper(repoRawOne) : null).to.deep.equal(fromRawOne ? testCase.entity.rawFromMapper(fromRawOne) : null);
-                // expect(repoMany).to.deep.equal(fromMany)
-                // FIXME
-                expect(fromMany).to.deep.equal([])
+                // TODO? describe this "feature"?
+                if (testCase.select.selectOption(testCase.entity.entity) === undefined) {
+                    expect(fromOne).to.deep.equal(null);
+                    expect(repoRawOne ? testCase.entity.rawMapper(repoRawOne) : null).to.deep.equal(fromRawOne ? testCase.entity.rawFromMapper(fromRawOne) : null);
+                    expect(fromMany).to.deep.equal([])
+                    expect(repoRawMany.map(testCase.entity.rawMapper)).to.deep.equal(fromRawMany.map(testCase.entity.rawFromMapper));
+                }
+                else {
+                    expect(repoOne).to.deep.equal(fromOne);
+                    expect(repoRawOne ? testCase.entity.rawMapper(repoRawOne) : null).to.deep.equal(fromRawOne ? testCase.entity.rawMapper(fromRawOne) : null);
+                    expect(fromMany).to.deep.equal(preparedDataset)
+                    expect(repoRawMany.map(testCase.entity.rawMapper)).to.deep.equal(fromRawMany.map(testCase.entity.rawMapper));
+                }
                 
-                expect(repoRawMany.map(testCase.entity.rawMapper)).to.deep.equal(fromRawMany.map(testCase.entity.rawFromMapper));
-                expect(repoRawMany.map(testCase.entity.rawMapper)).to.deep.equal(repoFind);
+                expect(repoRawMany.map(testCase.entity.rawMapper).map(cleanUndefinedProperties)).to.deep.equal(repoFind);
 
                 if (!(dataSource.driver instanceof AbstractSqliteDriver)) {
                     const stream = await baseQueryBuilderFrom.stream()
