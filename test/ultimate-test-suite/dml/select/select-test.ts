@@ -44,6 +44,9 @@ describe("Ultimate Test Suite > DML > Select", () => {
         it(getTestName(testCase), async () => {
             await Promise.all(dataSources.map(async (dataSource) => {
                 if (cantDoOffsetWithoutLimit(dataSource, testCase)) return;
+                // Because of big data there's some oddities when trying to get the data without ordering it.
+                // So for big datasets we skip the test if it has no order.
+                if (testCase.entity.entity === Track && !testCase.order.optionForRepo(testCase.entity.entity)) return;
 
                 const repo = dataSource.getRepository(testCase.entity.entity);
 
@@ -113,13 +116,13 @@ describe("Ultimate Test Suite > DML > Select", () => {
                 if (testCase.select.selectOption(testCase.entity.entity) === undefined) {
                     expect(fromOne).to.deep.equal(null);
                     expect(repoRawOne ? testCase.entity.rawMapper(repoRawOne) : null).to.deep.equal(fromRawOne ? testCase.entity.rawFromMapper(fromRawOne) : null);
-                    expect(fromMany).to.deep.equal([])
+                    expect(fromMany).to.deep.equal([]);
                     expect(repoRawMany.map(testCase.entity.rawMapper)).to.deep.equal(fromRawMany.map(testCase.entity.rawFromMapper));
                 }
                 else {
                     expect(repoOne).to.deep.equal(fromOne);
                     expect(repoRawOne ? testCase.entity.rawMapper(repoRawOne) : null).to.deep.equal(fromRawOne ? testCase.entity.rawMapper(fromRawOne) : null);
-                    expect(fromMany).to.deep.equal(preparedDataset)
+                    expect(fromMany).to.deep.equal(preparedDataset);
                     expect(repoRawMany.map(testCase.entity.rawMapper)).to.deep.equal(fromRawMany.map(testCase.entity.rawMapper));
                 }
                 

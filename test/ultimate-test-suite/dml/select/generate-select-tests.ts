@@ -68,15 +68,15 @@ const select: SelectTestDescription[] = [
             } else if (entity.name === Invoice.name) {
                 return qb.select(["invoice","invoiceId"].map(x => fixOracle(x, oracleFix)).join("."))
             } else if (entity.name === InvoiceLine.name) {
-                return qb.select(["invoiceLine","invoiceLineId"].map(x => fixOracle(x, oracleFix)).join("."))
+                return qb.select(["invoice_line","invoiceLineId"].map(x => fixOracle(x, oracleFix)).join("."))
             } else if (entity.name === MediaType.name) {
-                return qb.select(["mediaType","mediaTypeId"].map(x => fixOracle(x, oracleFix)).join("."))
+                return qb.select(["media_type","mediaTypeId"].map(x => fixOracle(x, oracleFix)).join("."))
             } else if (entity.name === Playlist.name) {
                 return qb.select(["playlist","playlistId"].map(x => fixOracle(x, oracleFix)).join("."))
             } else if (entity.name === Track.name) {
                 return qb.select(["track","trackId"].map(x => fixOracle(x, oracleFix)).join("."))
             } else if (entity.name === PlaylistTrack.name) {
-                return qb.select(["playlistTrack","id"].map(x => fixOracle(x, oracleFix)).join("."));
+                return qb.select(["playlist_track","id"].map(x => fixOracle(x, oracleFix)).join("."));
             }
             throw new Error(`Unsupported entity ${entity.name}`);
         },
@@ -301,7 +301,7 @@ const entities: EntityTestDescription[] = [
         datasetMapper: (x: typeof ChinookDataset.Customers[number]) => {const res = {...x}; delete (res as any).supportRep; return res;},
         dataset: ChinookDataset.Customers   },
     { entity: Employee, tableName: "employee", nameAlias: "employee",
-        rawMapper: (x) => ({address: x.employee_address, birthDate: new Date(x.employee_birth_date), city: x.employee_city, country: x.employee_country, email: x.employee_email, employeeId: x.employee_employee_id, fax: x.employee_fax, firstName: x.employee_first_name, hireDate: new Date(x.employee_hire_date), lastName: x.employee_last_name, phone: x.employee_phone, postalCode: x.employee_postal_code, state: x.employee_state, title: x.employee_title}),
+        rawMapper: (x) => ({address: x.employee_address, birthDate: x.employee_birth_date ? new Date(x.employee_birth_date) : undefined, city: x.employee_city, country: x.employee_country, email: x.employee_email, employeeId: x.employee_employee_id, fax: x.employee_fax, firstName: x.employee_first_name, hireDate: x.employee_hire_date ? new Date(x.employee_hire_date) : undefined, lastName: x.employee_last_name, phone: x.employee_phone, postalCode: x.employee_postal_code, state: x.employee_state, title: x.employee_title}),
         rawFromMapper: (x) => ({address: x.address, birthDate: new Date(x.birth_date), city: x.city, country: x.country, email: x.email, employeeId: x.employee_id, fax: x.fax, firstName: x.first_name, hireDate: new Date(x.hire_date), lastName: x.last_name, phone: x.phone, postalCode: x.postal_code, state: x.state, title: x.title}),
         datasetMapper: (x: typeof ChinookDataset.Employees[number]) => {const res = {...x, hireDate: new Date(x.hireDate), birthDate: new Date(x.birthDate)}; delete (res as any).reportsTo; return res;},
         dataset: ChinookDataset.Employees   },
@@ -311,7 +311,7 @@ const entities: EntityTestDescription[] = [
         datasetMapper: (x: typeof ChinookDataset.Genres[number]) => x,
         dataset: ChinookDataset.Genres   },
     { entity: Invoice, tableName: "invoice", nameAlias: "invoice",
-        rawMapper: (x) => ({billingAddress: x.invoice_billing_address, billingCity: x.invoice_billing_city, billingCountry: x.invoice_billing_country, billingPostalCode: x.invoice_billing_postal_code, billingState: x.invoice_billing_state, invoiceDate: new Date(x.invoice_invoice_date), invoiceId: x.invoice_invoice_id, total: x.invoice_total}),
+        rawMapper: (x) => ({billingAddress: x.invoice_billing_address, billingCity: x.invoice_billing_city, billingCountry: x.invoice_billing_country, billingPostalCode: x.invoice_billing_postal_code, billingState: x.invoice_billing_state, invoiceDate: x.invoice_invoice_date ? new Date(x.invoice_invoice_date) : undefined, invoiceId: x.invoice_invoice_id, total: x.invoice_total}),
         rawFromMapper: (x) => ({billingAddress: x.billing_address, billingCity: x.billing_city, billingCountry: x.billing_country, billingPostalCode: x.billing_postal_code, billingState: x.billing_state, invoiceDate: new Date(x.invoice_date), invoiceId: x.invoice_id, total: x.total}),
         datasetMapper: (x: typeof ChinookDataset.Invoices[number]) => {const res = {...x, invoiceDate: new Date(x.invoiceDate), total: String(x.total)}; delete (res as any).customer; return res;},
         dataset: ChinookDataset.Invoices   },
@@ -451,7 +451,7 @@ const orders: OrderTestDescription[] = [
             } else if (entity.name === Genre.name) {
                 return qb.orderBy(fixOracle("name", oracleFix), "ASC")
             } else if (entity.name === Invoice.name) {
-                return qb.orderBy(fixOracle("billing_address", oracleFix), "ASC")
+                return qb.orderBy(fixOracle("billing_address", oracleFix), "ASC").addOrderBy(fixOracle("invoice_id", oracleFix), "ASC")
             } else if (entity.name === InvoiceLine.name) {
                 return qb.orderBy(fixOracle("unit_price", oracleFix), "ASC")
             } else if (entity.name === MediaType.name) {
@@ -477,7 +477,7 @@ const orders: OrderTestDescription[] = [
             } else if (entity.name === Genre.name) {
                 return {name: "ASC"} as FindOptionsOrder<Genre>
             } else if (entity.name === Invoice.name) {
-                return {billingAddress: "ASC"} as FindOptionsOrder<Invoice>
+                return {billingAddress: "ASC", invoiceId: "ASC"} as FindOptionsOrder<Invoice>
             } else if (entity.name === InvoiceLine.name) {
                 return {unitPrice: "ASC"} as FindOptionsOrder<InvoiceLine>
             } else if (entity.name === MediaType.name) {
@@ -503,7 +503,7 @@ const orders: OrderTestDescription[] = [
             } else if (entity.name === Genre.name) {
                 return (dataset) => dataset.slice().sort((a: Genre, b: Genre) => datasetOrderDependingOnDialect(dbDialect, a.name, b.name))
             } else if (entity.name === Invoice.name) {
-                return (dataset) => dataset.slice().sort((a: Invoice, b: Invoice) => datasetOrderDependingOnDialect(dbDialect, a.billingAddress, b.billingAddress))
+                return (dataset) => dataset.slice().sort((a: Invoice, b: Invoice) => datasetOrderDependingOnDialect(dbDialect, a.billingAddress, b.billingAddress) | (a.invoiceId - b.invoiceId))
             } else if (entity.name === InvoiceLine.name) {
                 return (dataset) => dataset.slice().sort((a: InvoiceLine, b: InvoiceLine) => a.unitPrice - b.unitPrice)
             } else if (entity.name === MediaType.name) {
