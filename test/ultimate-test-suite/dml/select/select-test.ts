@@ -26,6 +26,9 @@ const cantDoOffsetWithoutLimit = (dataSource: DataSource, testCase: ReturnType<t
 }
 
 const calculateExceptionForDeepEqualDataset = (testCase: ReturnType<typeof generateTests>[number]) => {
+    if (testCase.entity.entity === PlaylistTrack)
+        return false;
+
     if (testCase.entity.entity === Track) {
         if (testCase.order.optionForRepo(testCase.entity.entity)?.name)
             return false;
