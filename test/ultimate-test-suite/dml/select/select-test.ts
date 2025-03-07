@@ -35,6 +35,10 @@ const calculateExceptionForDeepEqualDataset = (testCase: ReturnType<typeof gener
         || (testCase.order.optionForRepo(testCase.entity.entity)?.billingAddress && ["better-sqlite3", "sqljs", "sqlite"].includes(dbType)))
             return false;
 
+    if (testCase.entity.entity === InvoiceLine && dbType !== "postgres")
+        if ((!testCase.order.optionForRepo(testCase.entity.entity) && ["better-sqlite3", "sqljs", "sqlite"].includes(dbType)))
+            return false;
+
     if (testCase.entity.entity === Employee && dbType !== "postgres")
         if (!testCase.order.optionForRepo(testCase.entity.entity))
             return false;
