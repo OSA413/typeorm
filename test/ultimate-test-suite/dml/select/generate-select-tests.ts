@@ -347,14 +347,14 @@ interface WhereTestDescription {
     title: string,
     // We need three different options because we have three different interfaces
     option: (entity: any) => ObjectLiteral[],
-    filterDataset: (entity: any) => (x: any[]) => any[];
+    filterDataset: (entity: any, dbDialect: string) => (x: any[]) => any[];
 }
 
 const wheres: WhereTestDescription[] = [
     {
         title: "no where condition",
-        option: (entity: any) => ({}) as any,
-        filterDataset: x => x => x.filter(() => true),
+        option: () => ({}) as any,
+        filterDataset: () => (x) => x.filter(() => true),
     },
     {
         title: "1 where condition",
@@ -384,11 +384,11 @@ const wheres: WhereTestDescription[] = [
             }
             throw new Error(`Unsupported entity ${entity.name}`);
         },
-        filterDataset: (entity) => {
+        filterDataset: (entity, dbDialict) => {
             if (entity.name === Album.name) {
                 return x => x.filter(y => y.title.includes("a") || y.title.includes("A"))
             } else if (entity.name === Artist.name) {
-                return x => x.filter(y => y.name.split("").some((c: string) => c.localeCompare("a", undefined, {sensitivity: "base"}) === 0))
+                return x => x.filter(y => ["mysql", "mariadb"].includes(dbDialict) ? y.name.split("").some((c: string) => c.localeCompare("a", undefined, {sensitivity: "base"}) === 0) : (y.name.includes("a") || y.name.includes("A")))
             } else if (entity.name === Customer.name) {
                 return x => x.filter(y => y.country.includes("a") || y.country.includes("A"))
             } else if (entity.name === Employee.name) {
@@ -396,7 +396,7 @@ const wheres: WhereTestDescription[] = [
             } else if (entity.name === Genre.name) {
                 return x => x.filter(y => y.name.includes("a") || y.name.includes("A"))
             } else if (entity.name === Invoice.name) {
-                return x => x.filter(y => y.billingAddress.split("").some((c: string) => c.localeCompare("a", undefined, {sensitivity: "base"}) === 0))
+                return x => x.filter(y => ["mysql", "mariadb"].includes(dbDialict) ? y.billingAddress.split("").some((c: string) => c.localeCompare("a", undefined, {sensitivity: "base"}) === 0) : (y.billingAddress.includes("a") || y.billingAddress.includes("A")))
             } else if (entity.name === InvoiceLine.name) {
                 return x => x.filter(y => y.unitPrice > 0.5)
             } else if (entity.name === MediaType.name) {
@@ -404,7 +404,7 @@ const wheres: WhereTestDescription[] = [
             } else if (entity.name === Playlist.name) {
                 return x => x.filter(y => y.name.includes("a") || y.name.includes("A"))
             } else if (entity.name === Track.name) {
-                return x => x.filter(y => y.name.split("").some((c: string) => c.localeCompare("a", undefined, {sensitivity: "base"}) === 0))
+                return x => x.filter(y => ["mysql", "mariadb"].includes(dbDialict) ? y.name.split("").some((c: string) => c.localeCompare("a", undefined, {sensitivity: "base"}) === 0) : (y.name.includes("a") || y.name.includes("A")))
             } else if (entity.name === PlaylistTrack.name) {
                 return x => x.filter(y => y.id > 5000)
             }
@@ -624,7 +624,7 @@ export const prepareDataset = (testCase: ReturnType<typeof generateTests>[number
         testCase.entity.dataset
     );
 
-    const filteredDataset = testCase.where.filterDataset(testCase.entity.entity)(
+    const filteredDataset = testCase.where.filterDataset(testCase.entity.entity, dataSourceDriverOptionsType)(
         orderedDataset
     )
 
