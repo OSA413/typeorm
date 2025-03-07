@@ -388,7 +388,7 @@ const wheres: WhereTestDescription[] = [
             if (entity.name === Album.name) {
                 return x => x.filter(y => y.title.includes("a") || y.title.includes("A"))
             } else if (entity.name === Artist.name) {
-                return x => x.filter(y => y.name.includes("a") || y.name.includes("A"))
+                return x => x.filter(y => y.name.split("").some((c: string) => c.localeCompare("a", undefined, {sensitivity: "base"}) === 0))
             } else if (entity.name === Customer.name) {
                 return x => x.filter(y => y.country.includes("a") || y.country.includes("A"))
             } else if (entity.name === Employee.name) {
@@ -396,7 +396,7 @@ const wheres: WhereTestDescription[] = [
             } else if (entity.name === Genre.name) {
                 return x => x.filter(y => y.name.includes("a") || y.name.includes("A"))
             } else if (entity.name === Invoice.name) {
-                return x => x.filter(y => y.billingAddress.includes("a") || y.billingAddress.includes("A"))
+                return x => x.filter(y => y.billingAddress.split("").some((c: string) => c.localeCompare("a", undefined, {sensitivity: "base"}) === 0))
             } else if (entity.name === InvoiceLine.name) {
                 return x => x.filter(y => y.unitPrice > 0.5)
             } else if (entity.name === MediaType.name) {
@@ -404,7 +404,7 @@ const wheres: WhereTestDescription[] = [
             } else if (entity.name === Playlist.name) {
                 return x => x.filter(y => y.name.includes("a") || y.name.includes("A"))
             } else if (entity.name === Track.name) {
-                return x => x.filter(y => y.name.includes("a") || y.name.includes("A"))
+                return x => x.filter(y => y.name.split("").some((c: string) => c.localeCompare("a", undefined, {sensitivity: "base"}) === 0))
             } else if (entity.name === PlaylistTrack.name) {
                 return x => x.filter(y => y.id > 5000)
             }
