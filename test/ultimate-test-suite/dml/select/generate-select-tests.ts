@@ -457,9 +457,9 @@ const orders: OrderTestDescription[] = [
             } else if (entity.name === MediaType.name) {
                 return qb.orderBy(fixOracle("name", oracleFix), "ASC")
             } else if (entity.name === Playlist.name) {
-                return qb.orderBy(fixOracle("name", oracleFix), "ASC").addOrderBy(fixOracle("playlist_id", oracleFix), "ASC")
+                return qb.orderBy(fixOracle("name", oracleFix), "ASC")
             } else if (entity.name === Track.name) {
-                return qb.orderBy(fixOracle("name", oracleFix), "ASC").addOrderBy(fixOracle("track_id", oracleFix), "ASC")
+                return qb.orderBy(fixOracle("name", oracleFix), "ASC")
             } else if (entity.name === PlaylistTrack.name) {
                 return qb.orderBy(fixOracle("id", oracleFix), "ASC")
             }
@@ -483,9 +483,9 @@ const orders: OrderTestDescription[] = [
             } else if (entity.name === MediaType.name) {
                 return {name: "ASC"} as FindOptionsOrder<MediaType>
             } else if (entity.name === Playlist.name) {
-                return {name: "ASC", playlistId: "ASC"} as FindOptionsOrder<Playlist>
+                return {name: "ASC"} as FindOptionsOrder<Playlist>
             } else if (entity.name === Track.name) {
-                return {name: "ASC", trackId: "ASC"} as FindOptionsOrder<Track>
+                return {name: "ASC"} as FindOptionsOrder<Track>
             } else if (entity.name === PlaylistTrack.name) {
                 return {id: "ASC"} as FindOptionsOrder<PlaylistTrack>
             }
@@ -509,9 +509,9 @@ const orders: OrderTestDescription[] = [
             } else if (entity.name === MediaType.name) {
                 return (dataset) => dataset.slice().sort((a: MediaType, b: MediaType) => datasetOrderDependingOnDialect(dbDialect, a.name, b.name))
             } else if (entity.name === Playlist.name) {
-                return (dataset) => dataset.slice().sort((a: Playlist, b: Playlist) => datasetOrderDependingOnDialect(dbDialect, a.name, b.name) | (a.playlistId - b.playlistId))
+                return (dataset) => dataset.slice().sort((a: Playlist, b: Playlist) => datasetOrderDependingOnDialect(dbDialect, a.name, b.name))
             } else if (entity.name === Track.name) {
-                return (dataset) => dataset.slice().sort((a: Track, b: Track) => datasetOrderDependingOnDialect(dbDialect, a.name, b.name) | (a.trackId - b.trackId))
+                return (dataset) => dataset.slice().sort((a: Track, b: Track) => datasetOrderDependingOnDialect(dbDialect, a.name, b.name))
             } else if (entity.name === PlaylistTrack.name) {
                 return (dataset) => dataset.slice().sort((a: PlaylistTrack, b: PlaylistTrack) => a.id - b.id)
             }
