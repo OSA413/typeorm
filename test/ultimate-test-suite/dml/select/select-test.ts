@@ -26,24 +26,25 @@ const cantDoOffsetWithoutLimit = (dataSource: DataSource, testCase: ReturnType<t
 }
 
 // TODO figure out sorting algorithm for other DBs
-const calculateExceptionForDeepEqualDataset = (testCase: ReturnType<typeof generateTests>[number], dbDialect: string) => {
+const calculateExceptionForDeepEqualDataset = (testCase: ReturnType<typeof generateTests>[number], dbType: string) => {
     if (testCase.entity.entity === PlaylistTrack)
         return false;
 
-    if (testCase.entity.entity === Invoice && dbDialect !== "postgres")
+    if (testCase.entity.entity === Invoice && dbType !== "postgres")
+        if (!testCase.order.optionForRepo(testCase.entity.entity)
+        || (testCase.order.optionForRepo(testCase.entity.entity)?.billingAddress && ["better-sqlite3", "sqljs", "sqlite"].includes(dbType)))
+            return false;
+
+    if (testCase.entity.entity === Employee && dbType !== "postgres")
         if (!testCase.order.optionForRepo(testCase.entity.entity))
             return false;
 
-    if (testCase.entity.entity === Employee && dbDialect !== "postgres")
-        if (!testCase.order.optionForRepo(testCase.entity.entity))
-            return false;
-
-    if (testCase.entity.entity === Customer && dbDialect !== "postgres")
+    if (testCase.entity.entity === Customer && dbType !== "postgres")
         if (!testCase.order.optionForRepo(testCase.entity.entity)
         || testCase.order.optionForRepo(testCase.entity.entity)?.country)
             return false;
 
-    if (testCase.entity.entity === Artist && dbDialect !== "postgres") {
+    if (testCase.entity.entity === Artist && dbType !== "postgres") {
         if (testCase.order.optionForRepo(testCase.entity.entity)?.name)
             return false;
     }
@@ -52,12 +53,12 @@ const calculateExceptionForDeepEqualDataset = (testCase: ReturnType<typeof gener
         if (testCase.order.optionForRepo(testCase.entity.entity)?.name)
             return false;
     }
-    if (testCase.entity.entity === Album && dbDialect !== "postgres") {
+    if (testCase.entity.entity === Album && dbType !== "postgres") {
         if (!testCase.order.optionForRepo(testCase.entity.entity)
         || testCase.order.optionForRepo(testCase.entity.entity)?.title)
             return false;
     }
-    if (testCase.entity.entity === Playlist && dbDialect !== "postgres") {
+    if (testCase.entity.entity === Playlist && dbType !== "postgres") {
         if (testCase.order.optionForRepo(testCase.entity.entity)?.name)
             return false;
     }

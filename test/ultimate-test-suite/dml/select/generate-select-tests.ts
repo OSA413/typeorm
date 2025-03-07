@@ -347,7 +347,7 @@ interface WhereTestDescription {
     title: string,
     // We need three different options because we have three different interfaces
     option: (entity: any) => ObjectLiteral[],
-    filterDataset: (entity: any, dbDialect: string) => (x: any[]) => any[];
+    filterDataset: (entity: any, dbType: string) => (x: any[]) => any[];
 }
 
 const wheres: WhereTestDescription[] = [
@@ -418,7 +418,7 @@ interface OrderTestDescription {
     // We need three different options because we have three different interfaces
     applyOption: (entity: any, qb: SelectQueryBuilder<ObjectLiteral>, oracleFix: boolean) => SelectQueryBuilder<ObjectLiteral>,
     optionForRepo: (entity: any) => FindOneOptions<ObjectLiteral>["order"],
-    orderDataset: (entity: any, dbDialect: string) => (x: any[]) => any[];
+    orderDataset: (entity: any, dbType: string) => (x: any[]) => any[];
 }
 
 const datasetOrderDependingOnDialect = (dbDialict: string, a: string, b: string) => {
@@ -491,27 +491,27 @@ const orders: OrderTestDescription[] = [
             }
             throw new Error(`Unsupported entity ${entity.name}`);
         },
-        orderDataset: (entity, dbDialect) => {
+        orderDataset: (entity, dbType) => {
             if (entity.name === Album.name) {
-                return (dataset) => dataset.slice().sort((a: Album, b: Album) => datasetOrderDependingOnDialect(dbDialect, a.title, b.title))
+                return (dataset) => dataset.slice().sort((a: Album, b: Album) => datasetOrderDependingOnDialect(dbType, a.title, b.title))
             } else if (entity.name === Artist.name) {
-                return (dataset) => dataset.slice().sort((a: Artist, b: Artist) => datasetOrderDependingOnDialect(dbDialect, a.name, b.name))
+                return (dataset) => dataset.slice().sort((a: Artist, b: Artist) => datasetOrderDependingOnDialect(dbType, a.name, b.name))
             } else if (entity.name === Customer.name) {
-                return (dataset) => dataset.slice().sort((a: Customer, b: Customer) => datasetOrderDependingOnDialect(dbDialect, a.country, b.country) | (a.customerId - b.customerId))
+                return (dataset) => dataset.slice().sort((a: Customer, b: Customer) => datasetOrderDependingOnDialect(dbType, a.country, b.country) | (a.customerId - b.customerId))
             } else if (entity.name === Employee.name) {
-                return (dataset) => dataset.slice().sort((a: Employee, b: Employee) => datasetOrderDependingOnDialect(dbDialect, a.email, b.email))
+                return (dataset) => dataset.slice().sort((a: Employee, b: Employee) => datasetOrderDependingOnDialect(dbType, a.email, b.email))
             } else if (entity.name === Genre.name) {
-                return (dataset) => dataset.slice().sort((a: Genre, b: Genre) => datasetOrderDependingOnDialect(dbDialect, a.name, b.name))
+                return (dataset) => dataset.slice().sort((a: Genre, b: Genre) => datasetOrderDependingOnDialect(dbType, a.name, b.name))
             } else if (entity.name === Invoice.name) {
-                return (dataset) => dataset.slice().sort((a: Invoice, b: Invoice) => datasetOrderDependingOnDialect(dbDialect, a.billingAddress, b.billingAddress) | (a.invoiceId - b.invoiceId))
+                return (dataset) => dataset.slice().sort((a: Invoice, b: Invoice) => datasetOrderDependingOnDialect(dbType, a.billingAddress, b.billingAddress) | (a.invoiceId - b.invoiceId))
             } else if (entity.name === InvoiceLine.name) {
                 return (dataset) => dataset.slice().sort((a: InvoiceLine, b: InvoiceLine) => (a.unitPrice - b.unitPrice) | (a.invoiceLineId - b.invoiceLineId))
             } else if (entity.name === MediaType.name) {
-                return (dataset) => dataset.slice().sort((a: MediaType, b: MediaType) => datasetOrderDependingOnDialect(dbDialect, a.name, b.name))
+                return (dataset) => dataset.slice().sort((a: MediaType, b: MediaType) => datasetOrderDependingOnDialect(dbType, a.name, b.name))
             } else if (entity.name === Playlist.name) {
-                return (dataset) => dataset.slice().sort((a: Playlist, b: Playlist) => datasetOrderDependingOnDialect(dbDialect, a.name, b.name) | (a.playlistId - b.playlistId))
+                return (dataset) => dataset.slice().sort((a: Playlist, b: Playlist) => datasetOrderDependingOnDialect(dbType, a.name, b.name) | (a.playlistId - b.playlistId))
             } else if (entity.name === Track.name) {
-                return (dataset) => dataset.slice().sort((a: Track, b: Track) => datasetOrderDependingOnDialect(dbDialect, a.name, b.name))
+                return (dataset) => dataset.slice().sort((a: Track, b: Track) => datasetOrderDependingOnDialect(dbType, a.name, b.name))
             } else if (entity.name === PlaylistTrack.name) {
                 return (dataset) => dataset.slice().sort((a: PlaylistTrack, b: PlaylistTrack) => a.id - b.id)
             }
