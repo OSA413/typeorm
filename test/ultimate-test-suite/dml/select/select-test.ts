@@ -43,10 +43,10 @@ const calculateExceptionForDeepEqualDataset = (testCase: ReturnType<typeof gener
 }
 
 const calculateExceptionForHasDeepMembers = (testCase: ReturnType<typeof generateTests>[number]) => {
-    if (testCase.entity.entity === Album || testCase.entity.entity === Playlist) {
+    // if (testCase.entity.entity === Album || testCase.entity.entity === Playlist) {
         if (testCase.limit.option || testCase.offset.option)
             return false;
-    }
+    // }
     return true;
 }
 
@@ -101,7 +101,7 @@ describe("Ultimate Test Suite > DML > Select", () => {
                 const {dataset: preparedDataset, first: firstFromDataset} = prepareDataset(testCase, dataSource.driver.options.type);
                 
                 const repoFindOne = await repo.findOne(commonOptions);
-                if (testCase.entity.entity !== PlaylistTrack && !(testCase.order.optionForRepo(testCase.entity.entity)?.name && testCase.entity.entity === Track))
+                if (calculateExceptionForDeepEqualDataset(testCase) && calculateExceptionForHasDeepMembers(testCase))
                     expect(repoFindOne).to.deep.equal(firstFromDataset);
 
                 const repoFind = await repo.find({

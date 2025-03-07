@@ -422,12 +422,12 @@ interface OrderTestDescription {
 }
 
 const datasetOrderDependingOnDialect = (dbDialict: string, a: string, b: string) => {
-    // if (["postgres"].includes(dbDialict))
+    if (["postgres"].includes(dbDialict))
         return a.localeCompare(b, undefined, {
             ignorePunctuation: true,
             usage: "sort"
         })
-    // return a.localeCompare(b);
+    return a.localeCompare(b);
 }
 
 const orders: OrderTestDescription[] = [
