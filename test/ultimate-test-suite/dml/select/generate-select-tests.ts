@@ -312,7 +312,7 @@ const entities: EntityTestDescription[] = [
         dataset: ChinookDataset.Genres   },
     { entity: Invoice, tableName: "invoice", nameAlias: "invoice",
         rawMapper: (x) => ({billingAddress: x.invoice_billing_address, billingCity: x.invoice_billing_city, billingCountry: x.invoice_billing_country, billingPostalCode: x.invoice_billing_postal_code, billingState: x.invoice_billing_state, invoiceDate: x.invoice_invoice_date ? new Date(x.invoice_invoice_date) : undefined, invoiceId: x.invoice_invoice_id, total: x.invoice_total ? Number(x.invoice_total) : undefined}),
-        rawFromMapper: (x) => ({billingAddress: x.billing_address, billingCity: x.billing_city, billingCountry: x.billing_country, billingPostalCode: x.billing_postal_code, billingState: x.billing_state, invoiceDate: new Date(x.invoice_date), invoiceId: x.invoice_id, total: x.total ? Number(x.total) : undefiend}),
+        rawFromMapper: (x) => ({billingAddress: x.billing_address, billingCity: x.billing_city, billingCountry: x.billing_country, billingPostalCode: x.billing_postal_code, billingState: x.billing_state, invoiceDate: new Date(x.invoice_date), invoiceId: x.invoice_id, total: x.total ? Number(x.total) : undefined}),
         datasetMapper: (x: typeof ChinookDataset.Invoices[number]) => {const res = {...x, invoiceDate: new Date(x.invoiceDate), total: x.total}; delete (res as any).customer; return res;},
         dataset: ChinookDataset.Invoices   },
     { entity: InvoiceLine, tableName: "invoice_line", nameAlias: "invoice_line",
