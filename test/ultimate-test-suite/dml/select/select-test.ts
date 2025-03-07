@@ -76,7 +76,7 @@ describe("Ultimate Test Suite > DML > Select", () => {
                 const {dataset: preparedDataset, first: firstFromDataset} = prepareDataset(testCase, dataSource.driver.options.type);
                 
                 const repoFindOne = await repo.findOne(commonOptions);
-                if (testCase.entity.entity !== PlaylistTrack && !(testCase.order.optionForRepo(testCase.entity.entity)!.name && testCase.entity.entity === Track))
+                if (testCase.entity.entity !== PlaylistTrack && !(testCase.order.optionForRepo(testCase.entity.entity)?.name && testCase.entity.entity === Track))
                     expect(repoFindOne).to.deep.equal(firstFromDataset);
 
                 const repoFind = await repo.find({
