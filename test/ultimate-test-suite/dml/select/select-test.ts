@@ -25,11 +25,15 @@ const cantDoOffsetWithoutLimit = (dataSource: DataSource, testCase: ReturnType<t
     return doesTheDBNotSupportOffsetWithoutLimit(dataSource) && testCase.offset.option && !testCase.limit.option
 }
 
-const calculateExceptionForDeepEqualDataset = (testCase: ReturnType<typeof generateTests>[number]) => {
+const calculateExceptionForDeepEqualDataset = (testCase: ReturnType<typeof generateTests>[number], dbDialect: string) => {
     if (testCase.entity.entity === PlaylistTrack)
         return false;
 
-    if (testCase.entity.entity === Artist) {
+    if (testCase.entity.entity === Customer)
+        if (!testCase.order.optionForRepo(testCase.entity.entity))
+            return false;
+
+    if (testCase.entity.entity === Artist && dbDialect !== "postgres") {
         if (testCase.order.optionForRepo(testCase.entity.entity)?.name)
             return false;
     }
@@ -43,7 +47,7 @@ const calculateExceptionForDeepEqualDataset = (testCase: ReturnType<typeof gener
         || testCase.order.optionForRepo(testCase.entity.entity)?.title)
             return false;
     }
-    if (testCase.entity.entity === Playlist) {
+    if (testCase.entity.entity === Playlist && dbDialect !== "postgres") {
         if (testCase.order.optionForRepo(testCase.entity.entity)?.name)
             return false;
     }
@@ -109,7 +113,8 @@ describe("Ultimate Test Suite > DML > Select", () => {
                 const {dataset: preparedDataset, first: firstFromDataset} = prepareDataset(testCase, dataSource.driver.options.type);
                 
                 const repoFindOne = await repo.findOne(commonOptions);
-                if (calculateExceptionForDeepEqualDataset(testCase) && calculateExceptionForHasDeepMembers(testCase))
+                if (calculateExceptionForDeepEqualDataset(testCase, dataSource.driver.options.type)
+                    && calculateExceptionForHasDeepMembers(testCase))
                     expect(repoFindOne).to.deep.equal(firstFromDataset);
 
                 const repoFind = await repo.find({
@@ -157,7 +162,7 @@ describe("Ultimate Test Suite > DML > Select", () => {
                     expect(repoRawOne ? testCase.entity.rawMapper(repoRawOne) : null).to.deep.equal(fromRawOne ? testCase.entity.rawMapper(fromRawOne) : null);
 
                     // I couldn't figure out how to make a sort like DB does
-                    if (calculateExceptionForDeepEqualDataset(testCase))
+                    if (calculateExceptionForDeepEqualDataset(testCase, dataSource.driver.options.type))
                         expect(fromMany).to.deep.equal(preparedDataset);
                     else if (calculateExceptionForHasDeepMembers(testCase))
                         expect(fromMany).to.have.deep.members(preparedDataset);
