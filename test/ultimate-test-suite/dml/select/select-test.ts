@@ -30,8 +30,13 @@ const calculateExceptionForDeepEqualDataset = (testCase: ReturnType<typeof gener
     if (testCase.entity.entity === PlaylistTrack)
         return false;
 
-    if (testCase.entity.entity === Customer && dbDialect !== "postgres")
+    if (testCase.entity.entity === Employee)
         if (!testCase.order.optionForRepo(testCase.entity.entity))
+            return false;
+
+    if (testCase.entity.entity === Customer && dbDialect !== "postgres")
+        if (!testCase.order.optionForRepo(testCase.entity.entity)
+        || testCase.order.optionForRepo(testCase.entity.entity)?.country)
             return false;
 
     if (testCase.entity.entity === Artist && dbDialect !== "postgres") {
