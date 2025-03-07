@@ -25,11 +25,12 @@ const cantDoOffsetWithoutLimit = (dataSource: DataSource, testCase: ReturnType<t
     return doesTheDBNotSupportOffsetWithoutLimit(dataSource) && testCase.offset.option && !testCase.limit.option
 }
 
+// TODO figure out sorting algorithm for other DBs
 const calculateExceptionForDeepEqualDataset = (testCase: ReturnType<typeof generateTests>[number], dbDialect: string) => {
     if (testCase.entity.entity === PlaylistTrack)
         return false;
 
-    if (testCase.entity.entity === Customer)
+    if (testCase.entity.entity === Customer && dbDialect !== "postgres")
         if (!testCase.order.optionForRepo(testCase.entity.entity))
             return false;
 
@@ -38,11 +39,11 @@ const calculateExceptionForDeepEqualDataset = (testCase: ReturnType<typeof gener
             return false;
     }
 
-    if (testCase.entity.entity === Track) {
+    if (testCase.entity.entity === Track && dbDialect !== "postgres") {
         if (testCase.order.optionForRepo(testCase.entity.entity)?.name)
             return false;
     }
-    if (testCase.entity.entity === Album) {
+    if (testCase.entity.entity === Album && dbDialect !== "postgres") {
         if (!testCase.order.optionForRepo(testCase.entity.entity)
         || testCase.order.optionForRepo(testCase.entity.entity)?.title)
             return false;
