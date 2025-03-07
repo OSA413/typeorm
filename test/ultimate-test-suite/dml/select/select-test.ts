@@ -124,7 +124,7 @@ describe("Ultimate Test Suite > DML > Select", () => {
                     expect(repoRawOne ? testCase.entity.rawMapper(repoRawOne) : null).to.deep.equal(fromRawOne ? testCase.entity.rawMapper(fromRawOne) : null);
 
                     // I couldn't figure out how to make a sort like DB does
-                    if (!(testCase.order.optionForRepo(testCase.entity.entity)!.name && testCase.entity.entity === Track))
+                    if (!(testCase.order.optionForRepo(testCase.entity.entity)?.name && testCase.entity.entity === Track))
                         expect(fromMany).to.deep.equal(preparedDataset);
                     expect(repoRawMany.map(testCase.entity.rawMapper)).to.deep.equal(fromRawMany.map(testCase.entity.rawMapper));
                 }
