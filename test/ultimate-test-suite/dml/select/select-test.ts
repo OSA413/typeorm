@@ -43,7 +43,7 @@ const calculateExceptionForDeepEqualDataset = (testCase: ReturnType<typeof gener
 }
 
 const calculateExceptionForHasDeepMembers = (testCase: ReturnType<typeof generateTests>[number]) => {
-    if (testCase.entity.entity === Album) {
+    if (testCase.entity.entity === Album || testCase.entity.entity === Playlist) {
         if (testCase.limit.option || testCase.offset.option)
             return false;
     }
