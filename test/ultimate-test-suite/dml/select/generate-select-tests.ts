@@ -56,7 +56,7 @@ const select: SelectTestDescription[] = [
         },
         applySelectToQB: (entity, qb, oracleFix) => {
             if (entity.name === Album.name) {
-                return qb.select(["album","albumId"].map(x => fixOracle(x, oracleFix)).join("."))
+                return qb.select(["albumId"].map(x => ["album", x].map(y => fixOracle(y, oracleFix)).join(".")))
             } else if (entity.name === Artist.name) {
                 return qb.select(["artist","artistId"].map(x => fixOracle(x, oracleFix)).join("."))
             } else if (entity.name === Customer.name) {

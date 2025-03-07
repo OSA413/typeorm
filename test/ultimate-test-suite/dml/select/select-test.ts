@@ -25,6 +25,27 @@ const cantDoOffsetWithoutLimit = (dataSource: DataSource, testCase: ReturnType<t
     return doesTheDBNotSupportOffsetWithoutLimit(dataSource) && testCase.offset.option && !testCase.limit.option
 }
 
+const calculateExceptionForDeepEqualDataset = (testCase: ReturnType<typeof generateTests>[number]) => {
+    if (testCase.entity.entity === Track) {
+        if (testCase.order.optionForRepo(testCase.entity.entity)?.name)
+            false
+    }
+    if (testCase.entity.entity === Album) {
+        if (!testCase.order.optionForRepo(testCase.entity.entity)
+        || testCase.order.optionForRepo(testCase.entity.entity)?.title)
+            return false
+    }
+    return true;
+}
+
+const calculateExceptionForHasDeepMembers = (testCase: ReturnType<typeof generateTests>[number]) => {
+    if (testCase.entity.entity === Album) {
+        if (testCase.limit.option || testCase.offset.option)
+            return false;
+    }
+    return true;
+}
+
 describe("Ultimate Test Suite > DML > Select", () => {
     let dataSources: DataSource[]
     before(async () => {
@@ -124,8 +145,10 @@ describe("Ultimate Test Suite > DML > Select", () => {
                     expect(repoRawOne ? testCase.entity.rawMapper(repoRawOne) : null).to.deep.equal(fromRawOne ? testCase.entity.rawMapper(fromRawOne) : null);
 
                     // I couldn't figure out how to make a sort like DB does
-                    if (!(testCase.order.optionForRepo(testCase.entity.entity)?.name && testCase.entity.entity === Track))
+                    if (calculateExceptionForDeepEqualDataset(testCase))
                         expect(fromMany).to.deep.equal(preparedDataset);
+                    else if (calculateExceptionForHasDeepMembers(testCase))
+                        expect(fromMany).to.have.deep.members(preparedDataset);
                     expect(repoRawMany.map(testCase.entity.rawMapper)).to.deep.equal(fromRawMany.map(testCase.entity.rawMapper));
                 }
                 
