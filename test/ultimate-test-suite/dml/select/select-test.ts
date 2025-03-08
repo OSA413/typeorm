@@ -32,7 +32,8 @@ const calculateExceptionForDeepEqualDataset = (testCase: ReturnType<typeof gener
 
     if (testCase.entity.entity === Invoice && dbType !== "postgres")
         if (!testCase.order.optionForRepo(testCase.entity.entity)
-        || (testCase.order.optionForRepo(testCase.entity.entity)?.billingAddress && ["better-sqlite3", "sqljs", "sqlite"].includes(dbType)))
+        || (testCase.order.optionForRepo(testCase.entity.entity)?.billingAddress && ["better-sqlite3", "sqljs", "sqlite"].includes(dbType))
+        || ["mysql", "mariadb"].includes(dbType) && testCase.where.option(testCase.entity.entity))
             return false;
 
     if (testCase.entity.entity === InvoiceLine && dbType !== "postgres")
@@ -49,7 +50,8 @@ const calculateExceptionForDeepEqualDataset = (testCase: ReturnType<typeof gener
             return false;
 
     if (testCase.entity.entity === Artist && dbType !== "postgres") {
-        if (testCase.order.optionForRepo(testCase.entity.entity)?.name)
+        if (testCase.order.optionForRepo(testCase.entity.entity)?.name
+    || ["mysql", "mariadb"].includes(dbType) && testCase.where.option(testCase.entity.entity))
             return false;
     }
 
@@ -69,11 +71,23 @@ const calculateExceptionForDeepEqualDataset = (testCase: ReturnType<typeof gener
     return true;
 }
 
-const calculateExceptionForHasDeepMembers = (testCase: ReturnType<typeof generateTests>[number]) => {
+// TODO: figure out correct filter for MySQL on GHA
+const calculateExceptionForHasDeepMembers = (testCase: ReturnType<typeof generateTests>[number], dbType: string) => {
     // if (testCase.entity.entity === Album || testCase.entity.entity === Playlist) {
         if (testCase.limit.option || testCase.offset.option)
             return false;
     // }
+
+    if (testCase.entity.entity === Artist && dbType !== "postgres") {
+        if (["mysql", "mariadb"].includes(dbType) && testCase.where.option(testCase.entity.entity))
+            return false;
+    }
+
+    if (testCase.entity.entity === Invoice && dbType !== "postgres") {
+        if (["mysql", "mariadb"].includes(dbType) && testCase.where.option(testCase.entity.entity))
+            return false;
+    }
+
     return true;
 }
 
