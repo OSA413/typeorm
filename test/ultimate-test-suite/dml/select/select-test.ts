@@ -143,7 +143,7 @@ describe("Ultimate Test Suite > DML > Select", () => {
                 
                 const repoFindOne = await repo.findOne(commonOptions);
                 if (calculateExceptionForDeepEqualDataset(testCase, dataSource.driver.options.type)
-                    && calculateExceptionForHasDeepMembers(testCase))
+                    && calculateExceptionForHasDeepMembers(testCase, dataSource.driver.options.type))
                     expect(repoFindOne).to.deep.equal(firstFromDataset);
 
                 const repoFind = await repo.find({
@@ -193,7 +193,7 @@ describe("Ultimate Test Suite > DML > Select", () => {
                     // I couldn't figure out how to make a sort like DB does
                     if (calculateExceptionForDeepEqualDataset(testCase, dataSource.driver.options.type))
                         expect(fromMany).to.deep.equal(preparedDataset);
-                    else if (calculateExceptionForHasDeepMembers(testCase))
+                    else if (calculateExceptionForHasDeepMembers(testCase, dataSource.driver.options.type))
                         expect(fromMany).to.have.deep.members(preparedDataset);
                     expect(repoRawMany.map(testCase.entity.rawMapper)).to.deep.equal(fromRawMany.map(testCase.entity.rawMapper));
                 }
