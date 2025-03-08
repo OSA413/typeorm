@@ -421,7 +421,7 @@ interface OrderTestDescription {
     orderDataset: (entity: any, dbType: string) => (x: any[]) => any[];
 }
 
-const datasetOrderDependingOnDialect = (dbDialict: string, a: string, b: string) => {
+const datasetOrderDependingOnDBType = (dbDialict: string, a: string, b: string) => {
     if (["postgres"].includes(dbDialict))
         return a.localeCompare(b, undefined, {
             ignorePunctuation: true,
@@ -493,25 +493,25 @@ const orders: OrderTestDescription[] = [
         },
         orderDataset: (entity, dbType) => {
             if (entity.name === Album.name) {
-                return (dataset) => dataset.slice().sort((a: Album, b: Album) => datasetOrderDependingOnDialect(dbType, a.title, b.title))
+                return (dataset) => dataset.slice().sort((a: Album, b: Album) => datasetOrderDependingOnDBType(dbType, a.title, b.title))
             } else if (entity.name === Artist.name) {
-                return (dataset) => dataset.slice().sort((a: Artist, b: Artist) => datasetOrderDependingOnDialect(dbType, a.name, b.name))
+                return (dataset) => dataset.slice().sort((a: Artist, b: Artist) => datasetOrderDependingOnDBType(dbType, a.name, b.name))
             } else if (entity.name === Customer.name) {
-                return (dataset) => dataset.slice().sort((a: Customer, b: Customer) => datasetOrderDependingOnDialect(dbType, a.country, b.country) | (a.customerId - b.customerId))
+                return (dataset) => dataset.slice().sort((a: Customer, b: Customer) => datasetOrderDependingOnDBType(dbType, a.country, b.country) | (a.customerId - b.customerId))
             } else if (entity.name === Employee.name) {
-                return (dataset) => dataset.slice().sort((a: Employee, b: Employee) => datasetOrderDependingOnDialect(dbType, a.email, b.email))
+                return (dataset) => dataset.slice().sort((a: Employee, b: Employee) => datasetOrderDependingOnDBType(dbType, a.email, b.email))
             } else if (entity.name === Genre.name) {
-                return (dataset) => dataset.slice().sort((a: Genre, b: Genre) => datasetOrderDependingOnDialect(dbType, a.name, b.name))
+                return (dataset) => dataset.slice().sort((a: Genre, b: Genre) => datasetOrderDependingOnDBType(dbType, a.name, b.name))
             } else if (entity.name === Invoice.name) {
-                return (dataset) => dataset.slice().sort((a: Invoice, b: Invoice) => datasetOrderDependingOnDialect(dbType, a.billingAddress, b.billingAddress) | (a.invoiceId - b.invoiceId))
+                return (dataset) => dataset.slice().sort((a: Invoice, b: Invoice) => datasetOrderDependingOnDBType(dbType, a.billingAddress, b.billingAddress) | (a.invoiceId - b.invoiceId))
             } else if (entity.name === InvoiceLine.name) {
                 return (dataset) => dataset.slice().sort((a: InvoiceLine, b: InvoiceLine) => (a.unitPrice - b.unitPrice) | (a.invoiceLineId - b.invoiceLineId))
             } else if (entity.name === MediaType.name) {
-                return (dataset) => dataset.slice().sort((a: MediaType, b: MediaType) => datasetOrderDependingOnDialect(dbType, a.name, b.name))
+                return (dataset) => dataset.slice().sort((a: MediaType, b: MediaType) => datasetOrderDependingOnDBType(dbType, a.name, b.name))
             } else if (entity.name === Playlist.name) {
-                return (dataset) => dataset.slice().sort((a: Playlist, b: Playlist) => datasetOrderDependingOnDialect(dbType, a.name, b.name) | (a.playlistId - b.playlistId))
+                return (dataset) => dataset.slice().sort((a: Playlist, b: Playlist) => datasetOrderDependingOnDBType(dbType, a.name, b.name) | (a.playlistId - b.playlistId))
             } else if (entity.name === Track.name) {
-                return (dataset) => dataset.slice().sort((a: Track, b: Track) => datasetOrderDependingOnDialect(dbType, a.name, b.name))
+                return (dataset) => dataset.slice().sort((a: Track, b: Track) => datasetOrderDependingOnDBType(dbType, a.name, b.name))
             } else if (entity.name === PlaylistTrack.name) {
                 return (dataset) => dataset.slice().sort((a: PlaylistTrack, b: PlaylistTrack) => a.id - b.id)
             }
