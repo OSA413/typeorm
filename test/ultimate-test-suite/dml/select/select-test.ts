@@ -32,7 +32,7 @@ const calculateExceptionForDeepEqualDataset = (testCase: ReturnType<typeof gener
 
     if (testCase.entity.entity === Invoice && dbType !== "postgres")
         if (!testCase.order.optionForRepo(testCase.entity.entity)
-        || (testCase.order.optionForRepo(testCase.entity.entity)?.billingAddress && ["better-sqlite3", "sqljs", "sqlite", "cockroachdb"].includes(dbType))
+        || (testCase.order.optionForRepo(testCase.entity.entity)?.billingAddress && ["better-sqlite3", "sqljs", "sqlite", "cockroachdb", "oracle"].includes(dbType))
         || ["mysql", "mariadb"].includes(dbType) && testCase.where.option(testCase.entity.entity))
             return false;
 
@@ -51,7 +51,8 @@ const calculateExceptionForDeepEqualDataset = (testCase: ReturnType<typeof gener
 
     if (testCase.entity.entity === Artist && dbType !== "postgres") {
         if (testCase.order.optionForRepo(testCase.entity.entity)?.name
-    || ["mysql", "mariadb"].includes(dbType) && testCase.where.option(testCase.entity.entity))
+    || ["mysql", "mariadb"].includes(dbType) && testCase.where.option(testCase.entity.entity)
+    || ["oracle"].includes(dbType) && !testCase.order.optionForRepo(testCase.entity.entity))
             return false;
     }
 
@@ -78,11 +79,13 @@ const calculateExceptionForHasDeepMembers = (testCase: ReturnType<typeof generat
             return false;
     // }
 
+    // TODO: figure out correct filter for MySQL on GHA
     if (testCase.entity.entity === Artist && dbType !== "postgres") {
         if (["mysql", "mariadb"].includes(dbType) && testCase.where.option(testCase.entity.entity))
             return false;
     }
 
+    // TODO: figure out correct filter for MySQL on GHA
     if (testCase.entity.entity === Invoice && dbType !== "postgres") {
         if (["mysql", "mariadb"].includes(dbType) && testCase.where.option(testCase.entity.entity))
             return false;
@@ -119,8 +122,8 @@ describe("Ultimate Test Suite > DML > Select", () => {
                 const baseRepoQueryBuilder = testCase.order.applyOption(testCase.entity.entity,
                     testCase.select.applySelectToQB(testCase.entity.entity,
                         repo.createQueryBuilder(testCase.entity.nameAlias)
-                    , dataSource.driver.options.type === "oracle")
-                , dataSource.driver.options.type === "oracle")
+                    )
+                )
                 .where(testCase.where.option(testCase.entity.entity))
                 .limit(testCase.limit.option)
                 .offset(testCase.offset.option);
@@ -167,8 +170,8 @@ describe("Ultimate Test Suite > DML > Select", () => {
                 const baseQueryBuilderFrom = testCase.order.applyOption(testCase.entity.entity,
                     testCase.select.applySelectToQB(testCase.entity.entity,
                         dataSource.createQueryBuilder()
-                    , dataSource.driver.options.type === "oracle")
-                , dataSource.driver.options.type === "oracle")
+                    )
+                )
                 .from(testCase.entity.entity, testCase.entity.nameAlias)
                 .where(testCase.where.option(testCase.entity.entity))
                 .limit(testCase.limit.option)

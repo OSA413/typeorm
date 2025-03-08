@@ -13,11 +13,9 @@ interface SelectTestDescription {
     title: string,
     // We need three different options because we have three different interfaces
     selectOption: (entity: any) => FindOneOptions<ObjectLiteral>["select"],
-    applySelectToQB: (entity: any, qb: SelectQueryBuilder<ObjectLiteral>, oracleFix: boolean) => SelectQueryBuilder<ObjectLiteral>,
+    applySelectToQB: (entity: any, qb: SelectQueryBuilder<ObjectLiteral>) => SelectQueryBuilder<ObjectLiteral>,
     arrayForDataset: (entity: any) => string[];
 }
-
-const fixOracle = (x: string, doINeedToFixIt: boolean) => doINeedToFixIt ? `"${x}"` : x;
 
 const select: SelectTestDescription[] = [
     { 
@@ -54,29 +52,29 @@ const select: SelectTestDescription[] = [
             }
             throw new Error(`Unsupported entity ${entity.name}`);
         },
-        applySelectToQB: (entity, qb, oracleFix) => {
+        applySelectToQB: (entity, qb) => {
             if (entity.name === Album.name) {
-                return qb.select(["albumId"].map(x => ["album", x].map(y => fixOracle(y, oracleFix)).join(".")))
+                return qb.select(["albumId"].map(x => ["album", x].join(".")))
             } else if (entity.name === Artist.name) {
-                return qb.select(["artist","artistId"].map(x => fixOracle(x, oracleFix)).join("."))
+                return qb.select(["artistId"].map(x => ["artist", x].join(".")))
             } else if (entity.name === Customer.name) {
-                return qb.select(["customer","customerId"].map(x => fixOracle(x, oracleFix)).join("."))
+                return qb.select(["customer","customerId"].join("."))
             } else if (entity.name === Employee.name) {
-                return qb.select(["employee","employeeId"].map(x => fixOracle(x, oracleFix)).join("."))
+                return qb.select(["employee","employeeId"].join("."))
             } else if (entity.name === Genre.name) {
-                return qb.select(["genre","genreId"].map(x => fixOracle(x, oracleFix)).join("."))
+                return qb.select(["genre","genreId"].join("."))
             } else if (entity.name === Invoice.name) {
-                return qb.select(["invoice","invoiceId"].map(x => fixOracle(x, oracleFix)).join("."))
+                return qb.select(["invoice","invoiceId"].join("."))
             } else if (entity.name === InvoiceLine.name) {
-                return qb.select(["invoice_line","invoiceLineId"].map(x => fixOracle(x, oracleFix)).join("."))
+                return qb.select(["invoice_line","invoiceLineId"].join("."))
             } else if (entity.name === MediaType.name) {
-                return qb.select(["media_type","mediaTypeId"].map(x => fixOracle(x, oracleFix)).join("."))
+                return qb.select(["media_type","mediaTypeId"].join("."))
             } else if (entity.name === Playlist.name) {
-                return qb.select(["playlist","playlistId"].map(x => fixOracle(x, oracleFix)).join("."))
+                return qb.select(["playlist","playlistId"].join("."))
             } else if (entity.name === Track.name) {
-                return qb.select(["track","trackId"].map(x => fixOracle(x, oracleFix)).join("."))
+                return qb.select(["track","trackId"].join("."))
             } else if (entity.name === PlaylistTrack.name) {
-                return qb.select(["playlist_track","id"].map(x => fixOracle(x, oracleFix)).join("."));
+                return qb.select(["playlist_track","id"].join("."));
             }
             throw new Error(`Unsupported entity ${entity.name}`);
         },
@@ -137,27 +135,27 @@ const select: SelectTestDescription[] = [
     //     },
     //     applySelectToQB: (entity, qb, oracleFix) => {
     //         if (entity.name === Album.name) {
-    //             return qb.select(["album_id", "title"].map(x => fixOracle(x, oracleFix)))
+    //             return qb.select(["album_id", "title"])
     //         } else if (entity.name === Artist.name) {
-    //             return qb.select(["artist_id", "name"].map(x => fixOracle(x, oracleFix)))
+    //             return qb.select(["artist_id", "name"])
     //         } else if (entity.name === Customer.name) {
-    //             return qb.select(["customer_id", "address"].map(x => fixOracle(x, oracleFix)))
+    //             return qb.select(["customer_id", "address"])
     //         } else if (entity.name === Employee.name) {
-    //             return qb.select(["employee_id", "phone"].map(x => fixOracle(x, oracleFix)))
+    //             return qb.select(["employee_id", "phone"])
     //         } else if (entity.name === Genre.name) {
-    //             return qb.select(["genre_id", "name"].map(x => fixOracle(x, oracleFix)))
+    //             return qb.select(["genre_id", "name"])
     //         } else if (entity.name === Invoice.name) {
-    //             return qb.select(["invoice_id", "invoice_date"].map(x => fixOracle(x, oracleFix)))
+    //             return qb.select(["invoice_id", "invoice_date"])
     //         } else if (entity.name === InvoiceLine.name) {
-    //             return qb.select(["invoice_line_id", "quantity"].map(x => fixOracle(x, oracleFix)))
+    //             return qb.select(["invoice_line_id", "quantity"])
     //         } else if (entity.name === MediaType.name) {
-    //             return qb.select(["media_type_id", "name"].map(x => fixOracle(x, oracleFix)))
+    //             return qb.select(["media_type_id", "name"])
     //         } else if (entity.name === Playlist.name) {
-    //             return qb.select(["playlist_id", "name"].map(x => fixOracle(x, oracleFix)))
+    //             return qb.select(["playlist_id", "name"])
     //         } else if (entity.name === Track.name) {
-    //             return qb.select(["track_id", "milliseconds"].map(x => fixOracle(x, oracleFix)))
+    //             return qb.select(["track_id", "milliseconds"])
     //         } else if (entity.name === PlaylistTrack.name) {
-    //             return qb.select(["id"].map(x => fixOracle(x, oracleFix)));
+    //             return qb.select(["id"]);
     //         }
     //         throw new Error(`Unsupported entity ${entity.name}`);
     //     }
@@ -192,27 +190,27 @@ const select: SelectTestDescription[] = [
     //     },
     //     applySelectToQB: (entity, qb, oracleFix) => {
     //         if (entity.name === Album.name) {
-    //             return qb.select(["album_id", "title"].map(x => fixOracle(x, oracleFix)))
+    //             return qb.select(["album_id", "title"])
     //         } else if (entity.name === Artist.name) {
     //             return qb.select(["artist_id", "name"])
     //         } else if (entity.name === Customer.name) {
-    //             return qb.select(["customer_id", "address", "city", "first_name"].map(x => fixOracle(x, oracleFix)))
+    //             return qb.select(["customer_id", "address", "city", "first_name"])
     //         } else if (entity.name === Employee.name) {
-    //             return qb.select(["employee_id", "phone", "address", "postal_code"].map(x => fixOracle(x, oracleFix)))
+    //             return qb.select(["employee_id", "phone", "address", "postal_code"])
     //         } else if (entity.name === Genre.name) {
-    //             return qb.select(["genre_id", "name"].map(x => fixOracle(x, oracleFix)))
+    //             return qb.select(["genre_id", "name"])
     //         } else if (entity.name === Invoice.name) {
-    //             return qb.select(["invoice_id", "invoice_date", "billing_country", "billing_state"].map(x => fixOracle(x, oracleFix)))
+    //             return qb.select(["invoice_id", "invoice_date", "billing_country", "billing_state"])
     //         } else if (entity.name === InvoiceLine.name) {
-    //             return qb.select(["invoice_line_id", "quantity", "unit_price"].map(x => fixOracle(x, oracleFix)))
+    //             return qb.select(["invoice_line_id", "quantity", "unit_price"])
     //         } else if (entity.name === MediaType.name) {
-    //             return qb.select(["media_type_id", "name"].map(x => fixOracle(x, oracleFix)))
+    //             return qb.select(["media_type_id", "name"])
     //         } else if (entity.name === Playlist.name) {
-    //             return qb.select(["playlist_id", "name"].map(x => fixOracle(x, oracleFix)))
+    //             return qb.select(["playlist_id", "name"])
     //         } else if (entity.name === Track.name) {
-    //             return qb.select(["track_id", "milliseconds", "composer", "bytes"].map(x => fixOracle(x, oracleFix)))
+    //             return qb.select(["track_id", "milliseconds", "composer", "bytes"])
     //         } else if (entity.name === PlaylistTrack.name) {
-    //             return qb.select(["id"].map(x => fixOracle(x, oracleFix)));
+    //             return qb.select(["id"]);
     //         }
     //         throw new Error(`Unsupported entity ${entity.name}`);
     //     }
@@ -247,27 +245,27 @@ const select: SelectTestDescription[] = [
     //     },
     //     applySelectToQB: (entity, qb, oracleFix) => {
     //         if (entity.name === Album.name) {
-    //             return qb.select(["album_id", "title"].map(x => fixOracle(x, oracleFix)))
+    //             return qb.select(["album_id", "title"])
     //         } else if (entity.name === Artist.name) {
-    //             return qb.select(["artist_id", "name"].map(x => fixOracle(x, oracleFix)))
+    //             return qb.select(["artist_id", "name"])
     //         } else if (entity.name === Customer.name) {
-    //             return qb.select(["customer_id", "address", "city", "first_name", "company", "country", "email", "fax", "last_name", "phone", "postal_code", "state"].map(x => fixOracle(x, oracleFix)))
+    //             return qb.select(["customer_id", "address", "city", "first_name", "company", "country", "email", "fax", "last_name", "phone", "postal_code", "state"])
     //         } else if (entity.name === Employee.name) {
-    //             return qb.select(["employee_id", "phone", "address", "postal_code", "birth_date", "city", "country", "email", "fax", "first_name", "hire_date", "last_name", "state", "title"].map(x => fixOracle(x, oracleFix)))
+    //             return qb.select(["employee_id", "phone", "address", "postal_code", "birth_date", "city", "country", "email", "fax", "first_name", "hire_date", "last_name", "state", "title"])
     //         } else if (entity.name === Genre.name) {
-    //             return qb.select(["genre_id", "name"].map(x => fixOracle(x, oracleFix)))
+    //             return qb.select(["genre_id", "name"])
     //         } else if (entity.name === Invoice.name) {
-    //             return qb.select(["invoice_id", "invoice_date", "billing_country", "billing_state", "billing_address", "billing_city", "billing_postal_code", "total"].map(x => fixOracle(x, oracleFix)))
+    //             return qb.select(["invoice_id", "invoice_date", "billing_country", "billing_state", "billing_address", "billing_city", "billing_postal_code", "total"])
     //         } else if (entity.name === InvoiceLine.name) {
-    //             return qb.select(["invoice_line_id", "quantity", "unit_price"].map(x => fixOracle(x, oracleFix)))
+    //             return qb.select(["invoice_line_id", "quantity", "unit_price"])
     //         } else if (entity.name === MediaType.name) {
-    //             return qb.select(["media_type_id", "name"].map(x => fixOracle(x, oracleFix)))
+    //             return qb.select(["media_type_id", "name"])
     //         } else if (entity.name === Playlist.name) {
-    //             return qb.select(["playlist_id", "name"].map(x => fixOracle(x, oracleFix)))
+    //             return qb.select(["playlist_id", "name"])
     //         } else if (entity.name === Track.name) {
-    //             return qb.select(["track_id", "milliseconds", "composer", "bytes", "name", "unit_price"].map(x => fixOracle(x, oracleFix)))
+    //             return qb.select(["track_id", "milliseconds", "composer", "bytes", "name", "unit_price"])
     //         } else if (entity.name === PlaylistTrack.name) {
-    //             return qb.select(["id"].map(x => fixOracle(x, oracleFix)));
+    //             return qb.select(["id"]);
     //         }
     //         throw new Error(`Unsupported entity ${entity.name}`);
     //     }
@@ -416,7 +414,7 @@ const wheres: WhereTestDescription[] = [
 interface OrderTestDescription {
     title: string,
     // We need three different options because we have three different interfaces
-    applyOption: (entity: any, qb: SelectQueryBuilder<ObjectLiteral>, oracleFix: boolean) => SelectQueryBuilder<ObjectLiteral>,
+    applyOption: (entity: any, qb: SelectQueryBuilder<ObjectLiteral>) => SelectQueryBuilder<ObjectLiteral>,
     optionForRepo: (entity: any) => FindOneOptions<ObjectLiteral>["order"],
     orderDataset: (entity: any, dbType: string) => (x: any[]) => any[];
 }
@@ -439,29 +437,29 @@ const orders: OrderTestDescription[] = [
     },
     {
         title: "1 order condition",
-        applyOption: (entity, qb, oracleFix) => {
+        applyOption: (entity, qb) => {
             if (entity.name === Album.name) {
-                return qb.orderBy(fixOracle("title", oracleFix), "ASC")
+                return qb.orderBy(["album", "title"].join("."), "ASC")
             } else if (entity.name === Artist.name) {
-                return qb.orderBy(fixOracle("name", oracleFix), "ASC")
+                return qb.orderBy(["artist", "name"].join("."), "ASC")
             } else if (entity.name === Customer.name) {
-                return qb.orderBy(fixOracle("country", oracleFix), "ASC").addOrderBy(fixOracle("customer_id", oracleFix), "ASC")
+                return qb.orderBy(["customer", "country"].join("."), "ASC").addOrderBy(["customer", "customer_id"].join("."), "ASC")
             } else if (entity.name === Employee.name) {
-                return qb.orderBy(fixOracle("email", oracleFix), "ASC")
+                return qb.orderBy(["employee", "email"].join("."), "ASC")
             } else if (entity.name === Genre.name) {
-                return qb.orderBy(fixOracle("name", oracleFix), "ASC")
+                return qb.orderBy(["genre", "name"].join("."), "ASC")
             } else if (entity.name === Invoice.name) {
-                return qb.orderBy(fixOracle("billing_address", oracleFix), "ASC").addOrderBy(fixOracle("invoice_id", oracleFix), "ASC")
+                return qb.orderBy(["invoice", "billing_address"].join("."), "ASC").addOrderBy(["invoice", "invoice_id"].join("."), "ASC")
             } else if (entity.name === InvoiceLine.name) {
-                return qb.orderBy(fixOracle("unit_price", oracleFix), "ASC").addOrderBy(fixOracle("invoice_line_id", oracleFix), "ASC")
+                return qb.orderBy(["invoice_line", "unit_price"].join("."), "ASC").addOrderBy(["invoice_line", "invoice_line_id"].join("."), "ASC")
             } else if (entity.name === MediaType.name) {
-                return qb.orderBy(fixOracle("name", oracleFix), "ASC")
+                return qb.orderBy(["media_type", "name"].join("."), "ASC")
             } else if (entity.name === Playlist.name) {
-                return qb.orderBy(fixOracle("name", oracleFix), "ASC").addOrderBy(fixOracle("playlist_id", oracleFix), "ASC")
+                return qb.orderBy(["playlist", "name"].join("."), "ASC").addOrderBy(["playlist", "playlist_id"].join("."), "ASC")
             } else if (entity.name === Track.name) {
-                return qb.orderBy(fixOracle("name", oracleFix), "ASC")
+                return qb.orderBy(["track", "name"].join("."), "ASC")
             } else if (entity.name === PlaylistTrack.name) {
-                return qb.orderBy(fixOracle("id", oracleFix), "ASC")
+                return qb.orderBy(["playlist_track", "id"].join("."), "ASC")
             }
             throw new Error(`Unsupported entity ${entity.name}`);
         },
