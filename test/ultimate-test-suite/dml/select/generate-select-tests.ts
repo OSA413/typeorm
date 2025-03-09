@@ -59,23 +59,23 @@ const select: SelectTestDescription[] = [
             } else if (entity.name === Artist.name) {
                 return qb.select(["artistId"].map(x => [entityConfig.nameAlias, x].join(".")))
             } else if (entity.name === Customer.name) {
-                return qb.select(["customer","customerId"].map(x => [entityConfig.nameAlias, x].join(".")))
+                return qb.select(["customerId"].map(x => [entityConfig.nameAlias, x].join(".")))
             } else if (entity.name === Employee.name) {
-                return qb.select(["employee","employeeId"].map(x => [entityConfig.nameAlias, x].join(".")))
+                return qb.select(["employeeId"].map(x => [entityConfig.nameAlias, x].join(".")))
             } else if (entity.name === Genre.name) {
-                return qb.select(["genre","genreId"].map(x => [entityConfig.nameAlias, x].join(".")))
+                return qb.select(["genreId"].map(x => [entityConfig.nameAlias, x].join(".")))
             } else if (entity.name === Invoice.name) {
-                return qb.select(["invoice","invoiceId"].map(x => [entityConfig.nameAlias, x].join(".")))
+                return qb.select(["invoiceId"].map(x => [entityConfig.nameAlias, x].join(".")))
             } else if (entity.name === InvoiceLine.name) {
-                return qb.select(["invoice_line","invoiceLineId"].map(x => [entityConfig.nameAlias, x].join(".")))
+                return qb.select(["invoiceLineId"].map(x => [entityConfig.nameAlias, x].join(".")))
             } else if (entity.name === MediaType.name) {
-                return qb.select(["media_type","mediaTypeId"].map(x => [entityConfig.nameAlias, x].join(".")))
+                return qb.select(["mediaTypeId"].map(x => [entityConfig.nameAlias, x].join(".")))
             } else if (entity.name === Playlist.name) {
-                return qb.select(["playlist","playlistId"].map(x => [entityConfig.nameAlias, x].join(".")))
+                return qb.select(["playlistId"].map(x => [entityConfig.nameAlias, x].join(".")))
             } else if (entity.name === Track.name) {
-                return qb.select(["track","trackId"].map(x => [entityConfig.nameAlias, x].join(".")))
+                return qb.select(["trackId"].map(x => [entityConfig.nameAlias, x].join(".")))
             } else if (entity.name === PlaylistTrack.name) {
-                return qb.select(["playlist_track","id"].map(x => [entityConfig.nameAlias, x].join(".")));
+                return qb.select(["id"].map(x => [entityConfig.nameAlias, x].join(".")));
             }
             throw new Error(`Unsupported entity ${entity.name}`);
         },
