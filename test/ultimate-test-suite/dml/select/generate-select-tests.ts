@@ -53,223 +53,213 @@ const select: SelectTestDescription[] = [
             throw new Error(`Unsupported entity ${entity.name}`);
         },
         applySelectToQB: (entity, qb) => {
+            const entityConfig = entities.find(x => x.entity === entity)!;
             if (entity.name === Album.name) {
-                return qb.select(["albumId"].map(x => ["album", x].join(".")))
+                return qb.select(["albumId"].map(x => [entityConfig.nameAlias, x].join(".")))
             } else if (entity.name === Artist.name) {
-                return qb.select(["artistId"].map(x => ["artist", x].join(".")))
+                return qb.select(["artistId"].map(x => [entityConfig.nameAlias, x].join(".")))
             } else if (entity.name === Customer.name) {
-                return qb.select(["customer","customerId"].join("."))
+                return qb.select(["customer","customerId"].map(x => [entityConfig.nameAlias, x].join(".")))
             } else if (entity.name === Employee.name) {
-                return qb.select(["employee","employeeId"].join("."))
+                return qb.select(["employee","employeeId"].map(x => [entityConfig.nameAlias, x].join(".")))
             } else if (entity.name === Genre.name) {
-                return qb.select(["genre","genreId"].join("."))
+                return qb.select(["genre","genreId"].map(x => [entityConfig.nameAlias, x].join(".")))
             } else if (entity.name === Invoice.name) {
-                return qb.select(["invoice","invoiceId"].join("."))
+                return qb.select(["invoice","invoiceId"].map(x => [entityConfig.nameAlias, x].join(".")))
             } else if (entity.name === InvoiceLine.name) {
-                return qb.select(["invoice_line","invoiceLineId"].join("."))
+                return qb.select(["invoice_line","invoiceLineId"].map(x => [entityConfig.nameAlias, x].join(".")))
             } else if (entity.name === MediaType.name) {
-                return qb.select(["media_type","mediaTypeId"].join("."))
+                return qb.select(["media_type","mediaTypeId"].map(x => [entityConfig.nameAlias, x].join(".")))
             } else if (entity.name === Playlist.name) {
-                return qb.select(["playlist","playlistId"].join("."))
+                return qb.select(["playlist","playlistId"].map(x => [entityConfig.nameAlias, x].join(".")))
             } else if (entity.name === Track.name) {
-                return qb.select(["track","trackId"].join("."))
+                return qb.select(["track","trackId"].map(x => [entityConfig.nameAlias, x].join(".")))
             } else if (entity.name === PlaylistTrack.name) {
-                return qb.select(["playlist_track","id"].join("."));
+                return qb.select(["playlist_track","id"].map(x => [entityConfig.nameAlias, x].join(".")));
             }
             throw new Error(`Unsupported entity ${entity.name}`);
         },
         arrayForDataset: (entity) => {
+            return Object.keys(select[1].selectOption(entity)!);
+        },
+    },
+    {
+        title: "2 columns",
+        selectOption: (entity) => {
             if (entity.name === Album.name) {
-                return ["albumId"];
+                return {albumId: true, title: true} satisfies FindOneOptions<Album>["select"];
             } else if (entity.name === Artist.name) {
-                return ["artistId"];
+                return {artistId: true, name: true} satisfies FindOneOptions<Artist>["select"];
             } else if (entity.name === Customer.name) {
-                return ["customerId"];
+                return {customerId: true, address: true} satisfies FindOneOptions<Customer>["select"];
             } else if (entity.name === Employee.name) {
-                return ["employeeId"];
+                return {employeeId: true, phone: true} satisfies FindOneOptions<Employee>["select"];
             } else if (entity.name === Genre.name) {
-                return ["genreId"];
+                return {genreId: true, name: true} satisfies FindOneOptions<Genre>["select"];
             } else if (entity.name === Invoice.name) {
-                return ["invoiceId"];
+                return {invoiceId: true, invoiceDate: true} satisfies FindOneOptions<Invoice>["select"];
             } else if (entity.name === InvoiceLine.name) {
-                return ["invoiceLineId"];
+                return {invoiceLineId: true, quantity: true} satisfies FindOneOptions<InvoiceLine>["select"];
             } else if (entity.name === MediaType.name) {
-                return ["mediaTypeId"]
+                return {mediaTypeId: true, name: true} satisfies FindOneOptions<MediaType>["select"];
             } else if (entity.name === Playlist.name) {
-                return ["playlistId"]
+                return {playlistId: true, name: true} satisfies FindOneOptions<Playlist>["select"];
             } else if (entity.name === Track.name) {
-                return ["trackId"]
+                return {trackId: true, milliseconds: true} satisfies FindOneOptions<Track>["select"];
             } else if (entity.name === PlaylistTrack.name) {
-                return ["id"]
+                return {id: true, playlist: {playlistId: true}} satisfies FindOneOptions<PlaylistTrack>["select"];
             }
             throw new Error(`Unsupported entity ${entity.name}`);
         },
+        applySelectToQB: (entity, qb) => {
+            const entityConfig = entities.find(x => x.entity === entity)!;
+            if (entity.name === Album.name) {
+                return qb.select(["album_id", "title"].map(x => [entityConfig.nameAlias, x].join(".")))
+            } else if (entity.name === Artist.name) {
+                return qb.select(["artist_id", "name"].map(x => [entityConfig.nameAlias, x].join(".")))
+            } else if (entity.name === Customer.name) {
+                return qb.select(["customer_id", "address"].map(x => [entityConfig.nameAlias, x].join(".")))
+            } else if (entity.name === Employee.name) {
+                return qb.select(["employee_id", "phone"].map(x => [entityConfig.nameAlias, x].join(".")))
+            } else if (entity.name === Genre.name) {
+                return qb.select(["genre_id", "name"].map(x => [entityConfig.nameAlias, x].join(".")))
+            } else if (entity.name === Invoice.name) {
+                return qb.select(["invoice_id", "invoice_date"].map(x => [entityConfig.nameAlias, x].join(".")))
+            } else if (entity.name === InvoiceLine.name) {
+                return qb.select(["invoice_line_id", "quantity"].map(x => [entityConfig.nameAlias, x].join(".")))
+            } else if (entity.name === MediaType.name) {
+                return qb.select(["media_type_id", "name"].map(x => [entityConfig.nameAlias, x].join(".")))
+            } else if (entity.name === Playlist.name) {
+                return qb.select(["playlist_id", "name"].map(x => [entityConfig.nameAlias, x].join(".")))
+            } else if (entity.name === Track.name) {
+                return qb.select(["track_id", "milliseconds"].map(x => [entityConfig.nameAlias, x].join(".")))
+            } else if (entity.name === PlaylistTrack.name) {
+                return qb.select(["id"].map(x => [entityConfig.nameAlias, x].join(".")));
+            }
+            throw new Error(`Unsupported entity ${entity.name}`);
+        },
+        arrayForDataset: (entity) => {
+            return Object.keys(select[2].selectOption(entity)!);
+        },
     },
-    // {
-    //     title: "2 columns",
-    //     selectOption: (entity) => {
-    //         if (entity.name === Album.name) {
-    //             return {albumId: true, title: true} satisfies FindOneOptions<Album>["select"];
-    //         } else if (entity.name === Artist.name) {
-    //             return {artistId: true, name: true} satisfies FindOneOptions<Artist>["select"];
-    //         } else if (entity.name === Customer.name) {
-    //             return {customerId: true, address: true} satisfies FindOneOptions<Customer>["select"];
-    //         } else if (entity.name === Employee.name) {
-    //             return {employeeId: true, phone: true} satisfies FindOneOptions<Employee>["select"];
-    //         } else if (entity.name === Genre.name) {
-    //             return {genreId: true, name: true} satisfies FindOneOptions<Genre>["select"];
-    //         } else if (entity.name === Invoice.name) {
-    //             return {invoiceId: true, invoiceDate: true} satisfies FindOneOptions<Invoice>["select"];
-    //         } else if (entity.name === InvoiceLine.name) {
-    //             return {invoiceLineId: true, quantity: true} satisfies FindOneOptions<InvoiceLine>["select"];
-    //         } else if (entity.name === MediaType.name) {
-    //             return {mediaTypeId: true, name: true} satisfies FindOneOptions<MediaType>["select"];
-    //         } else if (entity.name === Playlist.name) {
-    //             return {playlistId: true, name: true} satisfies FindOneOptions<Playlist>["select"];
-    //         } else if (entity.name === Track.name) {
-    //             return {trackId: true, milliseconds: true} satisfies FindOneOptions<Track>["select"];
-    //         } else if (entity.name === PlaylistTrack.name) {
-    //             return {id: true, playlist: {playlistId: true}} satisfies FindOneOptions<PlaylistTrack>["select"];
-    //         }
-    //         throw new Error(`Unsupported entity ${entity.name}`);
-    //     },
-    //     applySelectToQB: (entity, qb, oracleFix) => {
-    //         if (entity.name === Album.name) {
-    //             return qb.select(["album_id", "title"])
-    //         } else if (entity.name === Artist.name) {
-    //             return qb.select(["artist_id", "name"])
-    //         } else if (entity.name === Customer.name) {
-    //             return qb.select(["customer_id", "address"])
-    //         } else if (entity.name === Employee.name) {
-    //             return qb.select(["employee_id", "phone"])
-    //         } else if (entity.name === Genre.name) {
-    //             return qb.select(["genre_id", "name"])
-    //         } else if (entity.name === Invoice.name) {
-    //             return qb.select(["invoice_id", "invoice_date"])
-    //         } else if (entity.name === InvoiceLine.name) {
-    //             return qb.select(["invoice_line_id", "quantity"])
-    //         } else if (entity.name === MediaType.name) {
-    //             return qb.select(["media_type_id", "name"])
-    //         } else if (entity.name === Playlist.name) {
-    //             return qb.select(["playlist_id", "name"])
-    //         } else if (entity.name === Track.name) {
-    //             return qb.select(["track_id", "milliseconds"])
-    //         } else if (entity.name === PlaylistTrack.name) {
-    //             return qb.select(["id"]);
-    //         }
-    //         throw new Error(`Unsupported entity ${entity.name}`);
-    //     }
-    // },
-    // {
-    //     title: "4 columns",
-    //     selectOption: (entity) => {
-    //         if (entity.name === Album.name) {
-    //             return {albumId: true, title: true} satisfies FindOneOptions<Album>["select"];
-    //         } else if (entity.name === Artist.name) {
-    //             return {artistId: true, name: true} satisfies FindOneOptions<Artist>["select"];
-    //         } else if (entity.name === Customer.name) {
-    //             return {customerId: true, address: true, city: true, firstName: true} satisfies FindOneOptions<Customer>["select"];
-    //         } else if (entity.name === Employee.name) {
-    //             return {employeeId: true, phone: true, address: true, postalCode: true} satisfies FindOneOptions<Employee>["select"];
-    //         } else if (entity.name === Genre.name) {
-    //             return {genreId: true, name: true} satisfies FindOneOptions<Genre>["select"];
-    //         } else if (entity.name === Invoice.name) {
-    //             return {invoiceId: true, invoiceDate: true, billingCountry: true, billingState: true} satisfies FindOneOptions<Invoice>["select"];
-    //         } else if (entity.name === InvoiceLine.name) {
-    //             return {invoiceLineId: true, quantity: true, unitPrice: true} satisfies FindOneOptions<InvoiceLine>["select"];
-    //         } else if (entity.name === MediaType.name) {
-    //             return {mediaTypeId: true, name: true} satisfies FindOneOptions<MediaType>["select"];
-    //         } else if (entity.name === Playlist.name) {
-    //             return {playlistId: true, name: true, tracks: true} satisfies FindOneOptions<Playlist>["select"];
-    //         } else if (entity.name === Track.name) {
-    //             return {trackId: true, milliseconds: true, composer: true, bytes: true} satisfies FindOneOptions<Track>["select"];
-    //         } else if (entity.name === PlaylistTrack.name) {
-    //             return {id: true} satisfies FindOneOptions<PlaylistTrack>["select"];
-    //         }
-    //         throw new Error(`Unsupported entity ${entity.name}`);
-    //     },
-    //     applySelectToQB: (entity, qb, oracleFix) => {
-    //         if (entity.name === Album.name) {
-    //             return qb.select(["album_id", "title"])
-    //         } else if (entity.name === Artist.name) {
-    //             return qb.select(["artist_id", "name"])
-    //         } else if (entity.name === Customer.name) {
-    //             return qb.select(["customer_id", "address", "city", "first_name"])
-    //         } else if (entity.name === Employee.name) {
-    //             return qb.select(["employee_id", "phone", "address", "postal_code"])
-    //         } else if (entity.name === Genre.name) {
-    //             return qb.select(["genre_id", "name"])
-    //         } else if (entity.name === Invoice.name) {
-    //             return qb.select(["invoice_id", "invoice_date", "billing_country", "billing_state"])
-    //         } else if (entity.name === InvoiceLine.name) {
-    //             return qb.select(["invoice_line_id", "quantity", "unit_price"])
-    //         } else if (entity.name === MediaType.name) {
-    //             return qb.select(["media_type_id", "name"])
-    //         } else if (entity.name === Playlist.name) {
-    //             return qb.select(["playlist_id", "name"])
-    //         } else if (entity.name === Track.name) {
-    //             return qb.select(["track_id", "milliseconds", "composer", "bytes"])
-    //         } else if (entity.name === PlaylistTrack.name) {
-    //             return qb.select(["id"]);
-    //         }
-    //         throw new Error(`Unsupported entity ${entity.name}`);
-    //     }
-    // },
-    // {
-    //     title: "all columns explicitly",
-    //     selectOption: (entity) => {
-    //         if (entity.name === Album.name) {
-    //             return {albumId: true, title: true} satisfies FindOneOptions<Album>["select"];
-    //         } else if (entity.name === Artist.name) {
-    //             return {artistId: true, name: true} satisfies FindOneOptions<Artist>["select"];
-    //         } else if (entity.name === Customer.name) {
-    //             return {customerId: true, address: true, city: true, firstName: true, company: true, country: true, email: true, fax: true, lastName: true, phone: true, postalCode: true, state: true} satisfies FindOneOptions<Customer>["select"];
-    //         } else if (entity.name === Employee.name) {
-    //             return {employeeId: true, phone: true, address: true, postalCode: true, birthDate: true, city: true, country: true, email: true, fax: true, firstName: true, hireDate: true, lastName: true, state: true, title: true} satisfies FindOneOptions<Employee>["select"];
-    //         } else if (entity.name === Genre.name) {
-    //             return {genreId: true, name: true} satisfies FindOneOptions<Genre>["select"];
-    //         } else if (entity.name === Invoice.name) {
-    //             return {invoiceId: true, invoiceDate: true, billingCountry: true, billingState: true, billingAddress: true, billingCity: true, billingPostalCode: true, total: true} satisfies FindOneOptions<Invoice>["select"];
-    //         } else if (entity.name === InvoiceLine.name) {
-    //             return {invoiceLineId: true, quantity: true, unitPrice: true} satisfies FindOneOptions<InvoiceLine>["select"];
-    //         } else if (entity.name === MediaType.name) {
-    //             return {mediaTypeId: true, name: true} satisfies FindOneOptions<MediaType>["select"];
-    //         } else if (entity.name === Playlist.name) {
-    //             return {playlistId: true, name: true} satisfies FindOneOptions<Playlist>["select"];
-    //         } else if (entity.name === Track.name) {
-    //             return {trackId: true, milliseconds: true, composer: true, bytes: true, name: true, unitPrice: true} satisfies FindOneOptions<Track>["select"];
-    //         } else if (entity.name === PlaylistTrack.name) {
-    //             return {id: true} satisfies FindOneOptions<PlaylistTrack>["select"];
-    //         }
-    //         throw new Error(`Unsupported entity ${entity.name}`);
-    //     },
-    //     applySelectToQB: (entity, qb, oracleFix) => {
-    //         if (entity.name === Album.name) {
-    //             return qb.select(["album_id", "title"])
-    //         } else if (entity.name === Artist.name) {
-    //             return qb.select(["artist_id", "name"])
-    //         } else if (entity.name === Customer.name) {
-    //             return qb.select(["customer_id", "address", "city", "first_name", "company", "country", "email", "fax", "last_name", "phone", "postal_code", "state"])
-    //         } else if (entity.name === Employee.name) {
-    //             return qb.select(["employee_id", "phone", "address", "postal_code", "birth_date", "city", "country", "email", "fax", "first_name", "hire_date", "last_name", "state", "title"])
-    //         } else if (entity.name === Genre.name) {
-    //             return qb.select(["genre_id", "name"])
-    //         } else if (entity.name === Invoice.name) {
-    //             return qb.select(["invoice_id", "invoice_date", "billing_country", "billing_state", "billing_address", "billing_city", "billing_postal_code", "total"])
-    //         } else if (entity.name === InvoiceLine.name) {
-    //             return qb.select(["invoice_line_id", "quantity", "unit_price"])
-    //         } else if (entity.name === MediaType.name) {
-    //             return qb.select(["media_type_id", "name"])
-    //         } else if (entity.name === Playlist.name) {
-    //             return qb.select(["playlist_id", "name"])
-    //         } else if (entity.name === Track.name) {
-    //             return qb.select(["track_id", "milliseconds", "composer", "bytes", "name", "unit_price"])
-    //         } else if (entity.name === PlaylistTrack.name) {
-    //             return qb.select(["id"]);
-    //         }
-    //         throw new Error(`Unsupported entity ${entity.name}`);
-    //     }
-    // },
+    {
+        title: "4 columns",
+        selectOption: (entity) => {
+            if (entity.name === Album.name) {
+                return {albumId: true, title: true} satisfies FindOneOptions<Album>["select"];
+            } else if (entity.name === Artist.name) {
+                return {artistId: true, name: true} satisfies FindOneOptions<Artist>["select"];
+            } else if (entity.name === Customer.name) {
+                return {customerId: true, address: true, city: true, firstName: true} satisfies FindOneOptions<Customer>["select"];
+            } else if (entity.name === Employee.name) {
+                return {employeeId: true, phone: true, address: true, postalCode: true} satisfies FindOneOptions<Employee>["select"];
+            } else if (entity.name === Genre.name) {
+                return {genreId: true, name: true} satisfies FindOneOptions<Genre>["select"];
+            } else if (entity.name === Invoice.name) {
+                return {invoiceId: true, invoiceDate: true, billingCountry: true, billingState: true} satisfies FindOneOptions<Invoice>["select"];
+            } else if (entity.name === InvoiceLine.name) {
+                return {invoiceLineId: true, quantity: true, unitPrice: true} satisfies FindOneOptions<InvoiceLine>["select"];
+            } else if (entity.name === MediaType.name) {
+                return {mediaTypeId: true, name: true} satisfies FindOneOptions<MediaType>["select"];
+            } else if (entity.name === Playlist.name) {
+                return {playlistId: true, name: true, tracks: true} satisfies FindOneOptions<Playlist>["select"];
+            } else if (entity.name === Track.name) {
+                return {trackId: true, milliseconds: true, composer: true, bytes: true} satisfies FindOneOptions<Track>["select"];
+            } else if (entity.name === PlaylistTrack.name) {
+                return {id: true} satisfies FindOneOptions<PlaylistTrack>["select"];
+            }
+            throw new Error(`Unsupported entity ${entity.name}`);
+        },
+        applySelectToQB: (entity, qb) => {
+            const entityConfig = entities.find(x => x.entity === entity)!;
+            if (entity.name === Album.name) {
+                return qb.select(["album_id", "title"].map(x => [entityConfig.nameAlias, x].join(".")))
+            } else if (entity.name === Artist.name) {
+                return qb.select(["artist_id", "name"].map(x => [entityConfig.nameAlias, x].join(".")))
+            } else if (entity.name === Customer.name) {
+                return qb.select(["customer_id", "address", "city", "first_name"].map(x => [entityConfig.nameAlias, x].join(".")))
+            } else if (entity.name === Employee.name) {
+                return qb.select(["employee_id", "phone", "address", "postal_code"].map(x => [entityConfig.nameAlias, x].join(".")))
+            } else if (entity.name === Genre.name) {
+                return qb.select(["genre_id", "name"].map(x => [entityConfig.nameAlias, x].join(".")))
+            } else if (entity.name === Invoice.name) {
+                return qb.select(["invoice_id", "invoice_date", "billing_country", "billing_state"].map(x => [entityConfig.nameAlias, x].join(".")))
+            } else if (entity.name === InvoiceLine.name) {
+                return qb.select(["invoice_line_id", "quantity", "unit_price"].map(x => [entityConfig.nameAlias, x].join(".")))
+            } else if (entity.name === MediaType.name) {
+                return qb.select(["media_type_id", "name"].map(x => [entityConfig.nameAlias, x].join(".")))
+            } else if (entity.name === Playlist.name) {
+                return qb.select(["playlist_id", "name"].map(x => [entityConfig.nameAlias, x].join(".")))
+            } else if (entity.name === Track.name) {
+                return qb.select(["track_id", "milliseconds", "composer", "bytes"].map(x => [entityConfig.nameAlias, x].join(".")))
+            } else if (entity.name === PlaylistTrack.name) {
+                return qb.select(["id"].map(x => [entityConfig.nameAlias, x].join(".")));
+            }
+            throw new Error(`Unsupported entity ${entity.name}`);
+        },
+        arrayForDataset: (entity) => {
+            return Object.keys(select[3].selectOption(entity)!);
+        },
+    },
+    {
+        title: "all columns explicitly",
+        selectOption: (entity) => {
+            if (entity.name === Album.name) {
+                return {albumId: true, title: true} satisfies FindOneOptions<Album>["select"];
+            } else if (entity.name === Artist.name) {
+                return {artistId: true, name: true} satisfies FindOneOptions<Artist>["select"];
+            } else if (entity.name === Customer.name) {
+                return {customerId: true, address: true, city: true, firstName: true, company: true, country: true, email: true, fax: true, lastName: true, phone: true, postalCode: true, state: true} satisfies FindOneOptions<Customer>["select"];
+            } else if (entity.name === Employee.name) {
+                return {employeeId: true, phone: true, address: true, postalCode: true, birthDate: true, city: true, country: true, email: true, fax: true, firstName: true, hireDate: true, lastName: true, state: true, title: true} satisfies FindOneOptions<Employee>["select"];
+            } else if (entity.name === Genre.name) {
+                return {genreId: true, name: true} satisfies FindOneOptions<Genre>["select"];
+            } else if (entity.name === Invoice.name) {
+                return {invoiceId: true, invoiceDate: true, billingCountry: true, billingState: true, billingAddress: true, billingCity: true, billingPostalCode: true, total: true} satisfies FindOneOptions<Invoice>["select"];
+            } else if (entity.name === InvoiceLine.name) {
+                return {invoiceLineId: true, quantity: true, unitPrice: true} satisfies FindOneOptions<InvoiceLine>["select"];
+            } else if (entity.name === MediaType.name) {
+                return {mediaTypeId: true, name: true} satisfies FindOneOptions<MediaType>["select"];
+            } else if (entity.name === Playlist.name) {
+                return {playlistId: true, name: true} satisfies FindOneOptions<Playlist>["select"];
+            } else if (entity.name === Track.name) {
+                return {trackId: true, milliseconds: true, composer: true, bytes: true, name: true, unitPrice: true} satisfies FindOneOptions<Track>["select"];
+            } else if (entity.name === PlaylistTrack.name) {
+                return {id: true} satisfies FindOneOptions<PlaylistTrack>["select"];
+            }
+            throw new Error(`Unsupported entity ${entity.name}`);
+        },
+        applySelectToQB: (entity, qb) => {
+            const entityConfig = entities.find(x => x.entity === entity)!;
+            if (entity.name === Album.name) {
+                return qb.select(["album_id", "title"].map(x => [entityConfig.nameAlias, x].join(".")))
+            } else if (entity.name === Artist.name) {
+                return qb.select(["artist_id", "name"].map(x => [entityConfig.nameAlias, x].join(".")))
+            } else if (entity.name === Customer.name) {
+                return qb.select(["customer_id", "address", "city", "first_name", "company", "country", "email", "fax", "last_name", "phone", "postal_code", "state"].map(x => [entityConfig.nameAlias, x].join(".")))
+            } else if (entity.name === Employee.name) {
+                return qb.select(["employee_id", "phone", "address", "postal_code", "birth_date", "city", "country", "email", "fax", "first_name", "hire_date", "last_name", "state", "title"].map(x => [entityConfig.nameAlias, x].join(".")))
+            } else if (entity.name === Genre.name) {
+                return qb.select(["genre_id", "name"].map(x => [entityConfig.nameAlias, x].join(".")))
+            } else if (entity.name === Invoice.name) {
+                return qb.select(["invoice_id", "invoice_date", "billing_country", "billing_state", "billing_address", "billing_city", "billing_postal_code", "total"].map(x => [entityConfig.nameAlias, x].join(".")))
+            } else if (entity.name === InvoiceLine.name) {
+                return qb.select(["invoice_line_id", "quantity", "unit_price"].map(x => [entityConfig.nameAlias, x].join(".")))
+            } else if (entity.name === MediaType.name) {
+                return qb.select(["media_type_id", "name"].map(x => [entityConfig.nameAlias, x].join(".")))
+            } else if (entity.name === Playlist.name) {
+                return qb.select(["playlist_id", "name"].map(x => [entityConfig.nameAlias, x].join(".")))
+            } else if (entity.name === Track.name) {
+                return qb.select(["track_id", "milliseconds", "composer", "bytes", "name", "unit_price"].map(x => [entityConfig.nameAlias, x].join(".")))
+            } else if (entity.name === PlaylistTrack.name) {
+                return qb.select(["id"].map(x => [entityConfig.nameAlias, x].join(".")));
+            }
+            throw new Error(`Unsupported entity ${entity.name}`);
+        },
+        arrayForDataset: (entity) => {
+            return Object.keys(select[4].selectOption(entity)!);
+        },
+    },
 ]
 
 interface EntityTestDescription {
@@ -343,7 +333,6 @@ const entities: EntityTestDescription[] = [
 
 interface WhereTestDescription {
     title: string,
-    // We need three different options because we have three different interfaces
     option: (entity: any) => ObjectLiteral[],
     filterDataset: (entity: any, dbType: string) => (x: any[]) => any[];
 }
@@ -438,30 +427,12 @@ const orders: OrderTestDescription[] = [
     {
         title: "1 order condition",
         applyOption: (entity, qb) => {
-            if (entity.name === Album.name) {
-                return qb.orderBy(["album", "title"].join("."), "ASC")
-            } else if (entity.name === Artist.name) {
-                return qb.orderBy(["artist", "name"].join("."), "ASC")
-            } else if (entity.name === Customer.name) {
-                return qb.orderBy(["customer", "country"].join("."), "ASC").addOrderBy(["customer", "customer_id"].join("."), "ASC")
-            } else if (entity.name === Employee.name) {
-                return qb.orderBy(["employee", "email"].join("."), "ASC")
-            } else if (entity.name === Genre.name) {
-                return qb.orderBy(["genre", "name"].join("."), "ASC")
-            } else if (entity.name === Invoice.name) {
-                return qb.orderBy(["invoice", "billing_address"].join("."), "ASC").addOrderBy(["invoice", "invoice_id"].join("."), "ASC")
-            } else if (entity.name === InvoiceLine.name) {
-                return qb.orderBy(["invoice_line", "unit_price"].join("."), "ASC").addOrderBy(["invoice_line", "invoice_line_id"].join("."), "ASC")
-            } else if (entity.name === MediaType.name) {
-                return qb.orderBy(["media_type", "name"].join("."), "ASC")
-            } else if (entity.name === Playlist.name) {
-                return qb.orderBy(["playlist", "name"].join("."), "ASC").addOrderBy(["playlist", "playlist_id"].join("."), "ASC")
-            } else if (entity.name === Track.name) {
-                return qb.orderBy(["track", "name"].join("."), "ASC")
-            } else if (entity.name === PlaylistTrack.name) {
-                return qb.orderBy(["playlist_track", "id"].join("."), "ASC")
-            }
-            throw new Error(`Unsupported entity ${entity.name}`);
+            const entityConfig = entities.find(x => x.entity === entity)!;
+            Object.entries(orders[1].optionForRepo(entity)!).forEach(((order: [string, "ASC"|"DESC"], i) => {
+                const func = (i === 0) ? qb.orderBy : qb.addOrderBy;
+                func([entityConfig.nameAlias, order[0]].join("."), order[1]);
+            }))
+            return qb;
         },
         optionForRepo: (entity) => {
             if (entity.name === Album.name) {
@@ -520,7 +491,6 @@ const orders: OrderTestDescription[] = [
 
 interface LimitTestDescription {
     title: string,
-    // We need three different options because we have three different interfaces
     option: number,
 }
 
@@ -545,7 +515,6 @@ const limits: LimitTestDescription[] = [
 
 interface OffsetTestDescription {
     title: string,
-    // We need three different options because we have three different interfaces
     option: number,
 }
 
@@ -598,6 +567,7 @@ export const _generateTests = () => {
 }
 
 export const generateTests = () => {
+    console.log("Ultimate Test Suite > DML > SELECT")
     console.log("Generating tests...")
     const allTests = _generateTests()
     console.log(`Generated ${allTests.length} tests, optimizing...`)
