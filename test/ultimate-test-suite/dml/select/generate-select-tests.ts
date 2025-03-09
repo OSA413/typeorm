@@ -429,8 +429,8 @@ const orders: OrderTestDescription[] = [
         applyOption: (entity, qb) => {
             const entityConfig = entities.find(x => x.entity === entity)!;
             Object.entries(orders[1].optionForRepo(entity)!).forEach(((order: [string, "ASC"|"DESC"], i) => {
-                const func = (i === 0) ? qb.orderBy : qb.addOrderBy;
-                func([entityConfig.nameAlias, order[0]].join("."), order[1]);
+                if (i === 0) qb.orderBy([entityConfig.nameAlias, order[0]].join("."), order[1]);
+                else qb.addOrderBy([entityConfig.nameAlias, order[0]].join("."), order[1])
             }))
             return qb;
         },
