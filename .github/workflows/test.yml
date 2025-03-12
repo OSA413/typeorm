@@ -48,8 +48,12 @@ jobs:
     with:
       node-version: ${{matrix.node-version}}
 
+  # Tests on Windows that use the docker-compose file in the root of the project
+  windows-database-tests:
+    uses: ./.github/workflows/windows-database-tests.yml
+
   # Run with most databases possible to provide the coverage of the tests
   coverage:
     if: ${{ always() }}
-    needs: [database-tests, database-compose-tests]
+    needs: [database-tests, database-compose-tests, windows-database-tests]
     uses: ./.github/workflows/coverage.yml
